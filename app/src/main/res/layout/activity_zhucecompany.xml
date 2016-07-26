@@ -55,35 +55,20 @@
 				android:layout_marginTop="1dp"
 				android:background="@android:color/white"
 				android:gravity="center">
-				<RadioGroup
+				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:checkedButton="@+id/radio_level_1"
-					android:orientation="horizontal"
-					android:layout_marginLeft="16dp">
-					<RadioButton
-						android:layout_width="wrap_content"
-						android:layout_height="45dp"
-						android:gravity="center"
-						android:text="@string/radio_level_1"
-						android:id="@id/radio_level_1"
-						/>
-					<RadioButton
-						android:layout_width="wrap_content"
-						android:layout_height="45dp"
-						android:gravity="center"
-						android:text="@string/radio_level_2"
-						android:id="@+id/radio_level_2"
-						/>
-					<RadioButton
-						android:layout_width="wrap_content"
-						android:layout_height="45dp"
-
-						android:gravity="center"
-						android:text="@string/radio_level_3"
-						android:id="@+id/radio_level_3"
-						/>
-				</RadioGroup>
+					android:layout_marginLeft="16dp"
+					android:textSize="18sp"
+					android:text="@string/shifou_jiaji"/>
+				<View
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:layout_weight="1"/>
+				<Switch android:id="@+id/tSFJJBtn"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginRight="8dp"/>
 			</LinearLayout>
 	    	<LinearLayout 
 			    android:layout_width="match_parent"
