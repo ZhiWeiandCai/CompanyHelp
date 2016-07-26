@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout 
+        android:id="@+id/fragm_my_ll1"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/white">
+        <ImageView android:id="@+id/head_img"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="12dp"
+            android:layout_gravity="center_vertical"/>
+        <LinearLayout android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp">
+            <TextView android:id="@+id/aName"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                />
+            <TextView android:id="@+id/aPhoneNum"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:drawableLeft="@mipmap/phone_sym_img"
+                android:drawablePadding="3dp"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+        <ImageView android:id="@+id/erweima"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="12dp"
+            android:background="@mipmap/phone_sym_img"/>
+    </LinearLayout>
+    <LinearLayout 
+        android:id="@+id/fragm_my_ll2"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:background="@android:color/white">
+        <TextView android:id="@+id/myComp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
+                android:text="@string/myCompStr"
+                android:textSize="18sp"
+                android:drawablePadding="3dp"
+                android:drawableLeft="@mipmap/img_mycomp"/>
+        <TextView android:id="@+id/myCompMess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:textSize="18sp"/>
+    </LinearLayout>
+    <LinearLayout 
+        android:id="@+id/fragm_my_ll3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:background="@android:color/white">
+        <TextView android:id="@+id/myBookList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:textSize="18sp"
+                android:text="@string/mybooklistStr"
+                android:drawablePadding="3dp"
+                android:drawableLeft="@mipmap/img_mybooklist"/>
+    </LinearLayout>
+    <LinearLayout 
+        android:id="@+id/fragm_my_ll4"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical"
+        android:background="@android:color/white">
+        <TextView android:id="@+id/lookServiceBoard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:textSize="18sp"
+                android:text="@string/lookserviceboardStr"
+                android:drawablePadding="3dp"
+                android:drawableLeft="@mipmap/img_lookserviceboard"/>
+    </LinearLayout>
+    <LinearLayout 
+        android:id="@+id/fragm_my_ll5"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:background="@android:color/white">
+        <TextView android:id="@+id/changhuAdmin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:textSize="18sp"
+                android:text="@string/changhu_admin"
+                android:drawablePadding="3dp"
+                android:drawableLeft="@mipmap/img_changhu_admin"/>
+    </LinearLayout>
+    <LinearLayout 
+        android:id="@+id/fragm_my_ll6"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical"
+        android:background="@android:color/white">
+        <TextView android:id="@+id/yijianFankui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                
+                android:text="@string/yijian_fankui"
+                android:textSize="18sp"
+                android:drawablePadding="3dp"
+                android:drawableLeft="@mipmap/img_yijian_fankui"/>
+    </LinearLayout>
+
+</LinearLayout>

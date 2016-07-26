@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RadioGroup 
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/switch_tabs"
+        android:checkedButton="@+id/tab1"
+        android:orientation="horizontal">
+        <RadioButton android:id="@id/tab1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/tab_selector"
+            android:button="@null"
+            android:text="@string/tab_str1"
+            />
+        <RadioButton android:id="@+id/tab2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/tab_selector"
+            android:button="@null"
+            android:text="@string/tab_str2"
+            />
+        <RadioButton android:id="@+id/tab3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/tab_selector"
+            android:button="@null"
+            android:text="@string/tab_str3"
+            />
+    </RadioGroup>
+    
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

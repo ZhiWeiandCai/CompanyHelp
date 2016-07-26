@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ffeeeeee"/>
+    <RadioGroup 
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/menu_Switch"
+        android:checkedButton="@+id/radio_first"
+        android:orientation="horizontal">
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:text="@string/radio_group_1_first"
+            android:textColor="@color/switch_radiobt_text_selector"
+            android:id="@id/radio_first"
+            android:drawableTop="@drawable/radio_main_select"
+            android:button="@null"
+            />
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:text="@string/radio_group_1_service"
+            android:textColor="@color/switch_radiobt_text_selector"
+            android:id="@+id/radio_service"
+            android:drawableTop="@drawable/radio_service_select"
+            android:button="@null" />
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:text="@string/radio_group_1_mess"
+            android:textColor="@color/switch_radiobt_text_selector"
+            android:id="@+id/radio_mess"
+            android:drawableTop="@drawable/mess_switch_select"
+            android:button="@null" />
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:text="@string/radio_group_1_my"
+            android:textColor="@color/switch_radiobt_text_selector"
+            
+            android:id="@+id/radio_my"
+            android:drawableTop="@drawable/my_switch_select"
+            android:button="@null" />
+    </RadioGroup>
+
+</LinearLayout>

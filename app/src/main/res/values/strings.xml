@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">小后台</string>
+    
+    <string name="action_settings">Settings</string>
+    
+    <string name="radio_group_1_first">首页</string>
+    <string name="radio_group_1_service">服务</string>
+    <string name="radio_group_1_mess">消息</string>
+    <string name="radio_group_1_my">我的</string>
+    <string name="tab_str1">山头讲政策</string>
+    <string name="tab_str2">小后台学堂</string>
+    <string name="tab_str3">小后台活动</string>
+    <string name="phone_num">4008-488-488</string>
+    <string name="zhuce_gongsi">注册公司</string>
+    <string name="jichang_baoshui">记账报税</string>
+    <string name="shebao_fuwu">社保服务</string>
+    <string name="fapiao_fuwu">发票服务</string>
+    <string name="zhuce_shangbiao">注册商标</string>
+    <string name="shenqing_zhuanli">申请专利</string>
+    <string name="biaogeng_fuwu">变更服务</string>
+    <string name="zhuce_zijin">注册资金</string>
+    <string name="zhuxiao_fuwu">注销服务</string>
+    <string name="laowu_paiqian">劳务派遣</string>
+    <string name="guzhu_baoxian">雇主保险</string>
+    <string name="qita_zhengjian">其他证件</string>
+    <string name="myCompStr">我的公司</string>
+    <string name="mybooklistStr">我的订单</string>
+    <string name="lookserviceboardStr">服务看板</string>
+    <string name="changhu_admin">账户管理</string>
+    <string name="yijian_fankui">意见反馈</string>
+    <string name="shoujihao">手机号：</string>
+    <string name="mima">密码：</string>
+    <string name="denglu">登录</string>
+    <string name="zhuce_bt_str">注册</string>
+    <string name="next_zhuce">确定</string>
+    <string name="yanzheng_word">验证码：</string>
+    <string name="get_yanzhen">发送验证码</string>
+    <string name="tip_input_pnum">请输入手机号</string>
+    <string name="waitting_verification">正在获取验证码...</string>
+    <string name="wrong_verification">出错，请重新获取</string>
+    <string name="tip_input_password">请输入密码</string>
+    <string name="tip_input_yanzheng">请输入验证码</string>
+    <string name="zhengzai_zhuce">正在注册...</string>
+    <string name="zhengzai_login">正在登录...</string>
+    <string name="success_login">登录成功</string>
+    <string name="fotget_mm_bt_str">忘记密码？</string>
+    <string name="login_changhu">登录账户</string>
+    <string name="user_zhuce">用户注册</string>
+    <string name="heji">合计： </string>
+    <string name="heji_yuan">¥ %1$d</string>
+    <string name="book_yuque">下单预约</string>
+    <string name="area_zhuce">注册区域</string>
+    <string name="company_name">公司名称</string>
+    <string name="company_name_hint_input">请输入新公司名称</string>
+    <string name="address_tuoguan_s">地址托管</string>
+    <string name="address_tuoguan_ss">¥%1$d元/半年</string>
+    <string name="daili_jichang_s">代理记账</string>
+    <string name="jichang_zhouqi_s">记账周期</string>
+    <string name="radio2">半年</string>
+    <string name="radio3">一年</string>
+    <string name="radio1">季度</string>
+    <string name="radioR1_s">一般纳税人</string>
+    <string name="radioR2_s">小规模纳税人</string>
+    <string name="tip_input_name">请输入姓名</string>
+    <string name="tip_input_c1">请输入备选公司名称1</string>
+    <string name="tip_input_c2">请输入备选公司名称2</string>
+    <string name="tip_input_c3">请输入备选公司名称3</string>
+    <string name="bookjichang_youhui_s">若选择代理记账服务，可优惠%1$d元</string>
+    <string name="radio_level_1">不加急</string>
+    <string name="radio_level_2">普通加急</string>
+    <string name="radio_level_3">特殊加急</string>
+
+</resources>
