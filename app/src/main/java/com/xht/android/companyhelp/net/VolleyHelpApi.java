@@ -41,9 +41,9 @@ public class VolleyHelpApi extends BaseApi{
 	}
 
 	private boolean isResponseError(JSONObject jb){
-		int errorCode = jb.optInt("code",0);
+		String errorCode = jb.optString("code","0");
 
-		if(errorCode == 1){
+		if(errorCode.equals("1")){
 			return false;
 		}		
 		return true;
@@ -115,7 +115,7 @@ public class VolleyHelpApi extends BaseApi{
 					default:
 						LogHelper.i(TAG, "未知错误");
 				}
-				apiListener.onError("错误，getVerCode");
+				apiListener.onError("错误，获取验证码");
 			}
 		});
 		App.getInstance().addToRequestQueue(req, TAG);
@@ -141,7 +141,8 @@ public class VolleyHelpApi extends BaseApi{
 						String errMsg = jObject.optString("message");
 						apiListener.onError(errMsg);
 					} else {
-						apiListener.onResult(jObject);
+						JSONObject jsonObject = jObject.optJSONObject("entity");
+						apiListener.onResult(jsonObject);
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -182,18 +183,18 @@ public class VolleyHelpApi extends BaseApi{
 	public void postLogin(String pNum, String mimaString, final APIListener apiListener) {
 		final HashMap<String, String> mParams=new HashMap<String, String>();
 		
-		mParams.put("phonenumber", pNum);
+		mParams.put("pNumber", pNum);
 		mParams.put("password", mimaString);
 		StringRequest req = new StringRequest(Request.Method.POST, LOGIN_URL, new Response.Listener<String>() {
 
 			@Override
 			public void onResponse(String response) {
-				LogHelper.i(TAG, toString());
+				LogHelper.i(TAG, response);
 				JSONObject jObject;
 				try {
 					jObject = new JSONObject(response);
 					if (isResponseError(jObject)) {
-						String errMsg = jObject.optString("errmsg");
+						String errMsg = jObject.optString("message");
 						apiListener.onError(errMsg);
 					} else {
 						JSONObject jsonObject = jObject.optJSONObject("entity");

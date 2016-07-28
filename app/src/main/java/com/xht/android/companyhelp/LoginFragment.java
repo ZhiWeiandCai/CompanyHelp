@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import com.xht.android.companyhelp.net.APIListener;
 import com.xht.android.companyhelp.net.VolleyHelpApi;
+import com.xht.android.companyhelp.provider.MyDatabaseManager;
 import com.xht.android.companyhelp.util.LogHelper;
 
 import android.app.Activity;
@@ -11,6 +12,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -102,9 +104,15 @@ public class LoginFragment extends Fragment {
 			public void onResult(Object result) {
 				dismissProgressDialog();
 				App.getInstance().showToast(getResources().getString(R.string.success_login));
-				int pNum = ((JSONObject) result).optInt("phonenumber", 0);
+				long pNum = Long.parseLong(((JSONObject) result).optString("telephone", "0"));
+				int userId = Integer.parseInt(((JSONObject) result).optString("ordContactId", "0"));
+				ContentValues cv = new ContentValues();
+				cv.put(MyDatabaseManager.MyDbColumns.UID, userId);
+				cv.put(MyDatabaseManager.MyDbColumns.PHONE, pNum);
+				getActivity().getContentResolver().insert(MyDatabaseManager.MyDbColumns.CONTENT_URI, cv);
+				LogHelper.i("LoginFragment", "phoneNum" + pNum);
 				Intent intent = new Intent(MyFragment.BRO_ACT_S);
-				intent.putExtra("phone_num", pNum);
+				intent.putExtra(MyFragment.PHONENUM_KEY, pNum);
 				getActivity().sendBroadcast(intent);
 				getActivity().finish();
 			}

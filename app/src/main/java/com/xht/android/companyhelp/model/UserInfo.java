@@ -3,7 +3,7 @@ package com.xht.android.companyhelp.model;
 public class UserInfo {
 	
 	private int mUid;
-	private int mPhoneNum;
+	private long mPhoneNum;
 	private String mUserName;
 	
 	public UserInfo() {
@@ -18,11 +18,11 @@ public class UserInfo {
 		return mUid;
 	}
 	
-	public void setPhoneNum(int phoneNum) {
+	public void setPhoneNum(long phoneNum) {
 		mPhoneNum = phoneNum;
 	}
 	
-	public int getPhoneNum() {
+	public long getPhoneNum() {
 		return mPhoneNum;
 	}
 	

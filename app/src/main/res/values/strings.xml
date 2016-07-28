@@ -71,5 +71,6 @@
     <string name="radio_level_1">不加急</string>
     <string name="radio_level_2">普通加急</string>
     <string name="radio_level_3">特殊加急</string>
+    <string name="shifou_jiaji">是否加急</string>
 
 </resources>

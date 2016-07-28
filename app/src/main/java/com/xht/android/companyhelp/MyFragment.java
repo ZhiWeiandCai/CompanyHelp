@@ -34,7 +34,8 @@ public class MyFragment extends Fragment implements OnClickListener {
 		
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			int phoneNum = intent.getIntExtra("PHONENUM_KEY", 0);
+			long phoneNum = intent.getLongExtra("PHONENUM_KEY", 0);
+			LogHelper.i(Tag, "" + phoneNum);
 			mUserInfo.setPhoneNum(phoneNum);
 			refleshUI();
 		}
@@ -87,7 +88,6 @@ public class MyFragment extends Fragment implements OnClickListener {
 	}
 	
 	boolean isUserLogin() {
-//		LogHelper.i(Tag, "aaa");
 		if (mUserInfo.getUid() == 0) {
 			Cursor cursor = mActivity.getContentResolver().query(MyDatabaseManager.MyDbColumns.CONTENT_URI, null, null, null, null);
 			if (cursor == null || cursor.getCount() == 0) {
@@ -102,6 +102,7 @@ public class MyFragment extends Fragment implements OnClickListener {
 			mUserInfo.setUserName(cursor.getString(userNameIndex));
 			mUserInfo.setPhoneNum(cursor.getInt(phoneIndex));
 		}
+		LogHelper.i(Tag, "mUserInfo.getUid() == " + mUserInfo.getUid() + "mUserInfo.getPhoneNum() == " + mUserInfo.getPhoneNum());
 		return true;
 		
 	}
