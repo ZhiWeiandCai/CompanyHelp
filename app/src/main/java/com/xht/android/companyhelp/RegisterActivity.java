@@ -179,6 +179,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 				RegisterActivity.this.getContentResolver().insert(MyDatabaseManager.MyDbColumns.CONTENT_URI, cv);
 				LogHelper.i("用户信息", "userId=" + userId + "pNum=" + pNum);
 				Intent intent = new Intent(MyFragment.BRO_ACT_S);
+				intent.putExtra(MyFragment.UID_KEY, userId);
 				intent.putExtra(MyFragment.PHONENUM_KEY, pNum);
 				sendBroadcast(intent);
 				finish();

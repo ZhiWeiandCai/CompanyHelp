@@ -105,13 +105,14 @@ public class LoginFragment extends Fragment {
 				dismissProgressDialog();
 				App.getInstance().showToast(getResources().getString(R.string.success_login));
 				long pNum = Long.parseLong(((JSONObject) result).optString("telephone", "0"));
-				int userId = Integer.parseInt(((JSONObject) result).optString("ordContactId", "0"));
+				int userId = ((JSONObject) result).optInt("ordContactId", 0);
 				ContentValues cv = new ContentValues();
 				cv.put(MyDatabaseManager.MyDbColumns.UID, userId);
 				cv.put(MyDatabaseManager.MyDbColumns.PHONE, pNum);
 				getActivity().getContentResolver().insert(MyDatabaseManager.MyDbColumns.CONTENT_URI, cv);
 				LogHelper.i("LoginFragment", "phoneNum" + pNum);
 				Intent intent = new Intent(MyFragment.BRO_ACT_S);
+				intent.putExtra(MyFragment.UID_KEY, userId);
 				intent.putExtra(MyFragment.PHONENUM_KEY, pNum);
 				getActivity().sendBroadcast(intent);
 				getActivity().finish();

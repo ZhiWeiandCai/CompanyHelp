@@ -76,8 +76,11 @@ public class MainFragment extends Fragment {
 			
 			@Override
 			public android.support.v4.app.Fragment getItem(int arg0) {
-				
-				return new ArticleListFragment();
+				Bundle bundle = new Bundle();
+				bundle.putInt("whichF", arg0);
+				android.support.v4.app.Fragment fragment = new ArticleListFragment();
+				fragment.setArguments(bundle);
+				return fragment;
 			}
 		});
 		viewPager.setCurrentItem(mCurFragment);

@@ -49,8 +49,12 @@ public class VolleyHelpApi extends BaseApi{
 		return true;
 	}
 	
-	public void getArticleItems(String url, ArrayList<Article> articles) {
-		JsonArrayRequest req = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+	public void getArticleItems(int witch, final APIListener apiListener) {
+		final String wS = "" + witch;
+		String urlS = MakeURL(ARTICLE_URL, new LinkedHashMap<String, Object>() {
+			{put("witchLeiBiew", wS);}
+		});
+		JsonArrayRequest req = new JsonArrayRequest(urlS, new Response.Listener<JSONArray>() {
 
 			@Override
 			public void onResponse(JSONArray response) {
