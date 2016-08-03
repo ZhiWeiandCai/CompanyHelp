@@ -266,6 +266,7 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 		VolleyHelpApi.getInstance().postDingDanZhuCeCompany(mUId, jsonObj, new APIListener() {
 			@Override
 			public void onResult(Object result) {
+				LogHelper.i("订单提交成功", "2016-08-03");
 				dismissProgressDialog();
 				Bundle bundle = new Bundle();
 				bundle.putLong("bookListId", ((JSONObject) result).optLong("BookListId"));
