@@ -3,17 +3,30 @@
     <string-array name="areas">
         <item>石岐区</item>
         <item>东区</item>
-        <item>火炬区</item>
         <item>西区</item>
         <item>南区</item>
-        <item>小榄</item>
-        <item>古镇</item>
-        <item>三乡</item>
-        <item>五桂山</item>
-        <item>坦洲</item>
+        <item>火炬区</item>
+        <item>小榄镇</item>
+        <item>古镇镇</item>
+        <item>东凤镇</item>
+        <item>南朗镇</item>
+        <item>民众镇</item>
+        <item>沙溪镇</item>
+        <item>三角镇</item>
+        <item>横兰镇</item>
+        <item>大涌镇</item>
+        <item>东升镇</item>
+        <item>阜沙镇</item>
+        <item>黄圃镇</item>
+        <item>南头镇</item>
+        <item>五桂山镇</item>
+        <item>港口镇</item>
+        <item>坦洲镇</item>
+        <item>板芙镇</item>
+        <item>三乡镇</item>
+        <item>神湾镇</item>
     </string-array>
     <string-array name="qishi_buzou">
-        <item>请选择起始步骤</item>
         <item>名称核准</item>
         <item>工商注册</item>
         <item>雕刻印章</item>

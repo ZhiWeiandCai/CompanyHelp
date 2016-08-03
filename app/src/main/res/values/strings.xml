@@ -2,9 +2,9 @@
 <resources>
 
     <string name="app_name">小后台</string>
-    
+
     <string name="action_settings">Settings</string>
-    
+
     <string name="radio_group_1_first">首页</string>
     <string name="radio_group_1_service">服务</string>
     <string name="radio_group_1_mess">消息</string>
@@ -72,5 +72,11 @@
     <string name="radio_level_2">普通加急</string>
     <string name="radio_level_3">特殊加急</string>
     <string name="shifou_jiaji">是否加急</string>
+    <string name="area_gongsi">公司区域</string>
+    <string name="please_gongsiname">请填写公司名称</string>
+    <string name="please_phone">请填写手机号码</string>
+    <string name="please_name">请填写姓名</string>
+    <string name="dingdanxianqing">订单详情：%1$s</string>
+    <string name="dingdanjine">订单金额：¥%1$f</string>
 
 </resources>

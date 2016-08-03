@@ -1,13 +1,5 @@
 package com.xht.android.companyhelp;
 
-import java.util.ArrayList;
-
-import com.xht.android.companyhelp.model.Article;
-import com.xht.android.companyhelp.net.APIListener;
-import com.xht.android.companyhelp.net.VolleyHelpApi;
-import com.xht.android.companyhelp.util.LogHelper;
-
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,6 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+
+import com.xht.android.companyhelp.model.Article;
+import com.xht.android.companyhelp.net.APIListener;
+import com.xht.android.companyhelp.net.VolleyHelpApi;
+import com.xht.android.companyhelp.util.LogHelper;
+
+import java.util.ArrayList;
 
 public class ArticleListFragment extends Fragment {
     private static final String TAG = "ArticleListFragment";

@@ -1,7 +1,9 @@
 package com.xht.android.companyhelp;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +11,28 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.xht.android.companyhelp.model.UserInfo;
+import com.xht.android.companyhelp.provider.MyDatabaseManager;
+import com.xht.android.companyhelp.util.LogHelper;
+
 public class ServiceFragment extends Fragment implements OnClickListener{
-	
+	private static final String Tag = "ServiceFragment";
+
+	private UserInfo mUserInfo;
+	private MainActivity mActivity;
 	private TextView mTextView1, mTextView2, mTextView3, mTextView4, mTextView5, mTextView6,
 		mTextView7, mTextView8, mTextView9, mTextView10, mTextView11, mTextView12;
-	
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		mActivity = (MainActivity) activity;
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mUserInfo = mActivity.mUserInfo;
 	}
 	
 	@Override
@@ -36,20 +52,55 @@ public class ServiceFragment extends Fragment implements OnClickListener{
 		mTextView11 = (TextView) view.findViewById(R.id.tv42);
 		mTextView12 = (TextView) view.findViewById(R.id.tv43);
 		mTextView1.setOnClickListener(this);
+		mTextView2.setOnClickListener(this);
 		return view;		
 	}
 
 	@Override
 	public void onClick(View v) {
+		Intent intent;
+		if (!isUserLogin()) {
+			intent = new Intent(getActivity(), LoginActivity.class);
+			getActivity().startActivity(intent);
+			return;
+		}
+		Bundle bundle = new Bundle();
+		bundle.putInt("uid", mUserInfo.getUid());
 		switch (v.getId()) {
 		case R.id.tv11:
-			Intent intent = new Intent(getActivity(), ZhuCeCompanyActivity.class);
+			intent = new Intent(getActivity(), ZhuCeCompanyActivity.class);
+			intent.putExtra("uData", bundle);
 			getActivity().startActivity(intent);
 			break;
+		case R.id.tv12:
+			intent = new Intent(getActivity(),DaiLiJIZhangActivity.class);
+			intent.putExtra("uData", bundle);
+			getActivity().startActivity(intent);
 
 		default:
 			break;
 		}
+
+	}
+
+	boolean isUserLogin() {
+		if (mUserInfo.getUid() == 0) {
+			Cursor cursor = mActivity.getContentResolver().query(MyDatabaseManager.MyDbColumns.CONTENT_URI, null, null, null, null);
+			if (cursor == null || cursor.getCount() == 0) {
+
+				return false;
+			}
+			cursor.moveToFirst();
+			int uidIndex = cursor.getColumnIndex(MyDatabaseManager.MyDbColumns.UID);
+			int userNameIndex = cursor.getColumnIndex(MyDatabaseManager.MyDbColumns.NAME);
+			int phoneIndex = cursor.getColumnIndex(MyDatabaseManager.MyDbColumns.PHONE);
+			mUserInfo.setUid(cursor.getInt(uidIndex));
+			mUserInfo.setUserName(cursor.getString(userNameIndex));
+			mUserInfo.setPhoneNum(cursor.getLong(phoneIndex));
+		}
+		LogHelper.i(Tag, "mUserInfo.getUid() == " + mUserInfo.getUid() + "mUserInfo.getPhoneNum() == " + mUserInfo.getPhoneNum());
+		return true;
+
 	}
 
 }

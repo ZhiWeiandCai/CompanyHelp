@@ -132,7 +132,8 @@
 		    	    android:layout_marginLeft="16dp"
 		    	    android:textSize="18sp"
 		    	    android:text="@string/jichang_zhouqi_s"/>
-	    		<RadioGroup 
+	    		<RadioGroup
+					android:id="@+id/period_jz"
 	    		    android:layout_width="wrap_content"
 	    		    android:layout_height="wrap_content"
 	    		    android:checkedButton="@+id/radio1"
@@ -172,7 +173,7 @@
 	    		<RadioGroup 
 	    		    android:layout_width="wrap_content"
 	    		    android:layout_height="wrap_content"
-	    		    
+	    		    android:id="@+id/naShuiP"
 	    		    android:orientation="horizontal"
 	    		    android:layout_marginLeft="16dp"
 	    		    android:checkedButton="@+id/radioR1">
