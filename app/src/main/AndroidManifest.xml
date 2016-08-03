@@ -15,35 +15,25 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-
             android:icon="@null"
-            android:logo="@mipmap/logo"
-            >
+            android:logo="@mipmap/logo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            >
+        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".RegisterActivity"></activity>
 
-        </activity>
-        <activity
-            android:name=".RegisterActivity"
-            >
-
-        </activity>
         <provider
             android:name=".provider.DatabaseHelpProvider"
             android:authorities="com.xht.android.companyhelp.DatabaseHelpProvider"
-            android:exported="false"></provider>
-        <activity
-            android:name=".ZhuCeCompanyActivity"
-            >
+            android:exported="false" />
 
-        </activity>
+        <activity android:name=".ZhuCeCompanyActivity"></activity>
+        <activity android:name=".DaiLiJIZhangActivity"></activity>
+        <activity android:name=".PayOptActivity"></activity>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import com.xht.android.companyhelp.net.APIListener;
 import com.xht.android.companyhelp.net.VolleyHelpApi;
+import com.xht.android.companyhelp.provider.MyDatabaseManager;
 import com.xht.android.companyhelp.util.LogHelper;
 
 public class RegisterActivity extends Activity implements OnClickListener {
@@ -168,11 +170,17 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			@Override
 			public void onResult(Object result) {
 				dismissProgressDialog();
-				int userId = ((JSONObject) result).optInt("userId", 0);
-				int pNum = ((JSONObject) result).optInt("phonenumber", 0);
+				int userId = Integer.parseInt(((JSONObject) result).optString("id", "0"));
+				long pNum = Long.parseLong(((JSONObject) result).optString("tel", "0"));
+				//注册成功后写入数据库
+				ContentValues cv = new ContentValues();
+				cv.put(MyDatabaseManager.MyDbColumns.UID, userId);
+				cv.put(MyDatabaseManager.MyDbColumns.PHONE, pNum);
+				RegisterActivity.this.getContentResolver().insert(MyDatabaseManager.MyDbColumns.CONTENT_URI, cv);
 				LogHelper.i("用户信息", "userId=" + userId + "pNum=" + pNum);
 				Intent intent = new Intent(MyFragment.BRO_ACT_S);
-				intent.putExtra("phone_num", pNum);
+				intent.putExtra(MyFragment.UID_KEY, userId);
+				intent.putExtra(MyFragment.PHONENUM_KEY, pNum);
 				sendBroadcast(intent);
 				finish();
 			}
@@ -198,7 +206,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			public void onResult(Object result) {
 				dismissProgressDialog();
 				sendCountdownMessage();
-				mSerial = ((JSONObject)result).optString("验证码");
+				mSerial = ((JSONObject)result).optString("verify");
 				LogHelper.i("验证码", mSerial);
 			}
 			

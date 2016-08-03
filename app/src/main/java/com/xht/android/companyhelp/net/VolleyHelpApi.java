@@ -1,25 +1,22 @@
 package com.xht.android.companyhelp.net;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-
 import com.android.volley.toolbox.StringRequest;
 import com.xht.android.companyhelp.App;
-import com.xht.android.companyhelp.model.Article;
 import com.xht.android.companyhelp.util.LogHelper;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class VolleyHelpApi extends BaseApi{
 	private static final String TAG = "VolleyHelpApi";
@@ -41,16 +38,20 @@ public class VolleyHelpApi extends BaseApi{
 	}
 
 	private boolean isResponseError(JSONObject jb){
-		int errorCode = jb.optInt("code",0);
+		String errorCode = jb.optString("code","0");
 
-		if(errorCode == 1){
+		if(errorCode.equals("1")){
 			return false;
 		}		
 		return true;
 	}
 	
-	public void getArticleItems(String url, ArrayList<Article> articles) {
-		JsonArrayRequest req = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+	public void getArticleItems(int witch, final APIListener apiListener) {
+		final String wS = "" + witch;
+		String urlS = MakeURL(ARTICLE_URL, new LinkedHashMap<String, Object>() {
+			{put("witchLeiBiew", wS);}
+		});
+		JsonArrayRequest req = new JsonArrayRequest(urlS, new Response.Listener<JSONArray>() {
 
 			@Override
 			public void onResponse(JSONArray response) {
@@ -115,7 +116,7 @@ public class VolleyHelpApi extends BaseApi{
 					default:
 						LogHelper.i(TAG, "未知错误");
 				}
-				apiListener.onError("错误，getVerCode");
+				apiListener.onError("错误，获取验证码");
 			}
 		});
 		App.getInstance().addToRequestQueue(req, TAG);
@@ -141,7 +142,8 @@ public class VolleyHelpApi extends BaseApi{
 						String errMsg = jObject.optString("message");
 						apiListener.onError(errMsg);
 					} else {
-						apiListener.onResult(jObject);
+						JSONObject jsonObject = jObject.optJSONObject("entity");
+						apiListener.onResult(jsonObject);
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -182,18 +184,18 @@ public class VolleyHelpApi extends BaseApi{
 	public void postLogin(String pNum, String mimaString, final APIListener apiListener) {
 		final HashMap<String, String> mParams=new HashMap<String, String>();
 		
-		mParams.put("phonenumber", pNum);
+		mParams.put("pNumber", pNum);
 		mParams.put("password", mimaString);
 		StringRequest req = new StringRequest(Request.Method.POST, LOGIN_URL, new Response.Listener<String>() {
 
 			@Override
 			public void onResponse(String response) {
-				LogHelper.i(TAG, toString());
+				LogHelper.i(TAG, response);
 				JSONObject jObject;
 				try {
 					jObject = new JSONObject(response);
 					if (isResponseError(jObject)) {
-						String errMsg = jObject.optString("errmsg");
+						String errMsg = jObject.optString("message");
 						apiListener.onError(errMsg);
 					} else {
 						JSONObject jsonObject = jObject.optJSONObject("entity");
@@ -231,6 +233,89 @@ public class VolleyHelpApi extends BaseApi{
 				return mParams;
 			}
 		};
+		App.getInstance().addToRequestQueue(req, TAG);
+	}
+
+	/**
+	 * 根据业务类型与区域获取某业务界面的价格
+	 * @param yuqu 区域
+	 * @param apiListener 回调监听器
+     */
+	public void getJifGeofYeFu(final int yuqu, final APIListener apiListener) {
+		String urlString = MakeURL(ZhuCeComp_URL, new LinkedHashMap<String, Object>() {{
+			put("countyId", yuqu);
+		}});
+		JsonObjectRequest req = new JsonObjectRequest(urlString, null, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				if (isResponseError(response)) {
+					String errMsg = response.optString("message");
+					apiListener.onError(errMsg);
+				} else {
+
+					apiListener.onResult(response);
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("获取价格出错");
+			}
+		});
+		App.getInstance().addToRequestQueue(req, TAG);
+	}
+
+	/**
+	 * 注册公司-提交订单
+	 */
+	public void postDingDanZhuCeCompany(int userId, JSONObject jsonObject, final APIListener apiListener) {
+		JsonObjectRequest req = new JsonObjectRequest("", jsonObject, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				if (isResponseError(response)) {
+					String errMsg = response.optString("message");
+					apiListener.onError(errMsg);
+				} else {
+
+					apiListener.onResult(response);
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("提交订单出错");
+			}
+		});
 		App.getInstance().addToRequestQueue(req, TAG);
 	}
 	

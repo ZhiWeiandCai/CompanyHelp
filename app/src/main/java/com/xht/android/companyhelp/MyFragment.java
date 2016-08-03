@@ -24,6 +24,7 @@ public class MyFragment extends Fragment implements OnClickListener {
 	private static final String Tag = "MyFragment";
 	public static final String BRO_ACT_S = "com.xht.android.companyhelp.bro_act_s";
 	public static final String PHONENUM_KEY = "phone_key";
+	public static final String UID_KEY = "userId_key";
 	private LinearLayout mLinearLayout1, mLinearLayout2;
 	private ImageView mHeadImageView;
 	private MainActivity mActivity;
@@ -34,7 +35,10 @@ public class MyFragment extends Fragment implements OnClickListener {
 		
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			int phoneNum = intent.getIntExtra("PHONENUM_KEY", 0);
+			int uId = intent.getIntExtra(UID_KEY, 0);
+			long phoneNum = intent.getLongExtra(PHONENUM_KEY, 0);
+			LogHelper.i(Tag, "" + phoneNum);
+			mUserInfo.setUid(uId);
 			mUserInfo.setPhoneNum(phoneNum);
 			refleshUI();
 		}
@@ -65,6 +69,14 @@ public class MyFragment extends Fragment implements OnClickListener {
 		mLinearLayout1.setOnClickListener(this);
 		return view;		
 	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (isUserLogin()) {
+			refleshUI();
+		}
+	}
 	
 	@Override
 	public void onDestroy() {
@@ -87,7 +99,6 @@ public class MyFragment extends Fragment implements OnClickListener {
 	}
 	
 	boolean isUserLogin() {
-//		LogHelper.i(Tag, "aaa");
 		if (mUserInfo.getUid() == 0) {
 			Cursor cursor = mActivity.getContentResolver().query(MyDatabaseManager.MyDbColumns.CONTENT_URI, null, null, null, null);
 			if (cursor == null || cursor.getCount() == 0) {
@@ -100,8 +111,9 @@ public class MyFragment extends Fragment implements OnClickListener {
 			int phoneIndex = cursor.getColumnIndex(MyDatabaseManager.MyDbColumns.PHONE);
 			mUserInfo.setUid(cursor.getInt(uidIndex));
 			mUserInfo.setUserName(cursor.getString(userNameIndex));
-			mUserInfo.setPhoneNum(cursor.getInt(phoneIndex));
+			mUserInfo.setPhoneNum(cursor.getLong(phoneIndex));
 		}
+		LogHelper.i(Tag, "mUserInfo.getUid() == " + mUserInfo.getUid() + "mUserInfo.getPhoneNum() == " + mUserInfo.getPhoneNum());
 		return true;
 		
 	}
