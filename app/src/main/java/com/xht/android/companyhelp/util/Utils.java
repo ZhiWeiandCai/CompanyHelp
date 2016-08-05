@@ -6,6 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +28,7 @@ import com.xht.android.companyhelp.model.Constants;
  * <br>2016-04-23
  */
 public class Utils {
+	private static final String TAG = "Utils";
 	
 	/**
 	 * 创建一个目录
@@ -39,13 +44,14 @@ public class Utils {
 	/**
 	 * 初始化屏幕宽高
 	 */
-	public static void initScreenWAndH(Activity activity) {
+	/*public static void initScreenWAndH(Activity activity) {
 		Display display = activity.getWindowManager().getDefaultDisplay();
 		Point point = new Point();
 		display.getRealSize(point);
+
 		Constants.SCREEN_WIDTH = point.x;
 		Constants.SCREEN_HEIGHT = point.y;
-	}
+	}*/
 	
 	/**
 	 * 删除文件及其子文件
@@ -139,6 +145,27 @@ public class Utils {
 			e.printStackTrace();
 		} 
 		return jsonObject;		
+	}
+
+	public static byte[] httpGet(String url) {
+		try {
+			URL urlT = new URL(url);
+			HttpURLConnection connection = (HttpURLConnection) urlT.openConnection();
+			connection.connect();
+			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+				LogHelper.e(TAG, "httpGet fail, status code = " + connection.getResponseCode());
+				return null;
+			}
+			return null;
+		} catch (MalformedURLException e) {
+			LogHelper.e(TAG, "httpGet exception, e = " + e.getMessage());
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			LogHelper.e(TAG, "httpGet exception, e = " + e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

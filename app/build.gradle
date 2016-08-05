@@ -4,8 +4,6 @@ android {
     compileSdkVersion 22
     buildToolsVersion "24.0.0"
 
-
-
     defaultConfig {
         applicationId "com.xht.android.companyhelp"
         minSdkVersion 15
@@ -13,10 +11,24 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    signingConfigs {
+        release {
+            storeFile file('D:/androidBook/xhtkey.jks')
+            keyAlias 'keyxht'
+            keyPassword 'xhtczw'
+            storePassword 'xiaohoutaiczw'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -27,4 +39,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.android.support:support-v4:22.0.0'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    compile files('libs/libammsdk.jar')
 }

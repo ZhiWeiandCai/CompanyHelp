@@ -47,7 +47,7 @@
 	    	    android:layout_marginLeft="16dp"
 	    	    android:hint="@string/company_name_hint_input"
 	    	    android:singleLine="true"
-	    	    />
+	    	    android:maxLength="15"/>
 	    	</LinearLayout>
 			<LinearLayout
 				android:layout_width="match_parent"
@@ -205,7 +205,8 @@
 		    		android:singleLine="true"
 		    		android:drawableLeft="@mipmap/phone_sym_img"
 		    		android:drawablePadding="4dp"
-		    		android:inputType="phone"/>
+		    		android:inputType="phone"
+					android:maxLength="15"/>
 	    	</LinearLayout>
 	    	<LinearLayout 
 			    android:layout_width="match_parent"
@@ -218,7 +219,8 @@
 		    		android:singleLine="true"
 		    		android:drawableLeft="@mipmap/phone_sym_img"
 		    		android:drawablePadding="4dp"
-		    		android:hint="@string/tip_input_name"/>
+		    		android:hint="@string/tip_input_name"
+					android:maxLength="15"/>
 	    	</LinearLayout>
 	    	<LinearLayout 
 			    android:layout_width="match_parent"
@@ -246,7 +248,8 @@
 		    		android:singleLine="true"
 		    		android:drawableLeft="@mipmap/phone_sym_img"
 		    		android:drawablePadding="4dp"
-		    		android:hint="@string/tip_input_c1"/>
+		    		android:hint="@string/tip_input_c1"
+					android:maxLength="15"/>
 	    	</LinearLayout>
 	    	<LinearLayout 
 			    android:layout_width="match_parent"
@@ -260,7 +263,8 @@
 		    		android:singleLine="true"
 		    		android:drawableLeft="@mipmap/phone_sym_img"
 		    		android:drawablePadding="4dp"
-		    		android:hint="@string/tip_input_c2"/>
+		    		android:hint="@string/tip_input_c2"
+					android:maxLength="15"/>
 	    	</LinearLayout>
 	    	<LinearLayout 
 			    android:layout_width="match_parent"
@@ -274,7 +278,8 @@
 		    		android:singleLine="true"
 		    		android:drawableLeft="@mipmap/phone_sym_img"
 		    		android:drawablePadding="4dp"
-		    		android:hint="@string/tip_input_c3"/>
+		    		android:hint="@string/tip_input_c3"
+					android:maxLength="15"/>
 	    	</LinearLayout>
 	    	<TextView android:id="@+id/tip_word_youhui_book"
 	    	    android:layout_width="match_parent"

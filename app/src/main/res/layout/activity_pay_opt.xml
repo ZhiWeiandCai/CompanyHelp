@@ -21,5 +21,36 @@
         android:layout_height="50dp"
         android:textSize="18sp"
         android:gravity="center"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/sel_pay_fs"
+        android:textSize="18sp"
+        android:gravity="left|center_vertical"
+        android:background="@android:color/darker_gray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/wepaylogo"
+            />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:enabled="false"
+            android:layout_marginRight="0dp"/>
+    </LinearLayout>
+    <Button android:id="@+id/zhifu_liji"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:text="@string/lijizhifu"
+        android:background="@drawable/btn_background_circle"/>
 
 </LinearLayout>

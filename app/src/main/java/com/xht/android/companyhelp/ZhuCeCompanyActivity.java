@@ -218,7 +218,7 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 				mMoney = jO.optInt("yewu1");
 				mAddTGMoney = jO.optInt("fuwu1");
 				mMoneyYouHui = jO.optInt("free1");
-				mMoneyJiaJi = jO.optInt("jiaji");
+				mMoneyJiaJi = jO.optInt("JiaJi");
 				shishibuzou[1] = jO.optInt("st01");
 				shishibuzou[2] = jO.optInt("st02");
 				shishibuzou[3] = jO.optInt("st03");
@@ -258,7 +258,8 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 			jsonObj.put("Comp_Bei3", mETBei3.getText().toString());
 			jsonObj.put("Money_HeJi", mMoney);
 			jsonObj.put("dailijizhang", dljz);
-
+			jsonObj.put("dailijizhang_money", dljz6[dljz]);
+			jsonObj.put("userId", mUId);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -274,6 +275,7 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 				Intent intent = new Intent(ZhuCeCompanyActivity.this, PayOptActivity.class);
 				intent.putExtra("booklistdata", bundle);
 				ZhuCeCompanyActivity.this.startActivity(intent);
+				ZhuCeCompanyActivity.this.finish();
 			}
 
 			@Override
@@ -288,6 +290,7 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 	 * 更新合计的View
 	 */
 	private void reFleshMoneyHeji() {
+		LogHelper.i("更新合计的View", "mMoney = " + mMoney);
 		mHeJiTV.setText(String.format(getResources().getString(R.string.heji_yuan), mMoney));
 		mYouhuiTV.setText(String.format(getResources().getString(R.string.bookjichang_youhui_s), mMoneyYouHui));
 	}

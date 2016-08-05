@@ -284,7 +284,7 @@ public class VolleyHelpApi extends BaseApi{
 	 * 注册公司-提交订单
 	 */
 	public void postDingDanZhuCeCompany(int userId, JSONObject jsonObject, final APIListener apiListener) {
-		JsonObjectRequest req = new JsonObjectRequest("", jsonObject, new Response.Listener<JSONObject>() {
+		JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, SaveRegistOrderInfo_URL, jsonObject, new Response.Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				LogHelper.i(TAG, response.toString());
@@ -315,7 +315,9 @@ public class VolleyHelpApi extends BaseApi{
 				}
 				apiListener.onError("提交订单出错");
 			}
-		});
+		}) {
+
+		};
 		App.getInstance().addToRequestQueue(req, TAG);
 	}
 	
