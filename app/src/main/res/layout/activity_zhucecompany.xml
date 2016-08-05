@@ -202,6 +202,7 @@
 	    		<EditText android:id="@+id/book_phone"
 	    		    android:layout_width="match_parent"
 		    		android:layout_height="45dp"
+					android:hint="@string/please_phone"
 		    		android:singleLine="true"
 		    		android:drawableLeft="@mipmap/phone_sym_img"
 		    		android:drawablePadding="4dp"
@@ -219,7 +220,7 @@
 		    		android:singleLine="true"
 		    		android:drawableLeft="@mipmap/phone_sym_img"
 		    		android:drawablePadding="4dp"
-		    		android:hint="@string/tip_input_name"
+		    		android:hint="@string/please_name"
 					android:maxLength="15"/>
 	    	</LinearLayout>
 	    	<LinearLayout 

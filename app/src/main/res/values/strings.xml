@@ -77,7 +77,7 @@
     <string name="please_phone">请填写手机号码</string>
     <string name="please_name">请填写姓名</string>
     <string name="dingdanxianqing">订单详情：%1$s</string>
-    <string name="dingdanjine">订单金额：¥%1$f</string>
+    <string name="dingdanjine">订单金额：¥%1$.2f</string>
     <string name="sel_pay_fs">选择支付方式</string>
     <string name="lijizhifu">立即支付</string>
 

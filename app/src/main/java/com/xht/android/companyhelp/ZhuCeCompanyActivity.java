@@ -207,7 +207,7 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 
 	private void jiaZaiJaiGe() {
 		createProgressDialog("价格初始化中...");
-		VolleyHelpApi.getInstance().getJifGeofYeFu(mArea, new APIListener() {
+		VolleyHelpApi.getInstance().getJifGeofYeFu(0, mArea, new APIListener() {
 			@Override
 			public void onResult(Object result) {
 				JSONObject jO = ((JSONObject) result).optJSONObject("entity");
@@ -225,7 +225,13 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 				shishibuzou[4] = jO.optInt("st04");
 				shishibuzou[5] = jO.optInt("st05");
 				shishibuzou[6] = jO.optInt("st06");
-				mMoney += shishibuzou[1];
+				mMoney += shishibuzou[mQiShiBuZouF + 1];
+				if (mShiFouJiaJi) mMoney += mMoneyJiaJi;
+				if (mAddTuoGuan) mMoney += mAddTGMoney;
+				if (switch2.isChecked()) {
+					mMoney += dljz6[dljz];
+					mMoney -= mMoneyYouHui;
+				}
 				mShiFouFlag = true;
 				dismissProgressDialog();
 				reFleshMoneyHeji();
@@ -252,7 +258,7 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 			jsonObj.put("dizhituoguan", mAddTuoGuan);
 			jsonObj.put("pNumber", mPhone.getText().toString());
 			jsonObj.put("pName", mNameET.getText().toString());
-			jsonObj.put("qishibuzhou", mQiShiBuZouF);
+			jsonObj.put("qishibuzhou", mQiShiBuZouF + 1);
 			jsonObj.put("Comp_Bei1", mETBei1.getText().toString());
 			jsonObj.put("Comp_Bei2", mETBei2.getText().toString());
 			jsonObj.put("Comp_Bei3", mETBei3.getText().toString());
@@ -268,9 +274,11 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 			@Override
 			public void onResult(Object result) {
 				LogHelper.i("订单提交成功", "2016-08-03");
+				JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
+
 				dismissProgressDialog();
 				Bundle bundle = new Bundle();
-				bundle.putLong("bookListId", ((JSONObject) result).optLong("BookListId"));
+				bundle.putString("bookListId", tempJO.optString("registOrderId"));
 				bundle.putFloat("pay_money", mMoney);
 				Intent intent = new Intent(ZhuCeCompanyActivity.this, PayOptActivity.class);
 				intent.putExtra("booklistdata", bundle);

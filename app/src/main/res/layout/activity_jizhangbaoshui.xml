@@ -10,6 +10,7 @@
         android:id="@+id/leiNSRLL"
         android:gravity="center">
         <RadioGroup
+            android:id="@+id/rg1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -46,6 +47,7 @@
             android:textSize="18sp"
             android:text="@string/jichang_zhouqi_s"/>
         <RadioGroup
+            android:id="@+id/rg2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checkedButton="@+id/radio1"
@@ -91,7 +93,7 @@
             android:layout_marginLeft="16dp"
             android:hint="@string/company_name_hint_input"
             android:singleLine="true"
-            />
+            android:maxLength="15"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -120,10 +122,12 @@
         <EditText android:id="@+id/book_phone"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:hint="@string/please_phone"
             android:singleLine="true"
             android:drawableLeft="@mipmap/phone_sym_img"
             android:drawablePadding="4dp"
-            android:inputType="phone"/>
+            android:inputType="phone"
+            android:maxLength="15"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -133,10 +137,12 @@
         <EditText android:id="@+id/name_jiazhang"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:hint="@string/please_name"
             android:singleLine="true"
             android:drawableLeft="@mipmap/phone_sym_img"
             android:drawablePadding="4dp"
-            android:inputType="textPersonName"/>
+            android:inputType="textPersonName"
+            android:maxLength="15"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"

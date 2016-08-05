@@ -26,15 +26,17 @@
         android:layout_height="50dp"
         android:text="@string/sel_pay_fs"
         android:textSize="18sp"
+        android:paddingLeft="4dp"
         android:gravity="left|center_vertical"
         android:background="@android:color/darker_gray"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="3dp">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
             android:background="@mipmap/wepaylogo"
             />
         <CheckBox
@@ -44,10 +46,15 @@
             android:enabled="false"
             android:layout_marginRight="0dp"/>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
     <Button android:id="@+id/zhifu_liji"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_gravity="bottom"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:textSize="18sp"
         android:text="@string/lijizhifu"

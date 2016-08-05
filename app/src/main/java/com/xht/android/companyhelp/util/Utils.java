@@ -1,26 +1,21 @@
 package com.xht.android.companyhelp.util;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Point;
-import android.view.Display;
-
-import com.xht.android.companyhelp.model.Constants;
 
 /**
  * 工具类，里面有一些工具函数
@@ -156,7 +151,14 @@ public class Utils {
 				LogHelper.e(TAG, "httpGet fail, status code = " + connection.getResponseCode());
 				return null;
 			}
-			return null;
+			InputStream is = connection.getInputStream();
+			int count = 0;
+			while (count == 0) {
+				count = is.available();
+			}
+			byte[] bA = new byte[count];
+			is.read(bA);
+			return bA;
 		} catch (MalformedURLException e) {
 			LogHelper.e(TAG, "httpGet exception, e = " + e.getMessage());
 			e.printStackTrace();

@@ -241,8 +241,8 @@ public class VolleyHelpApi extends BaseApi{
 	 * @param yuqu 区域
 	 * @param apiListener 回调监听器
      */
-	public void getJifGeofYeFu(final int yuqu, final APIListener apiListener) {
-		String urlString = MakeURL(ZhuCeComp_URL, new LinkedHashMap<String, Object>() {{
+	public void getJifGeofYeFu(int witch, final int yuqu, final APIListener apiListener) {
+		String urlString = MakeURL(JiaGeofYeWu[witch], new LinkedHashMap<String, Object>() {{
 			put("countyId", yuqu);
 		}});
 		JsonObjectRequest req = new JsonObjectRequest(urlString, null, new Response.Listener<JSONObject>() {
@@ -319,6 +319,48 @@ public class VolleyHelpApi extends BaseApi{
 
 		};
 		App.getInstance().addToRequestQueue(req, TAG);
+	}
+
+	/**
+	 * 记账报税-提交订单
+	 */
+	public void postDingDanJiZhang(int userId, JSONObject jsonObject, final APIListener apiListener) {
+		JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, JiZhangBS_SROrderI_URL, jsonObject, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				if (isResponseError(response)) {
+					String errMsg = response.optString("message");
+					apiListener.onError(errMsg);
+				} else {
+
+					apiListener.onResult(response);
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("提交订单出错");
+			}
+		}) {
+
+		};
+		App.getInstance().addToRequestQueue(req, TAG);
+
 	}
 	
 	public static  String MakeURL(String p_url, LinkedHashMap<String, Object> params) {
