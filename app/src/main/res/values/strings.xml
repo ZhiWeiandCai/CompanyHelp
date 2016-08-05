@@ -80,5 +80,9 @@
     <string name="dingdanjine">订单金额：¥%1$.2f</string>
     <string name="sel_pay_fs">选择支付方式</string>
     <string name="lijizhifu">立即支付</string>
+    <!-- WXPayEntryActivity -->
+    <string name="pay_result_tip">这个界面用于显示第三方app通过微信支付的结果</string>
+    <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
+    <string name="app_tip">提示</string>
 
 </resources>
