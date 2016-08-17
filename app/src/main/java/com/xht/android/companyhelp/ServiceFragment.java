@@ -53,6 +53,7 @@ public class ServiceFragment extends Fragment implements OnClickListener{
 		mTextView12 = (TextView) view.findViewById(R.id.tv43);
 		mTextView1.setOnClickListener(this);
 		mTextView2.setOnClickListener(this);
+		mTextView3.setOnClickListener(this);
 		return view;		
 	}
 
@@ -76,7 +77,12 @@ public class ServiceFragment extends Fragment implements OnClickListener{
 			intent = new Intent(getActivity(),DaiLiJIZhangActivity.class);
 			intent.putExtra("uData", bundle);
 			getActivity().startActivity(intent);
-
+			break;
+		case R.id.tv13:
+			intent = new Intent(getActivity(),SheBaoSActivity.class);
+			intent.putExtra("uData", bundle);
+			getActivity().startActivity(intent);
+			break;
 		default:
 			break;
 		}

@@ -3,6 +3,7 @@ package com.xht.android.companyhelp;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -16,9 +17,15 @@ import android.widget.Toast;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.xht.android.companyhelp.net.BaseApi;
+import com.xht.android.companyhelp.net.VolleyHelpApi;
+import com.xht.android.companyhelp.util.LogHelper;
 import com.xht.android.companyhelp.util.Utils;
 
 import org.json.JSONObject;
+
+import java.net.URLEncoder;
+import java.util.LinkedHashMap;
 
 public class PayOptActivity extends Activity {
 
@@ -39,9 +46,14 @@ public class PayOptActivity extends Activity {
         int change = ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM;
         aBar.setDisplayOptions(change);
         Bundle bundle = getIntent().getBundleExtra("booklistdata");
+        final String shangPin = bundle.getString("shangpin");
+        LogHelper.i("商品名称", shangPin);
+        final String dingdanHao = bundle.getString("bookListId");
+        final float jinE = bundle.getFloat("pay_money");
         Resources resources = getResources();
+        ((TextView) findViewById(R.id.shangpin)).setText(shangPin);
         ((TextView) findViewById(R.id.ddxq)).setText(
-                String.format(resources.getString(R.string.dingdanxianqing), bundle.getString("bookListId")));
+                String.format(resources.getString(R.string.dingdanxianqing), dingdanHao));
         ((TextView) findViewById(R.id.ddqe)).setText(
                 String.format(resources.getString(R.string.dingdanjine), bundle.getFloat("pay_money")));
 
@@ -51,7 +63,13 @@ public class PayOptActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //立即支付
-                String url = "http://wxpay.weixin.qq.com/pub_v2/app/app_pay.php?plat=android";
+                String url = VolleyHelpApi.MakeURL(BaseApi.WEIXI_LJZF_URL, new LinkedHashMap<String, Object>() {
+                    {
+                        put("dingdanHao", dingdanHao);
+                        put("jinE", jinE);
+                        put("shangpin", URLEncoder.encode(shangPin));
+                    }
+                });
                 Button payBtn = (Button) findViewById(R.id.zhifu_liji);
                 payBtn.setEnabled(false);
                 Toast.makeText(PayOptActivity.this, "获取订单中...", Toast.LENGTH_SHORT).show();
@@ -61,7 +79,7 @@ public class PayOptActivity extends Activity {
                         String content = new String(buf);
                         Log.e("get server pay params:",content);
                         JSONObject json = new JSONObject(content);
-                        if(null != json && !json.has("retcode") ){
+                        if(null != json && !json.has("retcode")){
                             PayReq req = new PayReq();
                             //req.appId = "wxf8b4f85f3a794e77";  // 测试用appId
                             req.appId			= json.getString("appid");
@@ -103,5 +121,13 @@ public class PayOptActivity extends Activity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private class ZhiFuTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            return null;
+        }
     }
 }

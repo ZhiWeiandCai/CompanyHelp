@@ -144,18 +144,34 @@ public class Utils {
 
 	public static byte[] httpGet(String url) {
 		try {
+
 			URL urlT = new URL(url);
+
 			HttpURLConnection connection = (HttpURLConnection) urlT.openConnection();
+
+			connection.setReadTimeout(10000 /* milliseconds */);
+			connection.setConnectTimeout(15000 /* milliseconds */);
+			connection.setRequestMethod("GET");
+			connection.setDoInput(true);
+			// Start the query
 			connection.connect();
+
+			LogHelper.e(TAG, "HttpURLConnection.HTTP_OK前1");
+
 			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
 				LogHelper.e(TAG, "httpGet fail, status code = " + connection.getResponseCode());
 				return null;
 			}
+			LogHelper.e(TAG, "InputStream前");
 			InputStream is = connection.getInputStream();
+			LogHelper.e(TAG, "InputStream后");
 			int count = 0;
+			LogHelper.e(TAG, "count=" + count);
 			while (count == 0) {
 				count = is.available();
+				LogHelper.e(TAG, "count=" + count);
 			}
+
 			byte[] bA = new byte[count];
 			is.read(bA);
 			return bA;

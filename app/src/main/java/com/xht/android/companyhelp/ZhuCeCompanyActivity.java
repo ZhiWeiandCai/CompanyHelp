@@ -278,6 +278,7 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 
 				dismissProgressDialog();
 				Bundle bundle = new Bundle();
+				bundle.putString("shangpin", "公司注册");
 				bundle.putString("bookListId", tempJO.optString("registOrderId"));
 				bundle.putFloat("pay_money", mMoney);
 				Intent intent = new Intent(ZhuCeCompanyActivity.this, PayOptActivity.class);

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp"
+            android:gravity="center"
+            android:textSize="21sp"
+            android:text="@string/company_name"/>
+        <Spinner android:id="@+id/spinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            />
+        <View android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#ff0000ff"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@android:drawable/btn_plus"
+            android:id="@+id/add_item"
+            android:layout_marginLeft="0dp"/>
+    </LinearLayout>
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+    </ListView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@android:color/white"
+        android:layout_marginTop="1dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginLeft="16dp"
+            android:text="@string/jine"
+            android:textSize="18sp"/>
+        <TextView android:id="@+id/shu_heji"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginLeft="4dp"
+
+            android:textSize="18sp"
+            android:textColor="@android:color/holo_red_light"/>
+        <View android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <Button android:id="@+id/bookYuQue"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginRight="16dp"
+            android:padding="4dp"
+            android:text="@string/book_yuque"
+            android:background="@drawable/btn_bookyuyue_selector"/>
+    </LinearLayout>
+</LinearLayout>

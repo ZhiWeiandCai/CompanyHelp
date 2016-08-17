@@ -18,4 +18,6 @@ public class BaseApi {
 	public static final String JiZhangBS_SROrderI_URL = "http://www.xiaohoutai.com.cn:8888/XHT/" +
 			"accountorderController/saveAccountOrderInfo";
 
+	public static final String WEIXI_LJZF_URL = "http://www.xiaohoutai.com.cn:8888/XHT/appwxzf/appwxyuzhifu";
+
 }

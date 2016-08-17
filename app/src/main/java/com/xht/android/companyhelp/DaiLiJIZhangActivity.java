@@ -39,7 +39,7 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
     private EditText mNameET;
     private int mMoney = 0;    //合计
     private int mArea = 0;    //spinner注册区域所选的id
-    private int dljz = 0;	//代理记账-0,1,2,3,4,5,6
+    private int dljz = 1;	//代理记账-0,1,2,3,4,5,6
     private int nsrFlag = 1;	//纳税人默认为小规模
     private int zhouqiFlag = 1;	//默认为季度
     private int[] dljz6 = new int[7];
@@ -197,7 +197,7 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
         JSONObject jsonObj = new JSONObject();
         try {
             jsonObj.put("area", mArea);
-            jsonObj.put("CompName", mNameET.getText().toString());
+            jsonObj.put("CompName", mET.getText().toString());
 
             jsonObj.put("pNumber", mPhone.getText().toString());
             jsonObj.put("pName", mNameET.getText().toString());
@@ -213,10 +213,11 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
         VolleyHelpApi.getInstance().postDingDanJiZhang(mUId, jsonObj, new APIListener() {
             @Override
             public void onResult(Object result) {
-                LogHelper.i("订单提交成功", "2016-08-03");
+                LogHelper.i("订单提交成功", "2016-08-16");
                 dismissProgressDialog();
                 Bundle bundle = new Bundle();
                 JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
+                bundle.putString("shangpin", "代理记账");
                 bundle.putString("bookListId", tempJO.optString("accountOrderId"));
                 bundle.putFloat("pay_money", mMoney);
                 Intent intent = new Intent(DaiLiJIZhangActivity.this, PayOptActivity.class);
@@ -256,6 +257,7 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
         }
         dljz = nsrFlag + zhouqiFlag;
         mMoney = mMoney + dljz6[dljz];
+        LogHelper.i("代理记账纳税人周期", "dljz=" + dljz);
     }
 
     /**

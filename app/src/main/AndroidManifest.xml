@@ -34,6 +34,7 @@
         <activity android:name=".ZhuCeCompanyActivity"></activity>
         <activity android:name=".DaiLiJIZhangActivity"></activity>
         <activity android:name=".PayOptActivity"></activity>
+        <activity android:name=".SheBaoSActivity"></activity>
         <activity
             android:name="net.sourceforge.simcpux.wxapi.WXPayEntryActivity"
             android:exported="true"

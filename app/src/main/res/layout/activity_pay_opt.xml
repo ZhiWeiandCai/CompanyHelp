@@ -10,6 +10,12 @@
     tools:context="com.xht.android.companyhelp.PayOptActivity"
     android:orientation="vertical">
     <TextView
+        android:id="@+id/shangpin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="18sp"
+        android:gravity="center"/>
+    <TextView
         android:id="@+id/ddxq"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
