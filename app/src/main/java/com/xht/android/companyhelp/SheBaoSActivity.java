@@ -4,20 +4,30 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.xht.android.companyhelp.model.PersonOfSheBao;
 import com.xht.android.companyhelp.net.APIListener;
 import com.xht.android.companyhelp.net.VolleyHelpApi;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -32,6 +42,15 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
     private int mUId;
     private ArrayList<PersonOfSheBao> mArrayList = new ArrayList<>();
     private PersonOfSheBaoAdapter mPersonOfSheBaoAdapter;
+    private final int mItemRadioR1 = R.id.radioR1;
+    private final int mItemRadioR2 = R.id.radioR2;
+    private TextWatcher mTWatch1;   //监听姓名EditText
+    private TextWatcher mTWatch2;   //监听身份证号EditText
+    int index;  //触摸listview的某项的索引
+    private int mPrice;
+    private int[] mCompIds;
+    private String[] mCompNames;
+    private int mSelectedCompId;
 
     private ProgressDialog mProgDoal;
     private Spinner mCompNameSpinner;
@@ -59,6 +78,7 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
         mAddItemIBtn.setOnClickListener(this);
         mPersonOfSheBaoAdapter = new PersonOfSheBaoAdapter(mArrayList);
         mListView.setAdapter(mPersonOfSheBaoAdapter);
+        getComListAndJiaGe(mUId);
     }
 
     private void initView() {
@@ -67,6 +87,17 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
         mListView = (ListView) findViewById(R.id.list_view);
         mMHeJiTV = (TextView) findViewById(R.id.shu_heji);
         mBookYuYue = (Button) findViewById(R.id.bookYuQue);
+        mCompNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mSelectedCompId = mCompIds[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
@@ -90,7 +121,25 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
         VolleyHelpApi.getInstance().getComListAndJiaGeofYeWu(uid, new APIListener() {
             @Override
             public void onResult(Object result) {
-
+                JSONObject jiageJO;
+                JSONArray companyJA;
+                try {
+                    jiageJO = ((JSONObject) result).getJSONObject("price");
+                    mPrice = jiageJO.optInt("SheBao");
+                    companyJA = ((JSONObject) result).getJSONArray("companyName");
+                    int compJALength = companyJA.length();
+                    mCompIds = new int[compJALength];
+                    mCompNames = new String[compJALength];
+                    for (int i = 0; i < compJALength; i++) {
+                        JSONObject temp = companyJA.optJSONObject(i);
+                        mCompIds[i] = temp.optInt("id");
+                        mCompNames[i] = temp.optString("name");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                mSelectedCompId = mCompIds[0];
+                refleshJiaGeView();
             }
 
             @Override
@@ -100,6 +149,13 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
                 finish();
             }
         });
+    }
+
+    private void refleshJiaGeView() {
+        mMHeJiTV.setText(String.format(getResources().getString(R.string.heji_yuan), mPrice / 100.0f));
+        ArrayAdapter<CharSequence> arrayAdapter = new ArrayAdapter<CharSequence>(SheBaoSActivity.this, android.R.layout.simple_spinner_item, mCompNames);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mCompNameSpinner.setAdapter(arrayAdapter);
     }
 
     private void createProgressDialog(String title) {
@@ -128,8 +184,12 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_item:
-                mArrayList.add(new PersonOfSheBao());
-                mPersonOfSheBaoAdapter.notifyDataSetChanged();
+                if (mArrayList.size() < 10) {
+                    mArrayList.add(new PersonOfSheBao());
+                    mPersonOfSheBaoAdapter.notifyDataSetChanged();
+                } else {
+                    App.getInstance().showToast("一次最多只能操作10个员工");
+                }
                 break;
         }
     }
@@ -141,14 +201,140 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.personshebao_item, parent, false);
+                holder = new ViewHolder();
+                holder.rGroup = (RadioGroup) convertView.findViewById(R.id.rg1);
+                holder.iButton = (ImageButton) convertView.findViewById(R.id.jian_item_btn);
+                holder.et1 = (EditText) convertView.findViewById(R.id.shebaoren_name);
+                holder.et2 = (EditText) convertView.findViewById(R.id.shebaoren_idcard);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
             }
             PersonOfSheBao item = getItem(position);
+            holder.iButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deleteOneItem(position);
+                }
+            });
+            holder.rGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    switch (checkedId) {
+                        case mItemRadioR1:
+                            mArrayList.get(position).setCheck(0);
+                            break;
+                        case mItemRadioR2:
+                            mArrayList.get(position).setCheck(1);
+                            break;
+                    }
+                }
+            });
+            if (item.isCheck() == 0) {
+                holder.rGroup.check(mItemRadioR1);
+            } else {
+                holder.rGroup.check(mItemRadioR2);
+            }
+            holder.et1.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_UP)
+                        index = position;
+                    return false;
+                }
+            });
+            holder.et2.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_UP)
+                        index = position;
+                    return false;
+                }
+            });
+            holder.et1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    EditText et = (EditText) v;
+                    if (mTWatch1 == null)
+                    mTWatch1 = new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            mArrayList.get(index).setmName(s.toString());
+                            /*for (int i = 0; i < mArrayList.size(); i++) {
+                                LogHelper.i("姓名", i + "=" + mArrayList.get(i).getmName());
+                            }*/
+                        }
+                    };
+                    if (hasFocus) {
+                        et.addTextChangedListener(mTWatch1);
+                    } else {
+                        et.removeTextChangedListener(mTWatch1);
+                    }
+                }
+            });
+            holder.et2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    EditText et = (EditText) v;
+                    if (mTWatch2 == null)
+                        mTWatch2 = new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+                                mArrayList.get(index).setmIdCard(s.toString());
+                                /*for (int i = 0; i < mArrayList.size(); i++) {
+                                    LogHelper.i("身份证号", i + "=" + mArrayList.get(i).getmIdCard());
+                                }*/
+                            }
+                        };
+                    if (hasFocus) {
+                        et.addTextChangedListener(mTWatch2);
+                    } else {
+                        et.removeTextChangedListener(mTWatch2);
+                    }
+                }
+            });
+            holder.et1.setText(mArrayList.get(position).getmName());
+            holder.et2.setText(mArrayList.get(position).getmIdCard());
 
             return convertView;
         }
 
+    }
+
+    private void deleteOneItem(int position) {
+        if (mArrayList.size() > 1) {
+            mArrayList.remove(position);
+            mPersonOfSheBaoAdapter.notifyDataSetChanged();
+        } else {
+            App.getInstance().showToast("只剩一项了");
+        }
+    }
+
+    static class ViewHolder {
+        RadioGroup rGroup;
+        ImageButton iButton;
+        EditText et1;
+        EditText et2;
+        int position;
     }
 }

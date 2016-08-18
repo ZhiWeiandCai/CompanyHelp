@@ -8,6 +8,19 @@ public class PersonOfSheBao {
 
     private String mIdCard; //身份证号
     private String mName;
+    private int isCheck;
+
+    public PersonOfSheBao() {
+
+    }
+
+    public int isCheck() {
+        return isCheck;
+    }
+
+    public void setCheck(int check) {
+        isCheck = check;
+    }
 
     public String getmIdCard() {
         return mIdCard;

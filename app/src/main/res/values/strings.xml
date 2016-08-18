@@ -89,4 +89,5 @@
     <string name="goumai">购买 </string>
     <string name="chexiao">撤销</string>
     <string name="please_idcard_nums">请填写身份证号</string>
+    <string name="heji_yuanjiaofen">¥ %1$.2f</string>
 </resources>

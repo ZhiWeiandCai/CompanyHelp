@@ -380,8 +380,8 @@ public class VolleyHelpApi extends BaseApi{
 					String errMsg = response.optString("message");
 					apiListener.onError(errMsg);
 				} else {
-
-					apiListener.onResult(response);
+					JSONObject jsonObject = response.optJSONObject("entity");
+					apiListener.onResult(jsonObject);
 				}
 			}
 		}, new Response.ErrorListener() {
