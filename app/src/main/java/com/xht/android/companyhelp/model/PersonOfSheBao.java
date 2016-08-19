@@ -8,7 +8,7 @@ public class PersonOfSheBao {
 
     private String mIdCard; //身份证号
     private String mName;
-    private int isCheck;
+    private int isCheck = 1;
 
     public PersonOfSheBao() {
 

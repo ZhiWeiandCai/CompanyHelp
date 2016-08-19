@@ -253,7 +253,7 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 		JSONObject jsonObj = new JSONObject();
 		try {
 			jsonObj.put("area", mArea);
-			jsonObj.put("CompName", mNameET.getText().toString());
+			jsonObj.put("CompName", mET.getText().toString());
 			jsonObj.put("jiaji", mShiFouJiaJi);
 			jsonObj.put("dizhituoguan", mAddTuoGuan);
 			jsonObj.put("pNumber", mPhone.getText().toString());

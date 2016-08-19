@@ -3,6 +3,7 @@ package com.xht.android.companyhelp;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import com.xht.android.companyhelp.model.PersonOfSheBao;
 import com.xht.android.companyhelp.net.APIListener;
 import com.xht.android.companyhelp.net.VolleyHelpApi;
+import com.xht.android.companyhelp.util.LogHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +48,7 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
     private final int mItemRadioR2 = R.id.radioR2;
     private TextWatcher mTWatch1;   //监听姓名EditText
     private TextWatcher mTWatch2;   //监听身份证号EditText
-    int index;  //触摸listview的某项的索引
+    int index = -1;  //触摸listview的某项的索引
     private int mPrice;
     private int[] mCompIds;
     private String[] mCompNames;
@@ -87,9 +89,11 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
         mListView = (ListView) findViewById(R.id.list_view);
         mMHeJiTV = (TextView) findViewById(R.id.shu_heji);
         mBookYuYue = (Button) findViewById(R.id.bookYuQue);
+        mBookYuYue.setOnClickListener(this);
         mCompNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                LogHelper.i("单击了某些选项", "position=" + position + "--gongsi=" + mCompNames[position]);
                 mSelectedCompId = mCompIds[position];
             }
 
@@ -138,6 +142,7 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                dismissProgressDialog();
                 mSelectedCompId = mCompIds[0];
                 refleshJiaGeView();
             }
@@ -152,7 +157,7 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
     }
 
     private void refleshJiaGeView() {
-        mMHeJiTV.setText(String.format(getResources().getString(R.string.heji_yuan), mPrice / 100.0f));
+        mMHeJiTV.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice / 100.0f));
         ArrayAdapter<CharSequence> arrayAdapter = new ArrayAdapter<CharSequence>(SheBaoSActivity.this, android.R.layout.simple_spinner_item, mCompNames);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mCompNameSpinner.setAdapter(arrayAdapter);
@@ -191,7 +196,70 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
                     App.getInstance().showToast("一次最多只能操作10个员工");
                 }
                 break;
+            case R.id.bookYuQue:
+                checkInfoComplete();
+                break;
         }
+    }
+
+    /**
+     * 检测所填信息完整性
+     */
+    private void checkInfoComplete() {
+        for (PersonOfSheBao temp : mArrayList) {
+            if (temp.getmName() == null || temp.getmName() == "" || temp.getmIdCard() == null || temp.getmIdCard() == "") {
+                App.getInstance().showToast("请把信息填写完整...");
+                return;
+            }
+        }
+        postBookList();
+    }
+
+    /**
+     * 获取用户所填的资料，封装成json
+     */
+    private void postBookList() {
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("userId", mUId);
+            jsonObj.put("CompanyId", mSelectedCompId);
+            jsonObj.put("price", mPrice);
+            JSONArray jA = new JSONArray();
+            for (PersonOfSheBao temp : mArrayList) {
+                JSONObject jo = new JSONObject();
+                jo.put("yOrn", temp.isCheck());
+                jo.put("peopleName", temp.getmName());
+                jo.put("idcard", temp.getmIdCard());
+                jA.put(jo);
+            }
+            jsonObj.put("peopleInfo", jA);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        LogHelper.i("打印社保服务的员工json--", jsonObj.toString());
+        createProgressDialog("订单提交中...");
+        VolleyHelpApi.getInstance().postDingDanSheBao(mUId, jsonObj, new APIListener() {
+            @Override
+            public void onResult(Object result) {
+                LogHelper.i("订单提交成功", "2016-08-16");
+                dismissProgressDialog();
+                Bundle bundle = new Bundle();
+                JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
+                bundle.putString("shangpin", "社保服务");
+                bundle.putString("bookListId", tempJO.optString("orderId"));
+                bundle.putFloat("pay_money", mPrice);
+                Intent intent = new Intent(SheBaoSActivity.this, PayOptActivity.class);
+                intent.putExtra("booklistdata", bundle);
+                SheBaoSActivity.this.startActivity(intent);
+                SheBaoSActivity.this.finish();
+            }
+
+            @Override
+            public void onError(Object e) {
+                dismissProgressDialog();
+                App.getInstance().showToast(e.toString());
+            }
+        });
     }
 
     private class PersonOfSheBaoAdapter extends ArrayAdapter<PersonOfSheBao> {
@@ -226,15 +294,15 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
                     switch (checkedId) {
                         case mItemRadioR1:
-                            mArrayList.get(position).setCheck(0);
+                            mArrayList.get(position).setCheck(1);
                             break;
                         case mItemRadioR2:
-                            mArrayList.get(position).setCheck(1);
+                            mArrayList.get(position).setCheck(0);
                             break;
                     }
                 }
             });
-            if (item.isCheck() == 0) {
+            if (item.isCheck() == 1) {
                 holder.rGroup.check(mItemRadioR1);
             } else {
                 holder.rGroup.check(mItemRadioR2);
@@ -242,16 +310,18 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
             holder.et1.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getAction() == MotionEvent.ACTION_UP)
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
                         index = position;
+                    }
                     return false;
                 }
             });
             holder.et2.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getAction() == MotionEvent.ACTION_UP)
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
                         index = position;
+                    }
                     return false;
                 }
             });
@@ -278,6 +348,7 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
                         }
                     };
                     if (hasFocus) {
+
                         et.addTextChangedListener(mTWatch1);
                     } else {
                         et.removeTextChangedListener(mTWatch1);
@@ -307,6 +378,7 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
                             }
                         };
                     if (hasFocus) {
+
                         et.addTextChangedListener(mTWatch2);
                     } else {
                         et.removeTextChangedListener(mTWatch2);

@@ -17,6 +17,8 @@ public class BaseApi {
 			"companyregistorderController/saveRegistOrderInfo";
 	public static final String JiZhangBS_SROrderI_URL = "http://www.xiaohoutai.com.cn:8888/XHT/" +
 			"accountorderController/saveAccountOrderInfo";
+	public static final String SHEBAO_GET_JIAGE_URL = "http://www.xiaohoutai.com.cn:8888/XHT/sclsecurityorderController/loadPriceAndCompanyNameOfSocialSecurity";
+	public static final String SHEBAO_BOOKLIST_POST_URL = "http://www.xiaohoutai.com.cn:8888/XHT/sclsecurityorderController/saveSclsecurityorder";
 
 	public static final String WEIXI_LJZF_URL = "http://www.xiaohoutai.com.cn:8888/XHT/appwxzf/appwxyuzhifu";
 

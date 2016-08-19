@@ -14,7 +14,7 @@
             android:textSize="21sp"
             android:text="@string/company_name"/>
         <Spinner android:id="@+id/spinner1"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="40dp"
             android:layout_marginLeft="16dp"
             />
