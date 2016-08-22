@@ -130,7 +130,8 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
                 try {
                     jiageJO = ((JSONObject) result).getJSONObject("price");
                     mPrice = jiageJO.optInt("SheBao");
-                    companyJA = ((JSONObject) result).getJSONArray("companyName");
+                    companyJA = ((JSONObject) result).optJSONArray("companyName");
+
                     int compJALength = companyJA.length();
                     mCompIds = new int[compJALength];
                     mCompNames = new String[compJALength];

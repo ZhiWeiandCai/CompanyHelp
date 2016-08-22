@@ -23,22 +23,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity" />
 
         <provider
             android:name=".provider.DatabaseHelpProvider"
             android:authorities="com.xht.android.companyhelp.DatabaseHelpProvider"
             android:exported="false" />
 
-        <activity android:name=".ZhuCeCompanyActivity"></activity>
-        <activity android:name=".DaiLiJIZhangActivity"></activity>
-        <activity android:name=".PayOptActivity"></activity>
-        <activity android:name=".SheBaoSActivity"></activity>
+        <activity android:name=".ZhuCeCompanyActivity" />
+        <activity android:name=".DaiLiJIZhangActivity" />
+        <activity android:name=".PayOptActivity" />
+        <activity android:name=".SheBaoSActivity" />
         <activity
             android:name="net.sourceforge.simcpux.wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
+        <activity android:name=".FaPiaoActivity"></activity>
     </application>
 
 </manifest>

@@ -90,4 +90,32 @@
     <string name="chexiao">撤销</string>
     <string name="please_idcard_nums">请填写身份证号</string>
     <string name="heji_yuanjiaofen">¥ %1$.2f</string>
+    <string name="fp_tab_str1">税局开票申请</string>
+    <string name="fp_tab_str2">业务开票</string>
+    <string name="fp_tab_str3">发票认证</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment1">Hello blank fragment1</string>
+    <string name="hello_blank_fragment2">Hello blank fragment2</string>
+    <string name="hello_blank_fragment3">Hello blank fragment3</string>
+    <!-- 发票界面 -->
+    <string name="jia_c_name">开票方公司名</string>
+    <string name="jia_c_nashuihao">开票方纳税号</string>
+    <string name="jia_c_add">开票方公司地址</string>
+    <string name="jia_c_phone">开票方公司电话</string>
+    <string name="jia_c_kfh">开票方开户行</string>
+    <string name="jia_c_kfhao">开票方开户账号</string>
+    <string name="yi_c_name">收票方公司名</string>
+    <string name="yi_c_nashuihao">收票方纳税号</string>
+    <string name="yi_c_add">收票方公司地址</string>
+    <string name="yi_c_phone">收票方公司电话</string>
+    <string name="yi_c_kfh">收票方开户行</string>
+    <string name="yi_c_kfhao">收票方开户账号</string>
+    <string name="huowu_str">货物</string>
+    <string name="guigexinghao">规格型号</string>
+    <string name="danwei_str">单位</string>
+    <string name="shuliang_str">数量</string>
+    <string name="danjia_str">单位(不含税)</string>
+    <string name="je_buhanshui_str">金额(不含税)</string>
+    <string name="huowu_ms">货物明细</string>
 </resources>

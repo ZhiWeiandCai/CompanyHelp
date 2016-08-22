@@ -381,6 +381,10 @@ public class VolleyHelpApi extends BaseApi{
 					apiListener.onError(errMsg);
 				} else {
 					JSONObject jsonObject = response.optJSONObject("entity");
+					if (jsonObject.optJSONArray("companyName") == null) {
+						apiListener.onError("您还没有在我们这里注册公司！");
+						return;
+					}
 					apiListener.onResult(jsonObject);
 				}
 			}
