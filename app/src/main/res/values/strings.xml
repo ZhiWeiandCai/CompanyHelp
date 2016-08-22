@@ -115,7 +115,7 @@
     <string name="guigexinghao">规格型号</string>
     <string name="danwei_str">单位</string>
     <string name="shuliang_str">数量</string>
-    <string name="danjia_str">单位(不含税)</string>
+    <string name="danjia_str">单价(不含税)</string>
     <string name="je_buhanshui_str">金额(不含税)</string>
     <string name="huowu_ms">货物明细</string>
 </resources>
