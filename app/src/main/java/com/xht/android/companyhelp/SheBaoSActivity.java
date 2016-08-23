@@ -49,6 +49,7 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
     private TextWatcher mTWatch1;   //监听姓名EditText
     private TextWatcher mTWatch2;   //监听身份证号EditText
     int index = -1;  //触摸listview的某项的索引
+    int whichET;
     private int mPrice;
     private int[] mCompIds;
     private String[] mCompNames;
@@ -386,6 +387,9 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
                     }
                 }
             });
+            if (index != -1 && index == position) {
+
+            }
             holder.et1.setText(mArrayList.get(position).getmName());
             holder.et2.setText(mArrayList.get(position).getmIdCard());
 

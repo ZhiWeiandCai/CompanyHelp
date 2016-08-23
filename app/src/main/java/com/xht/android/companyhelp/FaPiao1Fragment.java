@@ -143,6 +143,7 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener{
                 }
             });
             LogHelper.i("ghi", "posi=" + position);
+
             return convertView;
         }
     }
