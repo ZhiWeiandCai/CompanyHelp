@@ -2,17 +2,23 @@ package com.xht.android.companyhelp;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.xht.android.companyhelp.model.HuoWu;
-import com.xht.android.companyhelp.util.LogHelper;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -22,7 +28,7 @@ import java.util.ArrayList;
  * Use the {@link FaPiao1Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FaPiao1Fragment extends Fragment implements View.OnClickListener{
+public class FaPiao1Fragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -98,6 +104,7 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener{
         mListView.addHeaderView(headView);
         mAdapter = new HuoWuAdapter(mHuoWus);
         mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(this);
         return view;
     }
 
@@ -112,6 +119,30 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener{
         super.onDetach();
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity(), HuoWuActivity.class);
+        intent.putExtra("whichItem", position - 1);
+        getActivity().startActivityForResult(intent, 0);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == 0) {
+            if (resultCode == -1) {
+                Bundle bundle = intent.getBundleExtra("huowuData");
+                int posi = bundle.getInt("wItem");
+                mHuoWus.get(posi).setmName(bundle.getString("hw1"));
+                mHuoWus.get(posi).setmXingHao(bundle.getString("hw2"));
+                mHuoWus.get(posi).setmDanWei(bundle.getString("hw3"));
+                mHuoWus.get(posi).setmShuLiang(bundle.getInt("hw4"));
+                mHuoWus.get(posi).setmDanJia(bundle.getFloat("hw5"));
+                mHuoWus.get(posi).setmJinE(bundle.getFloat("hw6"));
+                mAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
     private class HuoWuAdapter extends ArrayAdapter<HuoWu> {
 
         public HuoWuAdapter(ArrayList<HuoWu> items) {
@@ -124,12 +155,12 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener{
             if (convertView == null) {
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.huowu_item, parent, false);
                 holder = new ViewHolder();
-                holder.nameEt = (EditText) convertView.findViewById(R.id.i_hwName_et);
-                holder.guixingEt = (EditText) convertView.findViewById(R.id.guigexinghao_et);
-                holder.danweiEt = (EditText) convertView.findViewById(R.id.danwei_et);
-                holder.shuliangEt = (EditText) convertView.findViewById(R.id.shuliang_et);
-                holder.danjiaEt = (EditText) convertView.findViewById(R.id.danjia_et);
-                holder.jineEt = (EditText) convertView.findViewById(R.id.je_buhanshui_et);
+                holder.nameEt = (TextView) convertView.findViewById(R.id.i_hwName_et);
+                holder.guixingEt = (TextView) convertView.findViewById(R.id.guigexinghao_et);
+                holder.danweiEt = (TextView) convertView.findViewById(R.id.danwei_et);
+                holder.shuliangEt = (TextView) convertView.findViewById(R.id.shuliang_et);
+                holder.danjiaEt = (TextView) convertView.findViewById(R.id.danjia_et);
+                holder.jineEt = (TextView) convertView.findViewById(R.id.je_buhanshui_et);
                 holder.jianIBtn = (ImageButton) convertView.findViewById(R.id.jian_huowu);
                 convertView.setTag(holder);
             } else {
@@ -142,19 +173,24 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener{
                     deleteOneItem(position);
                 }
             });
-            LogHelper.i("ghi", "posi=" + position);
+            holder.nameEt.setText(huoWu.getmName());
+            holder.guixingEt.setText(huoWu.getmXingHao());
+            holder.danweiEt.setText(huoWu.getmDanWei());
+            holder.shuliangEt.setText("" + huoWu.getmShuLiang());
+            holder.danjiaEt.setText("" + huoWu.getmDanJia());
+            holder.jineEt.setText("" + huoWu.getmJinE());
 
             return convertView;
         }
     }
 
     static class ViewHolder {
-        EditText nameEt;
-        EditText guixingEt;
-        EditText danweiEt;
-        EditText shuliangEt;
-        EditText danjiaEt;
-        EditText jineEt;
+        TextView nameEt;
+        TextView guixingEt;
+        TextView danweiEt;
+        TextView shuliangEt;
+        TextView danjiaEt;
+        TextView jineEt;
         ImageButton jianIBtn;
         int position;
     }
@@ -180,5 +216,94 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener{
         } else {
             App.getInstance().showToast("只剩一项了");
         }
+    }
+
+    public JSONObject postJsonData() {
+        for (HuoWu temp : mHuoWus) {
+            if (temp.getmName() == null || temp.getmName() == "" || temp.getmXingHao() == null || temp.getmXingHao() == ""
+                    || temp.getmDanWei() == null || temp.getmDanWei() == "" || temp.getmShuLiang() == 0
+                    || temp.getmDanJia() == 0f || temp.getmJinE() == 0f) {
+                App.getInstance().showToast("请把信息填写完整...");
+                return null;
+            }
+        }
+        JSONObject jsonObj = new JSONObject();
+        if (mJNEt.getText() == null || mJNEt.getText().toString().isEmpty()) {
+            App.getInstance().showToast("请把信息填写完整...");
+            return null;
+        }
+        if (mJNshEt.getText() == null || mJNshEt.getText().toString().isEmpty()) {
+            App.getInstance().showToast("请把信息填写完整...");
+            return null;
+        }
+        if (mJAddEt.getText() == null || mJAddEt.getText().toString().isEmpty()) {
+            App.getInstance().showToast("请把信息填写完整...");
+            return null;
+        }
+        if (mJPEt.getText() == null || mJPEt.getText().toString().isEmpty()) {
+            App.getInstance().showToast("请把信息填写完整...");
+            return null;
+        }
+        if (mJKHHEt.getText() == null || mJKHHEt.getText().toString().isEmpty()) {
+            App.getInstance().showToast("请把信息填写完整...");
+            return null;
+        }
+        if (mJKHHHEt.getText() == null || mJKHHHEt.getText().toString().isEmpty()) {
+            App.getInstance().showToast("请把信息填写完整...");
+            return null;
+        }
+        if (mYNEt.getText() == null || mYNEt.getText().toString().isEmpty()) {
+            App.getInstance().showToast("请把信息填写完整...");
+            return null;
+        }
+        if (mYNshEt.getText() == null || mYNshEt.getText().toString().isEmpty()) {
+            App.getInstance().showToast("请把信息填写完整...");
+            return null;
+        }
+        if (mYAddEt.getText() == null || mYAddEt.getText().toString().isEmpty()) {
+            App.getInstance().showToast("请把信息填写完整...");
+            return null;
+        }
+        if (mYPEt.getText() == null || mYPEt.getText().toString().isEmpty()) {
+            App.getInstance().showToast("请把信息填写完整...");
+            return null;
+        }
+        if (mYKHHEt.getText() == null || mYKHHEt.getText().toString().isEmpty()) {
+            App.getInstance().showToast("请把信息填写完整...");
+            return null;
+        }
+        if (mYKHHHEt.getText() == null || mYKHHHEt.getText().toString().isEmpty()) {
+            App.getInstance().showToast("请把信息填写完整...");
+            return null;
+        }
+        try {
+            JSONArray jA = new JSONArray();
+            for (HuoWu temp : mHuoWus) {
+                JSONObject jo = new JSONObject();
+                jo.put("HuoWuName", temp.getmName());
+                jo.put("HuoWuHao", temp.getmXingHao());
+                jo.put("HuoWuDanWei", temp.getmDanWei());
+                jo.put("HuoWuShuLiang", temp.getmShuLiang());
+                jo.put("HuoWuDanJia", temp.getmDanJia());
+                jo.put("HuoWuJinE", temp.getmJinE());
+                jA.put(jo);
+            }
+            jsonObj.put("jiaName", mJNEt.getText().toString());
+            jsonObj.put("jiaNSH", mJNshEt.getText().toString());
+            jsonObj.put("jiaADD", mJAddEt.getText().toString());
+            jsonObj.put("jiaPhone", mJPEt.getText().toString());
+            jsonObj.put("jiaKHH", mJKHHEt.getText().toString());
+            jsonObj.put("jiaKHCH", mJKHHHEt.getText().toString());
+            jsonObj.put("YiName", mYNEt.getText().toString());
+            jsonObj.put("YiNSH", mYNshEt.getText().toString());
+            jsonObj.put("YiADD", mYAddEt.getText().toString());
+            jsonObj.put("YiPhone", mYPEt.getText().toString());
+            jsonObj.put("YiKHH", mYKHHEt.getText().toString());
+            jsonObj.put("YiKHCH", mYKHHHEt.getText().toString());
+            jsonObj.put("huowuInfo", jA);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
     }
 }

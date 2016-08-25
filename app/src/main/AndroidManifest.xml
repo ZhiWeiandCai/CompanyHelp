@@ -39,7 +39,8 @@
             android:name="net.sourceforge.simcpux.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
-        <activity android:name=".FaPiaoActivity"></activity>
+        <activity android:name=".FaPiaoActivity" />
+        <activity android:name=".HuoWuActivity"></activity>
     </application>
 
 </manifest>

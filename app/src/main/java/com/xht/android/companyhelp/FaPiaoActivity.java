@@ -4,13 +4,25 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.xht.android.companyhelp.net.APIListener;
+import com.xht.android.companyhelp.net.VolleyHelpApi;
+import com.xht.android.companyhelp.util.LogHelper;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class FaPiaoActivity extends Activity {
+    private static final String TAG = "FaPiaoActivity";
 
     RadioGroup rg;
     RadioButton mRBtn1, mRBtn2, mRBtn3;
@@ -18,10 +30,19 @@ public class FaPiaoActivity extends Activity {
     Button mBookXiaDan;
     private Fragment mFragment1, mFragment2, mFragment3;
     private int mCurFragFlag;   //标记当前是哪一个Fragment
+    private int mPrice1;
+    private int mPrice2;
+    private int mPrice3;
+    private int[] mCompIds;
+    private String[] mCompNames;
+    private int mUId;
+    private ProgressDialog mProgDoal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getIntent().getBundleExtra("uData");
+        mUId = bundle.getInt("uid");
         setContentView(R.layout.activity_fa_piao);
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -43,6 +64,7 @@ public class FaPiaoActivity extends Activity {
         ft.commit();
         initView();
         updateFragmentVisibility();
+        getComListAndJiaGeOfFP(mUId);
     }
 
     private void initView() {
@@ -66,24 +88,179 @@ public class FaPiaoActivity extends Activity {
                     default:
                         break;
                 }
+                refleshJiaGeView();
             }
         });
         mJinETV = (TextView) findViewById(R.id.shu_heji);
         mBookXiaDan = (Button) findViewById(R.id.bookYuQue);
+        mBookXiaDan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (mCurFragFlag) {
+                    case 1:
+                        break;
+                    case 2:
+                        JSONObject temp;
+                        Fragment fragment = getFragmentManager().findFragmentByTag("f1");
+                        if (fragment != null && fragment.isVisible()) {
+                            temp = ((FaPiao1Fragment) fragment).postJsonData();
+                            if (temp == null)
+                                return;
+                            try {
+                                temp.put("userId", mUId);
+                                temp.put("price", mPrice2);
+                                postBookList(temp, mPrice2);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        break;
+                    case 3:
+                        break;
+                }
+
+            }
+        });
     }
 
     // Update fragment visibility based on current check box state.
     void updateFragmentVisibility() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         if (mRBtn1.isChecked()) {
+            mCurFragFlag = 1;
             ft.show(mFragment2);
         } else {
             ft.hide(mFragment2);
         }
-        if (mRBtn2.isChecked()) ft.show(mFragment1);
-        else ft.hide(mFragment1);
-        if (mRBtn3.isChecked()) ft.show(mFragment3);
-        else ft.hide(mFragment3);
+        if (mRBtn2.isChecked()) {
+            mCurFragFlag = 2;
+            ft.show(mFragment1);
+        } else {
+            ft.hide(mFragment1);
+        }
+        if (mRBtn3.isChecked()) {
+            mCurFragFlag = 3;
+            ft.show(mFragment3);
+        } else {
+            ft.hide(mFragment3);
+        }
         ft.commit();
+    }
+
+    /**
+     * 根据用户id获取公司列表和发票价格
+     */
+    private void getComListAndJiaGeOfFP(int uid) {
+        createProgressDialog("价格获取中...");
+        VolleyHelpApi.getInstance().getComListAndJiaGeofFP(uid, new APIListener() {
+            @Override
+            public void onResult(Object result) {
+                JSONObject jiageJO;
+                JSONArray companyJA;
+                try {
+                    jiageJO = ((JSONObject) result).getJSONObject("price");
+                    mPrice1 = jiageJO.optInt("TaxInvoice");
+                    mPrice2 = jiageJO.optInt("BusinessInvoice");
+                    mPrice3 = jiageJO.optInt("VerifyInvoice");
+                    /*companyJA = ((JSONObject) result).optJSONArray("companyName");
+                    int compJALength = companyJA.length();
+                    mCompIds = new int[compJALength];
+                    mCompNames = new String[compJALength];
+                    for (int i = 0; i < compJALength; i++) {
+                        JSONObject temp = companyJA.optJSONObject(i);
+                        mCompIds[i] = temp.optInt("id");
+                        mCompNames[i] = temp.optString("name");
+                    }*/
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                dismissProgressDialog();
+                refleshJiaGeView();
+            }
+
+            @Override
+            public void onError(Object e) {
+                dismissProgressDialog();
+                App.getInstance().showToast(e.toString());
+                finish();
+            }
+        });
+    }
+
+    /**
+     * 获取用户所填的资料,提交
+     */
+    private void postBookList(JSONObject jsonObj, final int price) {
+        LogHelper.i("打印发票2的json--", jsonObj.toString());
+        createProgressDialog("订单提交中...");
+        VolleyHelpApi.getInstance().postDingDanSheBao(mUId, jsonObj, new APIListener() {
+            @Override
+            public void onResult(Object result) {
+                LogHelper.i("订单提交成功", "2016-08-25");
+                dismissProgressDialog();
+                Bundle bundle = new Bundle();
+                JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
+                bundle.putString("shangpin", "发票服务");
+                bundle.putString("bookListId", tempJO.optString("orderId"));
+                bundle.putFloat("pay_money", price);
+                Intent intent = new Intent(FaPiaoActivity.this, PayOptActivity.class);
+                intent.putExtra("booklistdata", bundle);
+                FaPiaoActivity.this.startActivity(intent);
+                FaPiaoActivity.this.finish();
+            }
+
+            @Override
+            public void onError(Object e) {
+                dismissProgressDialog();
+                App.getInstance().showToast(e.toString());
+            }
+        });
+    }
+
+    private void refleshJiaGeView() {
+        if (mCurFragFlag == 1) {
+            mJinETV.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice1 / 100.0f));
+        } else if (mCurFragFlag == 2) {
+            mJinETV.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice2 / 100.0f));
+        } else if (mCurFragFlag == 3) {
+            mJinETV.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice3 / 100.0f));
+        }
+
+    }
+
+    private void createProgressDialog(String title) {
+        if (mProgDoal == null) {
+            mProgDoal = new ProgressDialog(this);
+        }
+        mProgDoal.setTitle(title);
+        mProgDoal.setIndeterminate(true);
+        mProgDoal.setCancelable(false);
+        mProgDoal.show();
+    }
+
+    /**
+     * 隐藏mProgressDialog
+     */
+    private void dismissProgressDialog()
+    {
+        if(mProgDoal != null)
+        {
+            mProgDoal.dismiss();
+            mProgDoal = null;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+                LogHelper.i(TAG, "成功接收到数据");
+                Fragment fragment = getFragmentManager().findFragmentByTag("f1");
+                if (fragment != null && fragment.isVisible()) {
+                    fragment.onActivityResult(requestCode, resultCode, intent);
+                }
+            }
+        }
     }
 }
