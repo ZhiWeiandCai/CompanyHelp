@@ -468,10 +468,10 @@ public class VolleyHelpApi extends BaseApi{
 					apiListener.onError(errMsg);
 				} else {
 					JSONObject jsonObject = response.optJSONObject("entity");
-					/*if (jsonObject.optJSONArray("companyName") == null) {
+					if (jsonObject.optJSONArray("companyName") == null) {
 						apiListener.onError("您还没有在我们这里注册公司！");
 						return;
-					}*/
+					}
 					apiListener.onResult(jsonObject);
 				}
 			}
@@ -493,6 +493,45 @@ public class VolleyHelpApi extends BaseApi{
 						LogHelper.i(TAG, "未知错误");
 				}
 				apiListener.onError("获取价格出错");
+			}
+		});
+		App.getInstance().addToRequestQueue(req, TAG);
+	}
+
+	/**
+	 * 发票-业务开票-提交订单
+	 */
+	public void postDingDanFP2(int userId, JSONObject jsonObject, final APIListener apiListener) {
+		JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, FAPIAO_POST_LEIXING2, jsonObject, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				if (isResponseError(response)) {
+					String errMsg = response.optString("message");
+					apiListener.onError(errMsg);
+				} else {
+
+					apiListener.onResult(response);
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("提交订单出错");
 			}
 		});
 		App.getInstance().addToRequestQueue(req, TAG);

@@ -5,20 +5,16 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -37,7 +33,7 @@ import java.util.ArrayList;
  * Created by Administrator on 2016/8/16.
  * 社保服务
  */
-public class SheBaoSActivity extends Activity implements View.OnClickListener {
+public class SheBaoSActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private static final String TAG = "SheBaoSActivity";
 
@@ -81,6 +77,7 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
         mAddItemIBtn.setOnClickListener(this);
         mPersonOfSheBaoAdapter = new PersonOfSheBaoAdapter(mArrayList);
         mListView.setAdapter(mPersonOfSheBaoAdapter);
+        mListView.setOnItemClickListener(this);
         getComListAndJiaGe(mUId);
     }
 
@@ -276,10 +273,10 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.personshebao_item, parent, false);
                 holder = new ViewHolder();
-                holder.rGroup = (RadioGroup) convertView.findViewById(R.id.rg1);
+                holder.et = (TextView) convertView.findViewById(R.id.gmorsx);
                 holder.iButton = (ImageButton) convertView.findViewById(R.id.jian_item_btn);
-                holder.et1 = (EditText) convertView.findViewById(R.id.shebaoren_name);
-                holder.et2 = (EditText) convertView.findViewById(R.id.shebaoren_idcard);
+                holder.et1 = (TextView) convertView.findViewById(R.id.shebaoren_name);
+                holder.et2 = (TextView) convertView.findViewById(R.id.shebaoren_idcard);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
@@ -291,104 +288,10 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
                     deleteOneItem(position);
                 }
             });
-            holder.rGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    switch (checkedId) {
-                        case mItemRadioR1:
-                            mArrayList.get(position).setCheck(1);
-                            break;
-                        case mItemRadioR2:
-                            mArrayList.get(position).setCheck(0);
-                            break;
-                    }
-                }
-            });
-            if (item.isCheck() == 1) {
-                holder.rGroup.check(mItemRadioR1);
+            if (mArrayList.get(position).isCheck() == 1) {
+                holder.et.setText(getResources().getText(R.string.goumai));
             } else {
-                holder.rGroup.check(mItemRadioR2);
-            }
-            holder.et1.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getAction() == MotionEvent.ACTION_UP) {
-                        index = position;
-                    }
-                    return false;
-                }
-            });
-            holder.et2.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getAction() == MotionEvent.ACTION_UP) {
-                        index = position;
-                    }
-                    return false;
-                }
-            });
-            holder.et1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    EditText et = (EditText) v;
-                    if (mTWatch1 == null)
-                    mTWatch1 = new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-                            mArrayList.get(index).setmName(s.toString());
-                            /*for (int i = 0; i < mArrayList.size(); i++) {
-                                LogHelper.i("姓名", i + "=" + mArrayList.get(i).getmName());
-                            }*/
-                        }
-                    };
-                    if (hasFocus) {
-
-                        et.addTextChangedListener(mTWatch1);
-                    } else {
-                        et.removeTextChangedListener(mTWatch1);
-                    }
-                }
-            });
-            holder.et2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    EditText et = (EditText) v;
-                    if (mTWatch2 == null)
-                        mTWatch2 = new TextWatcher() {
-                            @Override
-                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                            }
-
-                            @Override
-                            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            }
-
-                            @Override
-                            public void afterTextChanged(Editable s) {
-                                mArrayList.get(index).setmIdCard(s.toString());
-                                /*for (int i = 0; i < mArrayList.size(); i++) {
-                                    LogHelper.i("身份证号", i + "=" + mArrayList.get(i).getmIdCard());
-                                }*/
-                            }
-                        };
-                    if (hasFocus) {
-
-                        et.addTextChangedListener(mTWatch2);
-                    } else {
-                        et.removeTextChangedListener(mTWatch2);
-                    }
-                }
-            });
-            if (index != -1 && index == position) {
-
+                holder.et.setText(getResources().getText(R.string.chexiao));
             }
             holder.et1.setText(mArrayList.get(position).getmName());
             holder.et2.setText(mArrayList.get(position).getmIdCard());
@@ -408,10 +311,31 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener {
     }
 
     static class ViewHolder {
-        RadioGroup rGroup;
         ImageButton iButton;
-        EditText et1;
-        EditText et2;
+        TextView et;
+        TextView et1;
+        TextView et2;
         int position;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(this, SheBaoRActivity.class);
+        intent.putExtra("whichItem", position);
+        this.startActivityForResult(intent, 0);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == 0) {
+            if (resultCode == -1) {
+                Bundle bundle = intent.getBundleExtra("shebaorData");
+                int posi = bundle.getInt("wItem");
+                mArrayList.get(posi).setCheck(bundle.getInt("sbr1"));
+                mArrayList.get(posi).setmName(bundle.getString("sbr2"));
+                mArrayList.get(posi).setmIdCard(bundle.getString("sbr3"));
+                mPersonOfSheBaoAdapter.notifyDataSetChanged();
+            }
+        }
     }
 }

@@ -35,6 +35,11 @@ public class FaPiaoActivity extends Activity {
     private int mPrice3;
     private int[] mCompIds;
     private String[] mCompNames;
+    private String[] mCompNSH;
+    private String[] mCompPhone;
+    private String[] mCompADD;
+    private String[] mCompKHH;
+    private String[] mCompKHCH;
     private int mUId;
     private ProgressDialog mProgDoal;
 
@@ -44,26 +49,9 @@ public class FaPiaoActivity extends Activity {
         Bundle bundle = getIntent().getBundleExtra("uData");
         mUId = bundle.getInt("uid");
         setContentView(R.layout.activity_fa_piao);
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        mFragment1 = fm.findFragmentByTag("f1");
-        if (mFragment1 == null) {
-            mFragment1 = new FaPiao1Fragment();
-        }
-        ft.add(R.id.fragment_contain, mFragment1, "f1");
-        mFragment2 = fm.findFragmentByTag("f2");
-        if (mFragment2 == null) {
-            mFragment2 = new FaPiao2Fragment();
-        }
-        ft.add(R.id.fragment_contain, mFragment2, "f2");
-        mFragment3 = fm.findFragmentByTag("f3");
-        if (mFragment3 == null) {
-            mFragment3 = new FaPiao3Fragment();
-        }
-        ft.add(R.id.fragment_contain, mFragment3, "f3");
-        ft.commit();
+
         initView();
-        updateFragmentVisibility();
+
         getComListAndJiaGeOfFP(mUId);
     }
 
@@ -163,19 +151,49 @@ public class FaPiaoActivity extends Activity {
                     mPrice1 = jiageJO.optInt("TaxInvoice");
                     mPrice2 = jiageJO.optInt("BusinessInvoice");
                     mPrice3 = jiageJO.optInt("VerifyInvoice");
-                    /*companyJA = ((JSONObject) result).optJSONArray("companyName");
+                    companyJA = ((JSONObject) result).optJSONArray("companyName");
                     int compJALength = companyJA.length();
                     mCompIds = new int[compJALength];
                     mCompNames = new String[compJALength];
+                    mCompNSH = new String[compJALength];
+                    mCompADD = new String[compJALength];
+                    mCompPhone = new String[compJALength];
+                    mCompKHH = new String[compJALength];
+                    mCompKHCH = new String[compJALength];
                     for (int i = 0; i < compJALength; i++) {
                         JSONObject temp = companyJA.optJSONObject(i);
                         mCompIds[i] = temp.optInt("id");
                         mCompNames[i] = temp.optString("name");
-                    }*/
+                        mCompNSH[i] = temp.optString("comTaxeNo");
+                        mCompADD[i] = temp.optString("comAddr");
+                        mCompPhone[i] = temp.optString("comTel");
+                        mCompKHH[i] = temp.optString("comBankName");
+                        mCompKHCH[i] = temp.optString("comBankCode");
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 dismissProgressDialog();
+
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                mFragment1 = fm.findFragmentByTag("f1");
+                if (mFragment1 == null) {
+                    mFragment1 = FaPiao1Fragment.newInstance("", mCompIds, mCompNames, mCompNSH, mCompADD, mCompPhone, mCompKHH, mCompKHCH);
+                }
+                ft.add(R.id.fragment_contain, mFragment1, "f1");
+                mFragment2 = fm.findFragmentByTag("f2");
+                if (mFragment2 == null) {
+                    mFragment2 = new FaPiao2Fragment();
+                }
+                ft.add(R.id.fragment_contain, mFragment2, "f2");
+                mFragment3 = fm.findFragmentByTag("f3");
+                if (mFragment3 == null) {
+                    mFragment3 = new FaPiao3Fragment();
+                }
+                ft.add(R.id.fragment_contain, mFragment3, "f3");
+                ft.commit();
+                updateFragmentVisibility();
                 refleshJiaGeView();
             }
 
@@ -194,7 +212,7 @@ public class FaPiaoActivity extends Activity {
     private void postBookList(JSONObject jsonObj, final int price) {
         LogHelper.i("打印发票2的json--", jsonObj.toString());
         createProgressDialog("订单提交中...");
-        VolleyHelpApi.getInstance().postDingDanSheBao(mUId, jsonObj, new APIListener() {
+        VolleyHelpApi.getInstance().postDingDanFP2(mUId, jsonObj, new APIListener() {
             @Override
             public void onResult(Object result) {
                 LogHelper.i("订单提交成功", "2016-08-25");

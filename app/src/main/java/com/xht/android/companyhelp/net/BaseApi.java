@@ -20,6 +20,7 @@ public class BaseApi {
 	public static final String SHEBAO_GET_JIAGE_URL = "http://www.xiaohoutai.com.cn:8888/XHT/sclsecurityorderController/loadPriceAndCompanyNameOfSocialSecurity";
 	public static final String SHEBAO_BOOKLIST_POST_URL = "http://www.xiaohoutai.com.cn:8888/XHT/sclsecurityorderController/saveSclsecurityorder";
 	public static final String FAPIAO_GET_JIAGE_URL = "http://www.xiaohoutai.com.cn:8888/XHT/invoiceorderController/loadCompanyNameAndPrice";
+	public static final String FAPIAO_POST_LEIXING2 = "http://www.xiaohoutai.com.cn:8888/XHT/invoiceorderController/saveBusinessInvoiceOrderInfo";
 
 	public static final String WEIXI_LJZF_URL = "http://www.xiaohoutai.com.cn:8888/XHT/appwxzf/appwxyuzhifu";
 

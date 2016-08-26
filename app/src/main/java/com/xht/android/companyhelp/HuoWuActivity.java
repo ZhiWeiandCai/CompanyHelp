@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.xht.android.companyhelp.util.Arith;
 import com.xht.android.companyhelp.util.LogHelper;
 
 public class HuoWuActivity extends Activity {
@@ -47,7 +48,7 @@ public class HuoWuActivity extends Activity {
                 if (!s.toString().isEmpty()) {
                     mShuL = Integer.parseInt(s.toString());
                     if (danjiaEt.getText() != null && !danjiaEt.getText().toString().isEmpty()) {
-                        mJE = mShuL * mDanJ;
+                        mJE = Arith.floatMul(mShuL, mDanJ);
                         jineEt.setText("" + mJE);
                     }
                 } else {
@@ -76,7 +77,7 @@ public class HuoWuActivity extends Activity {
                 if (!s.toString().isEmpty()) {
                     mDanJ = Float.parseFloat(s.toString());
                     if (shuliangEt.getText() != null && !shuliangEt.getText().toString().isEmpty()) {
-                        mJE = mShuL * mDanJ;
+                        mJE = Arith.floatMul(mShuL, mDanJ);
                         jineEt.setText("" + mJE);
                     }
                 } else {
@@ -121,7 +122,6 @@ public class HuoWuActivity extends Activity {
 
         Intent i = getIntent();
         int whichI = i.getIntExtra("whichItem", -1);
-        LogHelper.i("abc", "which=" + whichI);
         Bundle bundle = new Bundle();
         bundle.putString("hw1", nameEt.getText().toString());
         bundle.putString("hw2", guixingEt.getText().toString());

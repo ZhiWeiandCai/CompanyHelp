@@ -12,9 +12,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.xht.android.companyhelp.model.HuoWu;
+import com.xht.android.companyhelp.util.LogHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,10 +35,22 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
+    private static final String ARG_PARAM4 = "param4";
+    private static final String ARG_PARAM5 = "param5";
+    private static final String ARG_PARAM6 = "param6";
+    private static final String ARG_PARAM7 = "param7";
+    private static final String ARG_PARAM8 = "param8";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
-    private String mParam2;
+    private int[] mParam2;
+    private String[] mParam3;
+    private String[] mParam4;
+    private String[] mParam5;
+    private String[] mParam6;
+    private String[] mParam7;
+    private String[] mParam8;
 
     private static final String TAG = "FaPiao1Fragment";
 
@@ -44,9 +58,11 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
     private ArrayList<HuoWu> mHuoWus = new ArrayList<>();
     private ListView mListView;
     private HuoWuAdapter mAdapter;
-    private EditText mJNEt, mJNshEt, mJAddEt, mJPEt, mJKHHEt, mJKHHHEt,
+    private EditText mJNshEt, mJAddEt, mJPEt, mJKHHEt, mJKHHHEt,
             mYNEt, mYNshEt, mYAddEt, mYPEt, mYKHHEt, mYKHHHEt;
     private ImageButton mAddHWLItemIBtn;
+    private Spinner mJNEt;
+    private int mPosiFlag;
 
     public FaPiao1Fragment() {
         // Required empty public constructor
@@ -61,11 +77,18 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
      * @return A new instance of fragment FaPiao1Fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FaPiao1Fragment newInstance(String param1, String param2) {
+    public static FaPiao1Fragment newInstance(String param1, int[] param2, String[] param3, String[] param4,
+            String[] param5, String[] param6, String[] param7, String[] param8) {
         FaPiao1Fragment fragment = new FaPiao1Fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putIntArray(ARG_PARAM2, param2);
+        args.putStringArray(ARG_PARAM3, param3);
+        args.putStringArray(ARG_PARAM4, param4);
+        args.putStringArray(ARG_PARAM5, param5);
+        args.putStringArray(ARG_PARAM6, param6);
+        args.putStringArray(ARG_PARAM7, param7);
+        args.putStringArray(ARG_PARAM8, param8);
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,7 +98,13 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam2 = getArguments().getIntArray(ARG_PARAM2);
+            mParam3 = getArguments().getStringArray(ARG_PARAM3);
+            mParam4 = getArguments().getStringArray(ARG_PARAM4);
+            mParam5 = getArguments().getStringArray(ARG_PARAM5);
+            mParam6 = getArguments().getStringArray(ARG_PARAM6);
+            mParam7 = getArguments().getStringArray(ARG_PARAM7);
+            mParam8 = getArguments().getStringArray(ARG_PARAM8);
         }
         mHuoWus.add(new HuoWu());
     }
@@ -87,7 +116,7 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
         View view = inflater.inflate(R.layout.fragment_fa_piao1, container, false);
         mListView = (ListView) view.findViewById(R.id.list_view_fp);
         View headView = inflater.inflate(R.layout.headviewoflistview, mListView, false);
-        mJNEt = (EditText) headView.findViewById(R.id.jia_c_et);
+
         mJNshEt = (EditText) headView.findViewById(R.id.nsh_et);
         mJAddEt = (EditText) headView.findViewById(R.id.add_et);
         mJPEt = (EditText) headView.findViewById(R.id.phone_et);
@@ -99,6 +128,26 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
         mYPEt = (EditText) headView.findViewById(R.id.yi_phone_et);
         mYKHHEt = (EditText) headView.findViewById(R.id.yi_c_kfh_et);
         mYKHHHEt = (EditText) headView.findViewById(R.id.yi_c_kfhao_et);
+        mJNEt = (Spinner) headView.findViewById(R.id.jia_c_et);
+        ArrayAdapter<CharSequence> arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, mParam3);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mJNEt.setAdapter(arrayAdapter);
+        mJNEt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                LogHelper.i("spinner1-公司区域", mJNEt.getSelectedItem().toString());
+                mPosiFlag = position;
+                updateJiaInfo();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+
+            }
+        });
         mAddHWLItemIBtn = (ImageButton) headView.findViewById(R.id.add_item);
         mAddHWLItemIBtn.setOnClickListener(this);
         mListView.addHeaderView(headView);
@@ -106,6 +155,14 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
         return view;
+    }
+
+    private void updateJiaInfo() {
+        mJNshEt.setText(mParam4[mPosiFlag]);
+        mJAddEt.setText(mParam5[mPosiFlag]);
+        mJPEt.setText(mParam6[mPosiFlag]);
+        mJKHHEt.setText(mParam7[mPosiFlag]);
+        mJKHHHEt.setText(mParam8[mPosiFlag]);
     }
 
     @Override
@@ -228,10 +285,6 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
             }
         }
         JSONObject jsonObj = new JSONObject();
-        if (mJNEt.getText() == null || mJNEt.getText().toString().isEmpty()) {
-            App.getInstance().showToast("请把信息填写完整...");
-            return null;
-        }
         if (mJNshEt.getText() == null || mJNshEt.getText().toString().isEmpty()) {
             App.getInstance().showToast("请把信息填写完整...");
             return null;
@@ -288,7 +341,8 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
                 jo.put("HuoWuJinE", temp.getmJinE());
                 jA.put(jo);
             }
-            jsonObj.put("jiaName", mJNEt.getText().toString());
+            jsonObj.put("jiaCId", mParam2[mPosiFlag]);
+            jsonObj.put("jiaName", mParam3[mPosiFlag]);
             jsonObj.put("jiaNSH", mJNshEt.getText().toString());
             jsonObj.put("jiaADD", mJAddEt.getText().toString());
             jsonObj.put("jiaPhone", mJPEt.getText().toString());
