@@ -41,7 +41,8 @@
             android:launchMode="singleTop" />
         <activity android:name=".FaPiaoActivity" />
         <activity android:name=".HuoWuActivity" />
-        <activity android:name=".SheBaoRActivity"></activity>
+        <activity android:name=".SheBaoRActivity" />
+        <activity android:name=".RegiTrademaskActivity"></activity>
     </application>
 
 </manifest>

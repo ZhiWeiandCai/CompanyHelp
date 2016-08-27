@@ -58,7 +58,7 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
     private ArrayList<HuoWu> mHuoWus = new ArrayList<>();
     private ListView mListView;
     private HuoWuAdapter mAdapter;
-    private EditText mJNshEt, mJAddEt, mJPEt, mJKHHEt, mJKHHHEt,
+    private EditText mJNEtX, mJNshEt, mJAddEt, mJPEt, mJKHHEt, mJKHHHEt,
             mYNEt, mYNshEt, mYAddEt, mYPEt, mYKHHEt, mYKHHHEt;
     private ImageButton mAddHWLItemIBtn;
     private Spinner mJNEt;
@@ -116,7 +116,7 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
         View view = inflater.inflate(R.layout.fragment_fa_piao1, container, false);
         mListView = (ListView) view.findViewById(R.id.list_view_fp);
         View headView = inflater.inflate(R.layout.headviewoflistview, mListView, false);
-
+        mJNEtX = (EditText) headView.findViewById(R.id.jia_c_et_x);
         mJNshEt = (EditText) headView.findViewById(R.id.nsh_et);
         mJAddEt = (EditText) headView.findViewById(R.id.add_et);
         mJPEt = (EditText) headView.findViewById(R.id.phone_et);
@@ -129,7 +129,12 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
         mYKHHEt = (EditText) headView.findViewById(R.id.yi_c_kfh_et);
         mYKHHHEt = (EditText) headView.findViewById(R.id.yi_c_kfhao_et);
         mJNEt = (Spinner) headView.findViewById(R.id.jia_c_et);
-        ArrayAdapter<CharSequence> arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, mParam3);
+        ArrayAdapter<CharSequence> arrayAdapter;
+        if (mParam3 != null) {
+            arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, mParam3);
+        } else {
+            arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, new String[]{"没有可选公司"});
+        }
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mJNEt.setAdapter(arrayAdapter);
         mJNEt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -139,7 +144,9 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
                                        int position, long id) {
                 LogHelper.i("spinner1-公司区域", mJNEt.getSelectedItem().toString());
                 mPosiFlag = position;
-                updateJiaInfo();
+                if (mParam3 != null) {
+                    updateJiaInfo();
+                }
             }
 
             @Override
@@ -148,6 +155,8 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
 
             }
         });
+        if (mParam3 == null)
+            mJNEt.setVisibility(View.GONE);
         mAddHWLItemIBtn = (ImageButton) headView.findViewById(R.id.add_item);
         mAddHWLItemIBtn.setOnClickListener(this);
         mListView.addHeaderView(headView);
@@ -285,6 +294,10 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
             }
         }
         JSONObject jsonObj = new JSONObject();
+        if (mJNEtX.getText() == null || mJNEtX.getText().toString().isEmpty()) {
+            App.getInstance().showToast("请把信息填写完整...");
+            return null;
+        }
         if (mJNshEt.getText() == null || mJNshEt.getText().toString().isEmpty()) {
             App.getInstance().showToast("请把信息填写完整...");
             return null;
@@ -341,8 +354,11 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
                 jo.put("HuoWuJinE", temp.getmJinE());
                 jA.put(jo);
             }
-            jsonObj.put("jiaCId", mParam2[mPosiFlag]);
-            jsonObj.put("jiaName", mParam3[mPosiFlag]);
+            if (mParam3 != null)
+                jsonObj.put("jiaCId", mParam2[mPosiFlag]);
+            else
+                jsonObj.put("jiaCId", 0);
+            jsonObj.put("jiaName", mJNEtX.getText().toString());
             jsonObj.put("jiaNSH", mJNshEt.getText().toString());
             jsonObj.put("jiaADD", mJAddEt.getText().toString());
             jsonObj.put("jiaPhone", mJPEt.getText().toString());

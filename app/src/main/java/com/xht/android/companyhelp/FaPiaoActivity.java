@@ -42,6 +42,7 @@ public class FaPiaoActivity extends Activity {
     private String[] mCompKHCH;
     private int mUId;
     private ProgressDialog mProgDoal;
+    private boolean mFlag;  //标记是否有公司可选
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,12 +85,26 @@ public class FaPiaoActivity extends Activity {
         mBookXiaDan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                JSONObject temp;
+                Fragment fragment;
                 switch (mCurFragFlag) {
                     case 1:
+                        fragment = getFragmentManager().findFragmentByTag("f2");
+                        if (fragment != null && fragment.isVisible()) {
+                            temp = ((FaPiao2Fragment) fragment).postJsonData();
+                            if (temp == null)
+                                return;
+                            try {
+                                temp.put("ordContractId", mUId);
+                                temp.put("orderFee", mPrice1);
+                                postSJKPSQBookList(temp, mPrice1);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
                         break;
                     case 2:
-                        JSONObject temp;
-                        Fragment fragment = getFragmentManager().findFragmentByTag("f1");
+                        fragment = getFragmentManager().findFragmentByTag("f1");
                         if (fragment != null && fragment.isVisible()) {
                             temp = ((FaPiao1Fragment) fragment).postJsonData();
                             if (temp == null)
@@ -105,6 +120,19 @@ public class FaPiaoActivity extends Activity {
 
                         break;
                     case 3:
+                        fragment = getFragmentManager().findFragmentByTag("f3");
+                        if (fragment != null && fragment.isVisible()) {
+                            temp = ((FaPiao3Fragment) fragment).postJsonData();
+                            if (temp == null)
+                                return;
+                            try {
+                                temp.put("ordContractId", mUId);
+                                temp.put("orderFee", mPrice1);
+                                postSJKPSQBookList(temp, mPrice1);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
                         break;
                 }
 
@@ -152,23 +180,28 @@ public class FaPiaoActivity extends Activity {
                     mPrice2 = jiageJO.optInt("BusinessInvoice");
                     mPrice3 = jiageJO.optInt("VerifyInvoice");
                     companyJA = ((JSONObject) result).optJSONArray("companyName");
-                    int compJALength = companyJA.length();
-                    mCompIds = new int[compJALength];
-                    mCompNames = new String[compJALength];
-                    mCompNSH = new String[compJALength];
-                    mCompADD = new String[compJALength];
-                    mCompPhone = new String[compJALength];
-                    mCompKHH = new String[compJALength];
-                    mCompKHCH = new String[compJALength];
-                    for (int i = 0; i < compJALength; i++) {
-                        JSONObject temp = companyJA.optJSONObject(i);
-                        mCompIds[i] = temp.optInt("id");
-                        mCompNames[i] = temp.optString("name");
-                        mCompNSH[i] = temp.optString("comTaxeNo");
-                        mCompADD[i] = temp.optString("comAddr");
-                        mCompPhone[i] = temp.optString("comTel");
-                        mCompKHH[i] = temp.optString("comBankName");
-                        mCompKHCH[i] = temp.optString("comBankCode");
+                    if (companyJA != null) {
+                        int compJALength = companyJA.length();
+                        mCompIds = new int[compJALength];
+                        mCompNames = new String[compJALength];
+                        mCompNSH = new String[compJALength];
+                        mCompADD = new String[compJALength];
+                        mCompPhone = new String[compJALength];
+                        mCompKHH = new String[compJALength];
+                        mCompKHCH = new String[compJALength];
+                        for (int i = 0; i < compJALength; i++) {
+                            JSONObject temp = companyJA.optJSONObject(i);
+                            mCompIds[i] = temp.optInt("id");
+                            mCompNames[i] = temp.optString("name");
+                            mCompNSH[i] = temp.optString("comTaxeNo");
+                            mCompADD[i] = temp.optString("comAddr");
+                            mCompPhone[i] = temp.optString("comTel");
+                            mCompKHH[i] = temp.optString("comBankName");
+                            mCompKHCH[i] = temp.optString("comBankCode");
+                        }
+                        mFlag = true;
+                    } else {
+                        mFlag = false;
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -179,17 +212,29 @@ public class FaPiaoActivity extends Activity {
                 FragmentTransaction ft = fm.beginTransaction();
                 mFragment1 = fm.findFragmentByTag("f1");
                 if (mFragment1 == null) {
-                    mFragment1 = FaPiao1Fragment.newInstance("", mCompIds, mCompNames, mCompNSH, mCompADD, mCompPhone, mCompKHH, mCompKHCH);
+                    if (mFlag) {
+                        mFragment1 = FaPiao1Fragment.newInstance("", mCompIds, mCompNames, mCompNSH, mCompADD, mCompPhone, mCompKHH, mCompKHCH);
+                    } else {
+                        mFragment1 = FaPiao1Fragment.newInstance("", null, null, null, null, null, null, null);
+                    }
                 }
                 ft.add(R.id.fragment_contain, mFragment1, "f1");
                 mFragment2 = fm.findFragmentByTag("f2");
                 if (mFragment2 == null) {
-                    mFragment2 = new FaPiao2Fragment();
+                    if (mFlag) {
+                        mFragment2 = FaPiao2Fragment.newInstance("", mCompIds, mCompNames);
+                    } else {
+                        mFragment2 = FaPiao2Fragment.newInstance("", null, null);
+                    }
                 }
                 ft.add(R.id.fragment_contain, mFragment2, "f2");
                 mFragment3 = fm.findFragmentByTag("f3");
                 if (mFragment3 == null) {
-                    mFragment3 = new FaPiao3Fragment();
+                    if (mFlag) {
+                        mFragment3 = FaPiao3Fragment.newInstance("", mCompIds, mCompNames);
+                    } else {
+                        mFragment3 = FaPiao3Fragment.newInstance("", null, null);
+                    }
                 }
                 ft.add(R.id.fragment_contain, mFragment3, "f3");
                 ft.commit();
@@ -213,6 +258,68 @@ public class FaPiaoActivity extends Activity {
         LogHelper.i("打印发票2的json--", jsonObj.toString());
         createProgressDialog("订单提交中...");
         VolleyHelpApi.getInstance().postDingDanFP2(mUId, jsonObj, new APIListener() {
+            @Override
+            public void onResult(Object result) {
+                LogHelper.i("订单提交成功", "2016-08-25");
+                dismissProgressDialog();
+                Bundle bundle = new Bundle();
+                JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
+                bundle.putString("shangpin", "发票服务");
+                bundle.putString("bookListId", tempJO.optString("orderId"));
+                bundle.putFloat("pay_money", price);
+                Intent intent = new Intent(FaPiaoActivity.this, PayOptActivity.class);
+                intent.putExtra("booklistdata", bundle);
+                FaPiaoActivity.this.startActivity(intent);
+                FaPiaoActivity.this.finish();
+            }
+
+            @Override
+            public void onError(Object e) {
+                dismissProgressDialog();
+                App.getInstance().showToast(e.toString());
+            }
+        });
+    }
+
+    /**
+     * 税局开票的申请，提交
+     * @param jsonObj
+     * @param price
+     */
+    private void postSJKPSQBookList(JSONObject jsonObj, final int price) {
+        createProgressDialog("订单提交中...");
+        VolleyHelpApi.getInstance().postDingDanFP1(mUId, jsonObj, new APIListener() {
+            @Override
+            public void onResult(Object result) {
+                LogHelper.i("订单提交成功", "2016-08-25");
+                dismissProgressDialog();
+                Bundle bundle = new Bundle();
+                JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
+                bundle.putString("shangpin", "发票服务");
+                bundle.putString("bookListId", tempJO.optString("orderId"));
+                bundle.putFloat("pay_money", price);
+                Intent intent = new Intent(FaPiaoActivity.this, PayOptActivity.class);
+                intent.putExtra("booklistdata", bundle);
+                FaPiaoActivity.this.startActivity(intent);
+                FaPiaoActivity.this.finish();
+            }
+
+            @Override
+            public void onError(Object e) {
+                dismissProgressDialog();
+                App.getInstance().showToast(e.toString());
+            }
+        });
+    }
+
+    /**
+     * 发票认证，提交
+     * @param jsonObj
+     * @param price
+     */
+    private void postFPRZBookList(JSONObject jsonObj, final int price) {
+        createProgressDialog("订单提交中...");
+        VolleyHelpApi.getInstance().postDingDanFP3(mUId, jsonObj, new APIListener() {
             @Override
             public void onResult(Object result) {
                 LogHelper.i("订单提交成功", "2016-08-25");

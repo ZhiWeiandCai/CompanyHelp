@@ -55,6 +55,7 @@ public class ServiceFragment extends Fragment implements OnClickListener{
 		mTextView2.setOnClickListener(this);
 		mTextView3.setOnClickListener(this);
 		mTextView4.setOnClickListener(this);
+		mTextView5.setOnClickListener(this);
 		return view;		
 	}
 
@@ -86,6 +87,11 @@ public class ServiceFragment extends Fragment implements OnClickListener{
 			break;
 		case R.id.tv21:
 			intent = new Intent(getActivity(),FaPiaoActivity.class);
+			intent.putExtra("uData", bundle);
+			getActivity().startActivity(intent);
+			break;
+		case R.id.tv22:
+			intent = new Intent(getActivity(),RegiTrademaskActivity.class);
 			intent.putExtra("uData", bundle);
 			getActivity().startActivity(intent);
 			break;
