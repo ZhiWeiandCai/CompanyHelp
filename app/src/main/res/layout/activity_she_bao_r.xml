@@ -49,12 +49,14 @@
         android:drawablePadding="4dp"
         android:inputType="phone"
         android:maxLength="25"/>
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/shebaoren_idcard"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/jianitem_btn_sel"
-        android:id="@+id/jian_item_btn"/>
+        android:layout_margin="20dp"
+        android:background="@drawable/btn_background_circle"
+        android:id="@+id/jian_item_btn"
+        android:gravity="center"
+        android:textSize="18sp"/>
 </RelativeLayout>

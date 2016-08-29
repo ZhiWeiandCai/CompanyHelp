@@ -4,15 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioGroup;
 
 public class SheBaoRActivity extends Activity {
     private static final String TAG = "SheBaoRActivity";
     private EditText editText1, editText2;
     private RadioGroup radioGroup;
-    private ImageButton jianIBtn;
+    private Button jianIBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class SheBaoRActivity extends Activity {
         editText1 = (EditText) findViewById(R.id.shebaoren_name);
         editText2 = (EditText) findViewById(R.id.shebaoren_idcard);
 
-        jianIBtn = (ImageButton) findViewById(R.id.jian_item_btn);
+        jianIBtn = (Button) findViewById(R.id.jian_item_btn);
         jianIBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override

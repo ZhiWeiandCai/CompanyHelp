@@ -76,6 +76,7 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 		TextView mCustomView = new TextView(this);
 		mCustomView.setGravity(Gravity.CENTER);
 		mCustomView.setText("下单预约-公司注册");
+		mCustomView.setTextSize(18);
 		final ActionBar aBar = getActionBar();
 		aBar.setCustomView(mCustomView,
 				new ActionBar.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));

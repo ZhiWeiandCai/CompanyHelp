@@ -122,7 +122,9 @@
     <string name="je_buhanshui_str">金额(不含税)</string>
     <string name="huowu_ms">货物明细</string>
     <!-- 注册商标界面 -->
-    <string name="str_rpn">联系人姓名：</string>
-    <string name="str_rpp">联系人电话：</string>
+    <string name="str_rpn">联系人姓名</string>
+    <string name="str_rpp">联系人电话</string>
     <string name="rm_name">商标名称</string>
+
+    <string name="baocun_str">保存</string>
 </resources>

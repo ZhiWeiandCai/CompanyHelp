@@ -112,11 +112,14 @@
             android:enabled="false"/>
     </LinearLayout>
 
-    <ImageButton
+    <Button
         android:id="@+id/jian_huowu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="20dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/jianitem_btn_sel"/>
+        android:background="@drawable/btn_background_circle"
+        android:text="@string/baocun_str"
+        android:gravity="center"
+        android:textSize="18sp"/>
 </LinearLayout>

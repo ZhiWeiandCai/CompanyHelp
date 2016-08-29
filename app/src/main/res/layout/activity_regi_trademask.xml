@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
             android:id="@+id/jia_c_et"
-            android:layout_gravity="center_vertical">
+            android:layout_gravity="bottom">
         </Spinner>
     </LinearLayout>
     <LinearLayout
@@ -83,7 +83,7 @@
             android:singleLine="true"
             android:maxLength="15"/>
     </LinearLayout>
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>

@@ -95,7 +95,7 @@ public class FaPiaoActivity extends Activity {
                             if (temp == null)
                                 return;
                             try {
-                                temp.put("ordContractId", mUId);
+                                temp.put("ordContactId", mUId);
                                 temp.put("orderFee", mPrice1);
                                 postSJKPSQBookList(temp, mPrice1);
                             } catch (JSONException e) {
@@ -126,7 +126,7 @@ public class FaPiaoActivity extends Activity {
                             if (temp == null)
                                 return;
                             try {
-                                temp.put("ordContractId", mUId);
+                                temp.put("ordContactId", mUId);
                                 temp.put("orderFee", mPrice1);
                                 postSJKPSQBookList(temp, mPrice1);
                             } catch (JSONException e) {
@@ -288,6 +288,7 @@ public class FaPiaoActivity extends Activity {
      */
     private void postSJKPSQBookList(JSONObject jsonObj, final int price) {
         createProgressDialog("订单提交中...");
+        LogHelper.i("税局开票", jsonObj.toString());
         VolleyHelpApi.getInstance().postDingDanFP1(mUId, jsonObj, new APIListener() {
             @Override
             public void onResult(Object result) {

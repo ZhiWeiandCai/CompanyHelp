@@ -1,17 +1,19 @@
 package com.xht.android.companyhelp;
 
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.xht.android.companyhelp.net.APIListener;
 import com.xht.android.companyhelp.net.VolleyHelpApi;
+import com.xht.android.companyhelp.util.LogHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,12 +22,17 @@ import org.json.JSONObject;
 public class RegiTrademaskActivity extends Activity {
     private static final String TAG = "RegiTrademaskActivity";
     private int mUId;
+    private Spinner mSpinner;
     private EditText mCompNameET, mRelaPersonNameET, mRelaPersonPhoneET, mTmNameET;
     TextView mJinETV;
     Button mBookXiaDan;
     private ProgressDialog mProgDoal;
 
     private int mPrice;
+    private int[] mCompIds;
+    private String[] mCompNames;
+    private boolean mFlag;  //标记是否有公司可选
+    private int mPosiFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +57,7 @@ public class RegiTrademaskActivity extends Activity {
                 checkInfoCompAndPost();
             }
         });
+        mSpinner = (Spinner) findViewById(R.id.jia_c_et);
     }
 
     /**
@@ -97,6 +105,38 @@ public class RegiTrademaskActivity extends Activity {
                 finish();
             }
         });
+    }
+
+    private void refleshJiaGeView() {
+        mJinETV.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice / 100.0f));
+        ArrayAdapter<CharSequence> arrayAdapter;
+        if (mFlag) {
+            arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, mCompNames);
+        } else {
+            arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new String[]{"没有可选公司"});
+        }
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(arrayAdapter);
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                LogHelper.i("spinner1-公司区域", mSpinner.getSelectedItem().toString());
+                mPosiFlag = position;
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+        if (!mFlag)
+            mSpinner.setVisibility(View.GONE);
+        else
+            mCompNameET.setText(mCompNames[mPosiFlag]);
     }
 
     private void createProgressDialog(String title) {

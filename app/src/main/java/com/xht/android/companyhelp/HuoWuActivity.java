@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 import com.xht.android.companyhelp.util.Arith;
 import com.xht.android.companyhelp.util.LogHelper;
@@ -15,7 +15,7 @@ import com.xht.android.companyhelp.util.LogHelper;
 public class HuoWuActivity extends Activity {
     private static final String TAG = "HuoWuActivity";
     private EditText nameEt, guixingEt, danweiEt, shuliangEt, danjiaEt, jineEt;
-    private ImageButton jianIBtn;
+    private Button jianIBtn;
     private int mShuL;  //数量
     private float mDanJ;    //单价
     private float mJE;  //金额
@@ -88,7 +88,7 @@ public class HuoWuActivity extends Activity {
 
             }
         });
-        jianIBtn = (ImageButton) findViewById(R.id.jian_huowu);
+        jianIBtn = (Button) findViewById(R.id.jian_huowu);
         jianIBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
