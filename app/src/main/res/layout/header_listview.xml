@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text_biangeng"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="变更业务"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="公司名称："
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/biangeng_edit_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="本人公司名称"
+            android:enabled="false"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"/>
+
+        <Spinner
+            android:id="@+id/company_name_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp">
+
+        <LinearLayout
+            android:id="@+id/biangeng_name"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            >
+
+            <CheckBox
+                android:id="@+id/biangeng_check_company_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="变更名称"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="900dp"
+            android:layout_toRightOf="@+id/biangeng_name"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:id="@+id/biangeng_text"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/biangeng_name"
+            android:gravity="center_vertical"
+            android:text="成立一年以上公司可进行变更"
+            android:textSize="15sp"
+            />
+
+        <TextView
+            android:id="@+id/biangeng_new_company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/biangeng_text"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/biangeng_name"
+            android:text="新公司名称:"
+            android:textSize="17sp"/>
+
+        <EditText
+            android:id="@+id/biangeng_edit_new_company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/biangeng_new_company_name"
+            android:layout_toRightOf="@id/biangeng_new_company_name"
+            android:hint="请输入公司名称"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80dp">
+
+        <LinearLayout
+            android:id="@+id/biangeng_name_checkbox"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            >
+
+            <CheckBox
+                android:id="@+id/biangeng_checkbox_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="变更地址"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="85dp"
+            android:layout_toRightOf="@+id/biangeng_name_checkbox"
+            android:background="@android:color/darker_gray"/>
+
+        <CheckBox
+            android:id="@+id/biangeng_kuaqu_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/biangeng_name_checkbox"
+            android:text="是否跨区"
+            />
+
+        <TextView
+            android:id="@+id/biangeng_text_company_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/biangeng_kuaqu_checkbox"
+            android:layout_marginLeft="18dp"
+            android:layout_toRightOf="@id/biangeng_name_checkbox"
+            android:text="新公司地址:"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:id="@+id/biangeng_new_company_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/biangeng_text_company_address"
+            android:layout_toRightOf="@id/biangeng_text_company_address"
+            android:hint="请输入详细地址"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:layout_gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/biangeng_faren_checkbox"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            >
+
+            <CheckBox
+                android:id="@+id/biangeng_new_faren_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="变更法人"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="100dp"
+            android:layout_toRightOf="@+id/biangeng_faren_checkbox"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:id="@+id/biangeng_new_faren_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/biangeng_faren_checkbox"
+            android:text="新法人姓名:"
+            android:textSize="17sp"
+            />
+
+        <EditText
+            android:id="@+id/biangeng_edit_new_faren_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/biangeng_new_faren_name"
+            android:textSize="17sp"
+            android:hint="请输入法人姓名"/>
+
+        <TextView
+            android:id="@+id/biangeng_new_shengfengzhenghao_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/biangeng_new_faren_name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/biangeng_faren_checkbox"
+            android:text="新法人身份证号:"
+            android:textSize="17sp"/>
+
+        <EditText
+            android:id="@+id/biangeng_new_shengfengzhenghao_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/biangeng_new_shengfengzhenghao_name"
+            android:layout_toRightOf="@id/biangeng_faren_checkbox"
+            android:textSize="17sp"
+            android:hint="请输入身份证号"/>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/biangeng_new_fanwei_checkbox"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/biangeng_check_jingying_fanwei"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="变更经营范围"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="90dp"
+            android:layout_toRightOf="@+id/biangeng_new_fanwei_checkbox"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:id="@+id/biangeng_new_fanwei_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/biangeng_new_fanwei_checkbox"
+            android:text="新经营范围:"
+            android:textSize="17sp"
+            />
+
+        <EditText
+            android:id="@+id/biangeng_new_jingying_fanwei"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/biangeng_new_fanwei_text"
+            android:textSize="17sp"
+            android:layout_toRightOf="@id/biangeng_new_fanwei_checkbox"
+            android:hint="请输入新经营范围"/>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical">
+
+        <CheckBox
+            android:id="@+id/biangeng_new_gudong_guquan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10sp"
+
+            android:text="变更股东/股权"
+            android:textSize="20sp"/>
+
+        <ImageView
+            android:id="@+id/biangeng_add_contacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20sp"
+            android:src="@drawable/list_contact"
+            />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+</LinearLayout>
