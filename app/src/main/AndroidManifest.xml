@@ -35,6 +35,13 @@
         <activity android:name=".DaiLiJIZhangActivity" />
         <activity android:name=".PayOptActivity" />
         <activity android:name=".SheBaoSActivity" />
+        <activity android:name=".ZhuCeZiJinActivity"/>
+        <activity android:name=".CancelComActivity"/>
+        <activity android:name=".BianGengService"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name=".PersonOfBianGengAvtivity"/>
+
         <activity
             android:name="net.sourceforge.simcpux.wxapi.WXPayEntryActivity"
             android:exported="true"

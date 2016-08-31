@@ -50,10 +50,14 @@
     <string name="user_zhuce">用户注册</string>
     <string name="heji">合计： </string>
     <string name="heji_yuan">¥ %1$d</string>
+    <string name="zong_e_change">¥ %1$d</string>
     <string name="book_yuque">下单预约</string>
     <string name="area_zhuce">注册区域</string>
     <string name="company_name">公司名称</string>
+    <string name="company_money_change">新注册资本:</string>
+    <string name="new_money_change">请填上新的注册资本总额:</string>
     <string name="company_name_hint_input">请填写新公司名称</string>
+    <string name="company_money_change_hint_input">请选择或填写公司名称</string>
     <string name="address_tuoguan_s">地址托管</string>
     <string name="address_tuoguan_ss">¥%1$d元/半年</string>
     <string name="daili_jichang_s">代理记账</string>

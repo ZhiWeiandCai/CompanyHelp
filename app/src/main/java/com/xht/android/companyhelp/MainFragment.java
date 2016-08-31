@@ -20,10 +20,17 @@ public class MainFragment extends Fragment {
 	private ViewPager viewPager;
 	private int mCurFragment;
 	private int[] tabIds = {R.id.tab1, R.id.tab2, R.id.tab3};
+	private ArticleListFragment[] mArticleListFragments = new ArticleListFragment[3];
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		for (int i = 0; i < 3; i++) {
+			mArticleListFragments[i] = new ArticleListFragment();
+			Bundle bundle = new Bundle();
+			bundle.putInt("whichF", i);
+			mArticleListFragments[i].setArguments(bundle);
+		}
 	}
 	
 	@Override
@@ -76,11 +83,7 @@ public class MainFragment extends Fragment {
 			
 			@Override
 			public android.support.v4.app.Fragment getItem(int arg0) {
-				Bundle bundle = new Bundle();
-				bundle.putInt("whichF", arg0);
-				android.support.v4.app.Fragment fragment = new ArticleListFragment();
-				fragment.setArguments(bundle);
-				return fragment;
+				return mArticleListFragments[arg0];
 			}
 		});
 		viewPager.setCurrentItem(mCurFragment);

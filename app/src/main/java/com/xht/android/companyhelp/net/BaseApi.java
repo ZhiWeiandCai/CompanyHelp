@@ -5,7 +5,7 @@ public class BaseApi {
 	public static final String VERCODE_URL = "http://www.xiaohoutai.com.cn:8888/XHT/seadVerifyController/seadVerify";
 	public static final String REGIST_URL = "http://www.xiaohoutai.com.cn:8888/XHT/registController/regist";
 	public static final String LOGIN_URL = "http://www.xiaohoutai.com.cn:8888/XHT/loginController/login";
-	public static final String ARTICLE_URL = "http://www.xiaohoutai.com.cn:8888/XHT/getArticle";
+	public static final String ARTICLE_URL = "http://www.xiaohoutai.com.cn:8888/XHT/ArticleinfoController/getAllArticleinfo";
 
 	public static final String ZhuCeComp_URL = "http://www.xiaohoutai.com.cn:8888/XHT/priceinfoController/loadCompanyRegistPrice";
 	public static final String JiZhangBaoShui_URL = "http://www.xiaohoutai.com.cn:8888/XHT/priceinfoController/loadAccountPrice";
@@ -26,4 +26,20 @@ public class BaseApi {
 
 	public static final String WEIXI_LJZF_URL = "http://www.xiaohoutai.com.cn:8888/XHT/appwxzf/appwxyuzhifu";
 
+	//变更后提交的服务器
+	public static final String BIANGENG_LIST_POST_URL = "http://www.xiaohoutai.com.cn:8888/XHT/bizchangeorderController/saveBizchangeorderInfo";
+
+	//注销要提交的服务器
+	public static final String ZHUXIAO_LIST_POST_URL ="http://www.xiaohoutai.com.cn:8888/XHT/bizchangeorderController/saveCancelCompanyOrderInfo";// TODO
+
+	//获取变更资金的公司和ID
+	public static final String ZHUCE_GET_BIAN_GENG_URL="http://www.xiaohoutai.com.cn:8888/XHT/bizchangeorderController/loadCompanyNameAndPriceOfChgRgtCapital";
+
+	//获取注销公司的公司名和ID
+	public static final String ZHUXIAO_GET_BIAN_GENG_URL="http://www.xiaohoutai.com.cn:8888/XHT/bizchangeorderController/loadCompanyNameAndPriceOfCancelCompany";
+
+	//获取变更服务的公司名和价格
+	public static final String FUWU_GET_BIAN_GENG_URL="http://www.xiaohoutai.com.cn:8888/XHT/bizchangeorderController/loadCompanyNameAndPriceOfChgBusiness";
+	//变更服务提交的服务器
+	public static final String BIANGENG_SERVICE_LIST_POST_URL = "";
 }
