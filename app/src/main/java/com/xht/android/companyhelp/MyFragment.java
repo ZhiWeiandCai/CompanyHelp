@@ -1,9 +1,5 @@
 package com.xht.android.companyhelp;
 
-import com.xht.android.companyhelp.model.UserInfo;
-import com.xht.android.companyhelp.provider.MyDatabaseManager;
-import com.xht.android.companyhelp.util.LogHelper;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
@@ -20,12 +16,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.xht.android.companyhelp.model.UserInfo;
+import com.xht.android.companyhelp.provider.MyDatabaseManager;
+import com.xht.android.companyhelp.util.LogHelper;
+
 public class MyFragment extends Fragment implements OnClickListener {
 	private static final String Tag = "MyFragment";
 	public static final String BRO_ACT_S = "com.xht.android.companyhelp.bro_act_s";
 	public static final String PHONENUM_KEY = "phone_key";
 	public static final String UID_KEY = "userId_key";
-	private LinearLayout mLinearLayout1, mLinearLayout2;
+	private LinearLayout mLinearLayout1, mLinearLayout2, mLinearLayout4;
 	private ImageView mHeadImageView;
 	private MainActivity mActivity;
 	private UserInfo mUserInfo;
@@ -64,9 +64,11 @@ public class MyFragment extends Fragment implements OnClickListener {
 		View view = inflater.inflate(R.layout.fragment_my, container, false);
 		mLinearLayout1 = (LinearLayout) view.findViewById(R.id.fragm_my_ll1);
 		mLinearLayout2 = (LinearLayout) view.findViewById(R.id.fragm_my_ll2);
+		mLinearLayout4 = (LinearLayout) view.findViewById(R.id.fragm_my_ll4);
 		mHeadImageView = (ImageView) view.findViewById(R.id.head_img);
 		mPhoneNumView = (TextView) view.findViewById(R.id.aPhoneNum);
 		mLinearLayout1.setOnClickListener(this);
+		mLinearLayout4.setOnClickListener(this);
 		return view;		
 	}
 
@@ -87,14 +89,24 @@ public class MyFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.fragm_my_ll1:
-			if (isUserLogin()) {
-				
-			} else {
-				mActivity.switchToActivity(LoginActivity.class, null, 0, false, false);
-				return;
-			}			
-		
+			case R.id.fragm_my_ll1:
+				if (isUserLogin()) {
+
+				} else {
+					mActivity.switchToActivity(LoginActivity.class, null, 0, false, false);
+					return;
+				}
+				break;
+			case R.id.fragm_my_ll4:
+				if (isUserLogin()) {
+					Bundle bundle = new Bundle();
+					bundle.putInt("uid", mUserInfo.getUid());
+					mActivity.switchToActivity(ServerLookBoardActivity.class, bundle, 0, false, false);
+				} else {
+					mActivity.switchToActivity(LoginActivity.class, null, 0, false, false);
+					return;
+				}
+				break;
 		}
 	}
 	

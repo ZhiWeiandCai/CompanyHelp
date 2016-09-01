@@ -2,6 +2,7 @@ package com.xht.android.companyhelp;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +23,8 @@ import org.json.JSONObject;
 public class RegiTrademaskActivity extends Activity {
     private static final String TAG = "RegiTrademaskActivity";
     private int mUId;
+    private long mUPhone;
+    private String mUName;
     private Spinner mSpinner;
     private EditText mCompNameET, mRelaPersonNameET, mRelaPersonPhoneET, mTmNameET;
     TextView mJinETV;
@@ -39,6 +42,8 @@ public class RegiTrademaskActivity extends Activity {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getBundleExtra("uData");
         mUId = bundle.getInt("uid");
+        mUPhone = bundle.getLong("uphone");
+        mUName = bundle.getString("uname");
         setContentView(R.layout.activity_regi_trademask);
         initView();
         getComListAndJiaGeOfFP(mUId);
@@ -94,7 +99,6 @@ public class RegiTrademaskActivity extends Activity {
                     e.printStackTrace();
                 }
                 dismissProgressDialog();
-
                 refleshJiaGeView();
             }
 
@@ -124,7 +128,8 @@ public class RegiTrademaskActivity extends Activity {
                                        int position, long id) {
                 LogHelper.i("spinner1-公司区域", mSpinner.getSelectedItem().toString());
                 mPosiFlag = position;
-
+                if (mFlag)
+                    mCompNameET.setText(mSpinner.getSelectedItem().toString());
             }
 
             @Override
@@ -137,6 +142,11 @@ public class RegiTrademaskActivity extends Activity {
             mSpinner.setVisibility(View.GONE);
         else
             mCompNameET.setText(mCompNames[mPosiFlag]);
+        mRelaPersonPhoneET.setText("" + mUPhone);
+        if (mUName != null && !mUName.isEmpty()) {
+            mRelaPersonNameET.setText(mUName);
+            mRelaPersonNameET.setEnabled(false);
+        }
     }
 
     private void createProgressDialog(String title) {
@@ -179,6 +189,39 @@ public class RegiTrademaskActivity extends Activity {
             return;
         }
         JSONObject jObject = new JSONObject();
+        try {
+            jObject.put("UserId", mUId);
+            jObject.put("CompanyName", mCompNameET.getText().toString());
+            jObject.put("RelaPersonName", mRelaPersonNameET.getText().toString());
+            jObject.put("RelaPersonPNum", mRelaPersonPhoneET.getText().toString());
+            jObject.put("TradeMaskName", mTmNameET.getText().toString());
+            jObject.put("price", mPrice);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        LogHelper.i(TAG, jObject.toString());
+        createProgressDialog("订单提交中...");
+        VolleyHelpApi.getInstance().postDDRegiTm(mUId, jObject, new APIListener() {
+            @Override
+            public void onResult(Object result) {
+                LogHelper.i("订单提交成功", "2016-08-25");
+                dismissProgressDialog();
+                Bundle bundle = new Bundle();
+                JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
+                bundle.putString("shangpin", "注册商标");
+                bundle.putString("bookListId", tempJO.optString("orderId"));
+                bundle.putFloat("pay_money", mPrice);
+                Intent intent = new Intent(RegiTrademaskActivity.this, PayOptActivity.class);
+                intent.putExtra("booklistdata", bundle);
+                RegiTrademaskActivity.this.startActivity(intent);
+                RegiTrademaskActivity.this.finish();
+            }
 
+            @Override
+            public void onError(Object e) {
+                dismissProgressDialog();
+                App.getInstance().showToast(e.toString());
+            }
+        });
     }
 }

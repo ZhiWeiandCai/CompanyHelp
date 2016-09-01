@@ -131,4 +131,8 @@
     <string name="rm_name">商标名称</string>
 
     <string name="baocun_str">保存</string>
+    <string name="title_activity_server_look_board">ServerLookBoardActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

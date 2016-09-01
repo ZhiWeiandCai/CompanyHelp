@@ -72,6 +72,8 @@ public class ServiceFragment extends Fragment implements OnClickListener{
 		}
 		Bundle bundle = new Bundle();
 		bundle.putInt("uid", mUserInfo.getUid());
+		bundle.putLong("uphone", mUserInfo.getPhoneNum());
+		bundle.putString("uname", mUserInfo.getUserName());
 		switch (v.getId()) {
 		case R.id.tv11:
 			intent = new Intent(getActivity(), ZhuCeCompanyActivity.class);

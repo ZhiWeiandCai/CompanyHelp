@@ -35,13 +35,13 @@
         <activity android:name=".DaiLiJIZhangActivity" />
         <activity android:name=".PayOptActivity" />
         <activity android:name=".SheBaoSActivity" />
-        <activity android:name=".ZhuCeZiJinActivity"/>
-        <activity android:name=".CancelComActivity"/>
-        <activity android:name=".BianGengService"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
-        <activity android:name=".PersonOfBianGengAvtivity"/>
-
+        <activity android:name=".ZhuCeZiJinActivity" />
+        <activity android:name=".CancelComActivity" />
+        <activity
+            android:name=".BianGengService"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity android:name=".PersonOfBianGengAvtivity" />
         <activity
             android:name="net.sourceforge.simcpux.wxapi.WXPayEntryActivity"
             android:exported="true"
@@ -49,7 +49,10 @@
         <activity android:name=".FaPiaoActivity" />
         <activity android:name=".HuoWuActivity" />
         <activity android:name=".SheBaoRActivity" />
-        <activity android:name=".RegiTrademaskActivity"></activity>
+        <activity android:name=".RegiTrademaskActivity" />
+        <activity
+            android:name=".ServerLookBoardActivity"
+            android:label="@string/title_activity_server_look_board"></activity>
     </application>
 
 </manifest>
