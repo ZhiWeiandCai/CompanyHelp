@@ -52,7 +52,8 @@
         <activity android:name=".RegiTrademaskActivity" />
         <activity
             android:name=".ServerLookBoardActivity"
-            android:label="@string/title_activity_server_look_board"></activity>
+            android:label="@string/title_activity_server_look_board" />
+        <activity android:name=".ArticleActivity"></activity>
     </application>
 
 </manifest>

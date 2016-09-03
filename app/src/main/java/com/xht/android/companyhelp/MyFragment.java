@@ -25,6 +25,7 @@ public class MyFragment extends Fragment implements OnClickListener {
 	public static final String BRO_ACT_S = "com.xht.android.companyhelp.bro_act_s";
 	public static final String PHONENUM_KEY = "phone_key";
 	public static final String UID_KEY = "userId_key";
+	public static final String UNAME_KEY = "userName_key";
 	private LinearLayout mLinearLayout1, mLinearLayout2, mLinearLayout4;
 	private ImageView mHeadImageView;
 	private MainActivity mActivity;
@@ -37,9 +38,13 @@ public class MyFragment extends Fragment implements OnClickListener {
 		public void onReceive(Context context, Intent intent) {
 			int uId = intent.getIntExtra(UID_KEY, 0);
 			long phoneNum = intent.getLongExtra(PHONENUM_KEY, 0);
-			LogHelper.i(Tag, "" + phoneNum);
+			String uName = intent.getStringExtra(UNAME_KEY);
+			LogHelper.i(Tag, "uName=" + uName);
 			mUserInfo.setUid(uId);
 			mUserInfo.setPhoneNum(phoneNum);
+			if (uName != null) {
+				mUserInfo.setUserName(uName);
+			}
 			refleshUI();
 		}
 	};

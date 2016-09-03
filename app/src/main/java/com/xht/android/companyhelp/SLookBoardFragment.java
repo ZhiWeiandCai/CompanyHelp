@@ -2,14 +2,19 @@ package com.xht.android.companyhelp;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.LegendRenderer;
+import com.jjoe64.graphview.ValueDependentColor;
+import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.xht.android.companyhelp.model.Constants;
 
 
 /**
@@ -68,19 +73,7 @@ public class SLookBoardFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_slook_board, container, false);
         mGraph = (GraphView) rootView.findViewById(R.id.graph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-//                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
-        mGraph.addSeries(series);
-
-        // legend
-//        series.setTitle("foo");
-//        graph.getLegendRenderer().setVisible(true);
-//        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.BOTTOM);
+        showBarGraph();
         return rootView;
     }
 
@@ -94,4 +87,69 @@ public class SLookBoardFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
+
+    private void showLineGraph() {
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+                new DataPoint(0, 1),
+                new DataPoint(1, 5985),
+                new DataPoint(2, 3333),
+                new DataPoint(3, 1456),
+                new DataPoint(4, 6)
+        });
+        mGraph.addSeries(series);
+        /*mGraph.setTitle("金额（元）/季度");
+        mGraph.setTitleColor(Color.BLUE);
+        mGraph.setTitleTextSize(18 * Constants.DENSITY);*/
+        /*mGraph.getGridLabelRenderer().setVerticalAxisTitle("金额（元）");
+        mGraph.getGridLabelRenderer().setHorizontalAxisTitle("季度");
+        mGraph.getGridLabelRenderer().setVerticalAxisTitleTextSize(60);
+        mGraph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
+        mGraph.getGridLabelRenderer().setHorizontalAxisTitleTextSize(60);
+        mGraph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);*/
+        mGraph.getViewport().setXAxisBoundsManual(true);
+        mGraph.getViewport().setMinX(0);
+        mGraph.getViewport().setMaxX(4);
+        // legend
+//        series.setTitle("foo");
+//        graph.getLegendRenderer().setVisible(true);
+//        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.BOTTOM);
+    }
+
+    private void showBarGraph() {
+        BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(new DataPoint[] {
+                //new DataPoint(0, 0),
+                new DataPoint(1, 6432),
+                new DataPoint(2, 3456),
+                //new DataPoint(3, 4444),
+                //new DataPoint(4, 3333),
+                //new DataPoint(5, 0)
+        });
+        mGraph.addSeries(series);
+
+        // styling
+        series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
+            @Override
+            public int get(DataPoint data) {
+                return Color.rgb((int) data.getX()*255/4, (int) Math.abs(data.getY()*255/6), 100);
+            }
+        });
+
+        series.setSpacing(50);
+
+        // draw values on top
+        series.setDrawValuesOnTop(true);
+        series.setValuesOnTopColor(Color.RED);
+        //series.setValuesOnTopSize(50);
+        mGraph.getGridLabelRenderer().setHorizontalAxisTitle("季度");
+        mGraph.getGridLabelRenderer().setHorizontalAxisTitleTextSize(18 * Constants.DENSITY);
+        mGraph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
+        mGraph.getViewport().setXAxisBoundsManual(true);
+        mGraph.getViewport().setMinX(0.5);
+        mGraph.getViewport().setMaxX(4.5);
+        // legend
+        series.setTitle("金额");
+        mGraph.getLegendRenderer().setVisible(true);
+        mGraph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+    }
+
 }

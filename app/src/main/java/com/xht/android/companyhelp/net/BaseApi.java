@@ -5,7 +5,7 @@ public class BaseApi {
 	public static final String VERCODE_URL = "http://www.xiaohoutai.com.cn:8888/XHT/seadVerifyController/seadVerify";
 	public static final String REGIST_URL = "http://www.xiaohoutai.com.cn:8888/XHT/registController/regist";
 	public static final String LOGIN_URL = "http://www.xiaohoutai.com.cn:8888/XHT/loginController/login";
-	public static final String ARTICLE_URL = "http://www.xiaohoutai.com.cn:8888/XHT/ArticleinfoController/getAllArticleinfo";
+	public static final String ARTICLE_URL = "http://www.xiaohoutai.com.cn:8888/XHT/articleinfoController/loadAppArticleListInfo";
 
 	public static final String ZhuCeComp_URL = "http://www.xiaohoutai.com.cn:8888/XHT/priceinfoController/loadCompanyRegistPrice";
 	public static final String JiZhangBaoShui_URL = "http://www.xiaohoutai.com.cn:8888/XHT/priceinfoController/loadAccountPrice";
@@ -23,6 +23,7 @@ public class BaseApi {
 	public static final String FAPIAO_POST_LEIXING1 = "http://www.xiaohoutai.com.cn:8888/XHT/invoiceorderController/saveTaxInvoiceOrderInfo";
 	public static final String FAPIAO_POST_LEIXING2 = "http://www.xiaohoutai.com.cn:8888/XHT/invoiceorderController/saveBusinessInvoiceOrderInfo";
 	public static final String FAPIAO_POST_LEIXING3 = "http://www.xiaohoutai.com.cn:8888/XHT/invoiceorderController/saveVerifyInvoiceOrderInfo";
+	public static final String RegiTrademask_Post_Url = "http://www.xiaohoutai.com.cn:8888/XHT/regtrademarkController/saveRegtrademarkOrderInfo";
 
 	public static final String WEIXI_LJZF_URL = "http://www.xiaohoutai.com.cn:8888/XHT/appwxzf/appwxyuzhifu";
 

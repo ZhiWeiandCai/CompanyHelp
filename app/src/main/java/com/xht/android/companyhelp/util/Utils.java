@@ -186,4 +186,35 @@ public class Utils {
 		}
 	}
 
+	/**
+	 * 文章列表中的文章的缩列图的获取
+	 * @param url
+	 * @return
+     */
+	public static InputStream httpGetArtSmallPic(String url) {
+		try {
+			URL urlT = new URL(url);
+			HttpURLConnection connection = (HttpURLConnection) urlT.openConnection();
+			connection.setReadTimeout(10000 /* milliseconds */);
+			connection.setConnectTimeout(15000 /* milliseconds */);
+			connection.setRequestMethod("GET");
+			connection.setDoInput(true);
+			// Start the query
+			connection.connect();
+			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+				return null;
+			}
+			InputStream is = connection.getInputStream();
+			return is;
+		} catch (MalformedURLException e) {
+			LogHelper.e(TAG, "httpGet exception, e = " + e.getMessage());
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			LogHelper.e(TAG, "httpGet exception, e = " + e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

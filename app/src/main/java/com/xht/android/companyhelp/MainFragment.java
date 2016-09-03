@@ -3,7 +3,7 @@ package com.xht.android.companyhelp;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
@@ -28,7 +28,7 @@ public class MainFragment extends Fragment {
 		for (int i = 0; i < 3; i++) {
 			mArticleListFragments[i] = new ArticleListFragment();
 			Bundle bundle = new Bundle();
-			bundle.putInt("whichF", i);
+			bundle.putInt("witchF", i + 1);
 			mArticleListFragments[i].setArguments(bundle);
 		}
 	}
@@ -73,17 +73,16 @@ public class MainFragment extends Fragment {
 				}
 			}
 		});
-		viewPager.setAdapter(new FragmentStatePagerAdapter(((FragmentActivity) getActivity()).getSupportFragmentManager()) {
-			
+		viewPager.setAdapter(new FragmentPagerAdapter(((FragmentActivity) getActivity()).getSupportFragmentManager()) {
+
 			@Override
 			public int getCount() {
-				
 				return 3;
 			}
-			
+
 			@Override
-			public android.support.v4.app.Fragment getItem(int arg0) {
-				return mArticleListFragments[arg0];
+			public android.support.v4.app.Fragment getItem(int position) {
+				return mArticleListFragments[position];
 			}
 		});
 		viewPager.setCurrentItem(mCurFragment);

@@ -2,6 +2,7 @@ package com.xht.android.companyhelp;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.xht.android.companyhelp.net.APIListener;
 import com.xht.android.companyhelp.net.VolleyHelpApi;
+import com.xht.android.companyhelp.provider.MyDatabaseManager;
 import com.xht.android.companyhelp.util.LogHelper;
 
 import org.json.JSONArray;
@@ -205,6 +207,20 @@ public class RegiTrademaskActivity extends Activity {
             @Override
             public void onResult(Object result) {
                 LogHelper.i("订单提交成功", "2016-08-25");
+                if (mUName == null || mUName.isEmpty()) {
+                    //用户姓名写入数据库
+                    ContentValues cv = new ContentValues();
+                    cv.put(MyDatabaseManager.MyDbColumns.NAME, mRelaPersonNameET.getText().toString());
+                    String where = MyDatabaseManager.MyDbColumns.UID + " = ?";
+                    String[] selectionArgs = {String.valueOf(mUId)};
+                    RegiTrademaskActivity.this.getContentResolver().update(MyDatabaseManager.MyDbColumns.CONTENT_URI, cv, where, selectionArgs);
+                    //数据有更新，更新一下内存的用户变量
+                    Intent intent = new Intent(MyFragment.BRO_ACT_S);
+                    intent.putExtra(MyFragment.UID_KEY, mUId);
+                    intent.putExtra(MyFragment.PHONENUM_KEY, Long.parseLong(mRelaPersonPhoneET.getText().toString()));
+                    intent.putExtra(MyFragment.UNAME_KEY, mRelaPersonNameET.getText().toString());
+                    sendBroadcast(intent);
+                }
                 dismissProgressDialog();
                 Bundle bundle = new Bundle();
                 JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");

@@ -18,7 +18,7 @@
         android:layout_below="@id/artTitle_item"
         android:gravity="center"/>
     <TextView android:id="@+id/timeTV"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_toRightOf="@id/smallLeiBieTV"
         android:layout_below="@id/artTitle_item"

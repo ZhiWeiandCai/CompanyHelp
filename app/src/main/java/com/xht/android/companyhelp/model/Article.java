@@ -5,8 +5,10 @@ public class Article {
 	private int mArtId;
 	private String mTitle;
 	private int mLeiBie;	//文章属于哪一类（1。政策，2.学堂，3.活动）
+
 	private long mShijian;	//发表时间
 	private int mSmallLeiBie;	//文章小类别
+
 	private String mArtUrl;
 	private String mArtPicUrl;
 	
@@ -40,6 +42,22 @@ public class Article {
 	
 	public String getArtPicUrl() {
 		return mArtPicUrl;
+	}
+
+	public long getmShijian() {
+		return mShijian;
+	}
+
+	public void setmShijian(long mShijian) {
+		this.mShijian = mShijian;
+	}
+
+	public String getmArtUrl() {
+		return mArtUrl;
+	}
+
+	public void setmArtUrl(String mArtUrl) {
+		this.mArtUrl = mArtUrl;
 	}
 
 }

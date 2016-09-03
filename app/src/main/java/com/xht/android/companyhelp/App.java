@@ -1,7 +1,5 @@
 package com.xht.android.companyhelp;
 
-import java.lang.reflect.Field;
-
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
@@ -9,19 +7,19 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.cache.LruImageCache;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.xht.android.companyhelp.ceche.LruCacheManager;
 import com.xht.android.companyhelp.model.Constants;
 import com.xht.android.companyhelp.util.LogHelper;
 import com.xht.android.companyhelp.util.Utils;
+
+import java.lang.reflect.Field;
 
 public class App extends Application {
 	
@@ -90,6 +88,10 @@ public class App extends Application {
 		}
 		return mImageLoader;
 	}
+
+	public LruCacheManager getLruCacheManager() {
+		return mLruCacheManager;
+	}
 	
 	private int getStatusBarHeight(){
 		try {
@@ -123,7 +125,6 @@ public class App extends Application {
 	
 	/**
 	 * 判断网络是否连接
-	 * @param context 
 	 * @return 0未连接， 1移动网络， 2wifi
 	 */
 	public int getNetworkConnectionType(){

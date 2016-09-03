@@ -9,6 +9,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.xht.android.companyhelp.App;
 import com.xht.android.companyhelp.util.LogHelper;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,12 +45,12 @@ public class VolleyHelpApi extends BaseApi{
 		return true;
 	}
 	
-	public void getArticleItems(int witch, final APIListener apiListener) {
-		final String wS = "" + witch;
+	public void getArticleItems(final int witch, final APIListener apiListener) {
 		String urlS = MakeURL(ARTICLE_URL, new LinkedHashMap<String, Object>() {
-			{put("witchLeiBiew", wS);}
+			{put("witchLeiBiew", witch);}
 		});
-		JsonObjectRequest req = new JsonObjectRequest(ARTICLE_URL, null, new Response.Listener<JSONObject>() {
+		LogHelper.i(TAG, urlS);
+		JsonObjectRequest req = new JsonObjectRequest(urlS, null, new Response.Listener<JSONObject>() {
 
 			@Override
 			public void onResponse(JSONObject response) {
@@ -58,7 +59,7 @@ public class VolleyHelpApi extends BaseApi{
 					String errMsg = response.optString("message");
 					apiListener.onError(errMsg);
 				} else {
-					JSONObject jsonObject = response.optJSONObject("entity");
+					JSONArray jsonObject = response.optJSONArray("entity");
 
 					apiListener.onResult(jsonObject);
 				}
@@ -890,7 +891,7 @@ public class VolleyHelpApi extends BaseApi{
 	 * 注册商标-提交订单
 	 */
 	public void postDDRegiTm(int userId, JSONObject jsonObject, final APIListener apiListener) {
-		JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, FAPIAO_POST_LEIXING3, jsonObject, new Response.Listener<JSONObject>() {
+		JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, RegiTrademask_Post_Url, jsonObject, new Response.Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				LogHelper.i(TAG, response.toString());
