@@ -510,12 +510,56 @@ public class VolleyHelpApi extends BaseApi{
 	}
 
 	/**
-	 * 根据用户id获取公司列表和发票价格
+	 * 根据用户id获取公司列表和发票价格RegiTrademask_Get_Url
 	 * @param uid 用户id
 	 * @param apiListener 回调监听器
 	 */
 	public void getComListAndJiaGeofFP(final int uid, final APIListener apiListener) {
 		String urlString = MakeURL(FAPIAO_GET_JIAGE_URL, new LinkedHashMap<String, Object>() {{
+			put("ordContactId", uid);
+		}});
+		JsonObjectRequest req = new JsonObjectRequest(urlString, null, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				if (isResponseError(response)) {
+					String errMsg = response.optString("message");
+					apiListener.onError(errMsg);
+				} else {
+					JSONObject jsonObject = response.optJSONObject("entity");
+					apiListener.onResult(jsonObject);
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("获取价格出错");
+			}
+		});
+		App.getInstance().addToRequestQueue(req, TAG);
+	}
+
+	/**
+	 * 根据用户id获取公司列表和发票价格-注册商标
+	 * @param uid 用户id
+	 * @param apiListener 回调监听器
+	 */
+	public void getComListAndJGOfRegiT(final int uid, final APIListener apiListener) {
+		String urlString = MakeURL(RegiTrademask_Get_Url, new LinkedHashMap<String, Object>() {{
 			put("ordContactId", uid);
 		}});
 		JsonObjectRequest req = new JsonObjectRequest(urlString, null, new Response.Listener<JSONObject>() {
@@ -601,7 +645,6 @@ public class VolleyHelpApi extends BaseApi{
 		});
 		App.getInstance().addToRequestQueue(req, TAG);
 	}
-
 
 	/**
 	 * 根据用户id获取公司列表和——变更服务费用
@@ -921,6 +964,54 @@ public class VolleyHelpApi extends BaseApi{
 						LogHelper.i(TAG, "未知错误");
 				}
 				apiListener.onError("提交订单出错");
+			}
+		});
+		App.getInstance().addToRequestQueue(req, TAG);
+	}
+
+	/**
+	 * 根据用户id获取初始数据-服务看板
+	 * @param uid 用户id
+	 * @param apiListener 回调监听器
+	 */
+	public void getInitDataSLB(final int uid, final APIListener apiListener) {
+		String urlString = MakeURL(FUWU_GET_BIAN_GENG_URL, new LinkedHashMap<String, Object>() {{
+			put("userId", uid);
+
+		}});
+		JsonObjectRequest req = new JsonObjectRequest(urlString, null, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				if (isResponseError(response)) {
+					String errMsg = response.optString("message");
+					apiListener.onError(errMsg);
+				} else {
+					JSONObject jsonObject = response.optJSONObject("entity");
+					if (jsonObject==null){
+						return;
+					}
+					apiListener.onResult(jsonObject);
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("获取价格出错");
 			}
 		});
 		App.getInstance().addToRequestQueue(req, TAG);

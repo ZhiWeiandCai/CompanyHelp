@@ -3,6 +3,7 @@ package com.xht.android.companyhelp;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import com.xht.android.companyhelp.net.APIListener;
 import com.xht.android.companyhelp.net.VolleyHelpApi;
+import com.xht.android.companyhelp.provider.MyDatabaseManager;
 import com.xht.android.companyhelp.util.LogHelper;
 
 import org.json.JSONException;
@@ -32,6 +34,8 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
     private static final String TAG = "DaiLiJiZhangActivity";
 
     private int mUId;
+    private long mPhoneNum;
+    private String mUserName;
     private ProgressDialog mProgDoal;
     private EditText mET;    //公司名称
     private TextView mHeJiTV;
@@ -56,6 +60,8 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
         setContentView(R.layout.activity_jizhangbaoshui);
         Bundle bundle = getIntent().getBundleExtra("uData");
         mUId = bundle.getInt("uid", 0);
+        mPhoneNum = bundle.getLong("uphone");
+        mUserName = bundle.getString("uname");
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
         mCustomView.setText("下单预约-记账报税");
@@ -214,6 +220,21 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
             @Override
             public void onResult(Object result) {
                 LogHelper.i("订单提交成功", "2016-08-16");
+                //用户姓名写入数据库
+                if (mUserName == null || mUserName.isEmpty()) {
+                    //用户姓名写入数据库
+                    ContentValues cv = new ContentValues();
+                    cv.put(MyDatabaseManager.MyDbColumns.NAME, mNameET.getText().toString());
+                    String where = MyDatabaseManager.MyDbColumns.UID + " = ?";
+                    String[] selectionArgs = {String.valueOf(mUId)};
+                    DaiLiJIZhangActivity.this.getContentResolver().update(MyDatabaseManager.MyDbColumns.CONTENT_URI, cv, where, selectionArgs);
+                    //数据有更新，更新一下内存的用户变量
+                    Intent intent = new Intent(MyFragment.BRO_ACT_S);
+                    intent.putExtra(MyFragment.UID_KEY, mUId);
+                    intent.putExtra(MyFragment.PHONENUM_KEY, Long.parseLong("" + mPhoneNum));
+                    intent.putExtra(MyFragment.UNAME_KEY, mNameET.getText().toString());
+                    sendBroadcast(intent);
+                }
                 dismissProgressDialog();
                 Bundle bundle = new Bundle();
                 JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
@@ -266,5 +287,10 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
     private void reFleshMoneyHeji() {
         LogHelper.i("更新合计的View", "mMoney = " + mMoney);
         mHeJiTV.setText(String.format(getResources().getString(R.string.heji_yuan), mMoney));
+        mPhone.setText("" + mPhoneNum);
+        if (mUserName != null) {
+            mNameET.setText(mUserName);
+            mNameET.setEnabled(false);
+        }
     }
 }

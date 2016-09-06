@@ -16,44 +16,80 @@
         <activity
             android:name=".MainActivity"
             android:icon="@null"
-            android:logo="@mipmap/logo">
+            android:logo="@mipmap/logo"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RegisterActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name=".provider.DatabaseHelpProvider"
             android:authorities="com.xht.android.companyhelp.DatabaseHelpProvider"
             android:exported="false" />
 
-        <activity android:name=".ZhuCeCompanyActivity" />
-        <activity android:name=".DaiLiJIZhangActivity" />
-        <activity android:name=".PayOptActivity" />
-        <activity android:name=".SheBaoSActivity" />
-        <activity android:name=".ZhuCeZiJinActivity" />
-        <activity android:name=".CancelComActivity" />
+        <activity android:name=".ZhuCeCompanyActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".DaiLiJIZhangActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PayOptActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SheBaoSActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ZhuCeZiJinActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CancelComActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".BianGengService"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
-        <activity android:name=".PersonOfBianGengAvtivity" />
+        <activity android:name=".PersonOfBianGengAvtivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="net.sourceforge.simcpux.wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop" />
-        <activity android:name=".FaPiaoActivity" />
-        <activity android:name=".HuoWuActivity" />
-        <activity android:name=".SheBaoRActivity" />
-        <activity android:name=".RegiTrademaskActivity" />
+            android:launchMode="singleTop"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".FaPiaoActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".HuoWuActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SheBaoRActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RegiTrademaskActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ServerLookBoardActivity"
-            android:label="@string/title_activity_server_look_board" />
-        <activity android:name=".ArticleActivity"></activity>
+            android:label="@string/title_activity_server_look_board"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ArticleActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

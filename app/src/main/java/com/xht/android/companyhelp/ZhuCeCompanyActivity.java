@@ -3,6 +3,7 @@ package com.xht.android.companyhelp;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 
 import com.xht.android.companyhelp.net.APIListener;
 import com.xht.android.companyhelp.net.VolleyHelpApi;
+import com.xht.android.companyhelp.provider.MyDatabaseManager;
 import com.xht.android.companyhelp.util.LogHelper;
 
 import org.json.JSONException;
@@ -35,6 +37,8 @@ import org.json.JSONObject;
 public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeListener, RadioGroup.OnCheckedChangeListener {
 
 	private int mUId;
+	private long mPhoneNum;
+	private String mUserName;
 	private ProgressDialog mProgDoal;
 	private LinearLayout mLLJiZEx;    //代理记账展开按钮-显示记账周期
 	private LinearLayout mLLNaSR;        //代理记账展开按钮-显示纳税人类别
@@ -73,6 +77,8 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 		setContentView(R.layout.activity_zhucecompany);
 		Bundle bundle = getIntent().getBundleExtra("uData");
 		mUId = bundle.getInt("uid", 0);
+		mPhoneNum = bundle.getLong("uphone");
+		mUserName = bundle.getString("uname");
 		TextView mCustomView = new TextView(this);
 		mCustomView.setGravity(Gravity.CENTER);
 		mCustomView.setText("下单预约-公司注册");
@@ -275,8 +281,22 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 			@Override
 			public void onResult(Object result) {
 				LogHelper.i("订单提交成功", "2016-08-03");
+				//用户姓名写入数据库
+				if (mUserName == null || mUserName.isEmpty()) {
+					//用户姓名写入数据库
+					ContentValues cv = new ContentValues();
+					cv.put(MyDatabaseManager.MyDbColumns.NAME, mNameET.getText().toString());
+					String where = MyDatabaseManager.MyDbColumns.UID + " = ?";
+					String[] selectionArgs = {String.valueOf(mUId)};
+					ZhuCeCompanyActivity.this.getContentResolver().update(MyDatabaseManager.MyDbColumns.CONTENT_URI, cv, where, selectionArgs);
+					//数据有更新，更新一下内存的用户变量
+					Intent intent = new Intent(MyFragment.BRO_ACT_S);
+					intent.putExtra(MyFragment.UID_KEY, mUId);
+					intent.putExtra(MyFragment.PHONENUM_KEY, Long.parseLong("" + mPhoneNum));
+					intent.putExtra(MyFragment.UNAME_KEY, mNameET.getText().toString());
+					sendBroadcast(intent);
+				}
 				JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
-
 				dismissProgressDialog();
 				Bundle bundle = new Bundle();
 				bundle.putString("shangpin", "公司注册");
@@ -303,6 +323,11 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 		LogHelper.i("更新合计的View", "mMoney = " + mMoney);
 		mHeJiTV.setText(String.format(getResources().getString(R.string.heji_yuan), mMoney));
 		mYouhuiTV.setText(String.format(getResources().getString(R.string.bookjichang_youhui_s), mMoneyYouHui));
+		mPhone.setText("" + mPhoneNum);
+		if (mUserName != null) {
+			mNameET.setText(mUserName);
+			mNameET.setEnabled(false);
+		}
 	}
 
 	@Override

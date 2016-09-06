@@ -34,5 +34,9 @@
         <item>国税报到</item>
         <item>地税报到</item>        
     </string-array>
+    <string-array name="fwkb_wd">
+        <item>报税</item>
+        <item>社保</item>
+    </string-array>
     
 </resources>

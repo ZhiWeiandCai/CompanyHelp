@@ -72,14 +72,14 @@ public class RegiTrademaskActivity extends Activity {
      */
     private void getComListAndJiaGeOfFP(int uid) {
         createProgressDialog("价格获取中...");
-        VolleyHelpApi.getInstance().getComListAndJiaGeofFP(uid, new APIListener() {
+        VolleyHelpApi.getInstance().getComListAndJGOfRegiT(uid, new APIListener() {
             @Override
             public void onResult(Object result) {
                 JSONObject jiageJO;
                 JSONArray companyJA;
                 try {
                     jiageJO = ((JSONObject) result).getJSONObject("price");
-                    mPrice = jiageJO.optInt("TaxInvoice");
+                    mPrice = jiageJO.optInt("RegTrademark");
 
                     companyJA = ((JSONObject) result).optJSONArray("companyName");
                     if (companyJA != null) {

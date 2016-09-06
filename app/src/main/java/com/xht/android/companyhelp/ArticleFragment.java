@@ -1,11 +1,13 @@
 package com.xht.android.companyhelp;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 
 /**
@@ -23,6 +25,8 @@ public class ArticleFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    WebView webView;
 
     public ArticleFragment() {
         // Required empty public constructor
@@ -58,8 +62,16 @@ public class ArticleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_article, container, false);
+        View view = inflater.inflate(R.layout.fragment_article, container, false);
+        webView = (WebView) view.findViewById(R.id.webView);
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return false;
+            }
+        });
+        webView.loadUrl("http://www.baidu.com");
+        return view;
     }
 
     @Override

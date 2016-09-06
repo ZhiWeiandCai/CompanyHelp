@@ -207,7 +207,8 @@
 		    		android:drawableLeft="@mipmap/phone_sym_img"
 		    		android:drawablePadding="4dp"
 		    		android:inputType="phone"
-					android:maxLength="15"/>
+					android:maxLength="15"
+					android:enabled="false"/>
 	    	</LinearLayout>
 	    	<LinearLayout 
 			    android:layout_width="match_parent"

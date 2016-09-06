@@ -167,6 +167,7 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
     }
 
     private void updateJiaInfo() {
+        mJNEtX.setText(mParam3[mPosiFlag]);
         mJNshEt.setText(mParam4[mPosiFlag]);
         mJAddEt.setText(mParam5[mPosiFlag]);
         mJPEt.setText(mParam6[mPosiFlag]);

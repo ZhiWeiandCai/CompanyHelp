@@ -2,6 +2,8 @@ package com.xht.android.companyhelp;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.ProgressDialog;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +17,11 @@ import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.xht.android.companyhelp.model.Constants;
+import com.xht.android.companyhelp.net.APIListener;
+import com.xht.android.companyhelp.net.VolleyHelpApi;
+import com.xht.android.companyhelp.util.LogHelper;
+
+import java.util.Calendar;
 
 
 /**
@@ -32,9 +39,13 @@ public class SLookBoardFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private static final String TAG = "SLookBoardFragment";
+    ProgressDialog mProgDoal;
     GraphView mGraph;
     ServerLookBoardActivity mActivity;
     int mUId;
+    String[] mWeiDus;   //维度种类
+    String[] mYears;
 
     public SLookBoardFragment() {
         // Required empty public constructor
@@ -66,6 +77,8 @@ public class SLookBoardFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         mUId = mActivity.mUId;
+        Resources res = getResources();
+        mWeiDus = res.getStringArray(R.array.fwkb_wd);
     }
 
     @Override
@@ -73,8 +86,51 @@ public class SLookBoardFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_slook_board, container, false);
         mGraph = (GraphView) rootView.findViewById(R.id.graph);
+        getInitData();
         showBarGraph();
         return rootView;
+    }
+
+    private void getInitData() {
+        createProgressDialog("获取数据中...");
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        LogHelper.i(TAG, "year-month=" + year + "-" + month);
+        VolleyHelpApi.getInstance().getInitDataSLB(mUId, new APIListener() {
+            @Override
+            public void onResult(Object result) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Object e) {
+                dismissProgressDialog();
+                App.getInstance().showToast(e.toString());
+            }
+        });
+    }
+
+    private void createProgressDialog(String title) {
+        if (mProgDoal == null) {
+            mProgDoal = new ProgressDialog(getActivity());
+        }
+        mProgDoal.setTitle(title);
+        mProgDoal.setIndeterminate(true);
+        mProgDoal.setCancelable(false);
+        mProgDoal.show();
+    }
+
+    /**
+     * 隐藏mProgressDialog
+     */
+    private void dismissProgressDialog()
+    {
+        if(mProgDoal != null)
+        {
+            mProgDoal.dismiss();
+            mProgDoal = null;
+        }
     }
 
     @Override

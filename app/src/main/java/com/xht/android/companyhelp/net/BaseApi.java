@@ -24,6 +24,7 @@ public class BaseApi {
 	public static final String FAPIAO_POST_LEIXING2 = "http://www.xiaohoutai.com.cn:8888/XHT/invoiceorderController/saveBusinessInvoiceOrderInfo";
 	public static final String FAPIAO_POST_LEIXING3 = "http://www.xiaohoutai.com.cn:8888/XHT/invoiceorderController/saveVerifyInvoiceOrderInfo";
 	public static final String RegiTrademask_Post_Url = "http://www.xiaohoutai.com.cn:8888/XHT/regtrademarkController/saveRegtrademarkOrderInfo";
+	public static final String RegiTrademask_Get_Url = "http://www.xiaohoutai.com.cn:8888/XHT/regtrademarkController/loadCompanyNameAndPrice";
 
 	public static final String WEIXI_LJZF_URL = "http://www.xiaohoutai.com.cn:8888/XHT/appwxzf/appwxyuzhifu";
 
