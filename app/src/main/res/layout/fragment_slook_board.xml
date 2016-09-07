@@ -2,38 +2,195 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xht.android.companyhelp.SLookBoardFragment">
-
+    tools:context="com.xht.android.companyhelp.SLookBoardFragment"
+    android:background="@android:color/darker_gray">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:id="@+id/lLayout1">
+        android:layout_height="45dp"
+        android:id="@+id/lLayout1"
+        android:background="@android:color/background_light">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
             android:textSize="18sp"
             android:text="@string/myCompStr"/>
         <Spinner android:id="@+id/spinner1"
-            android:layout_width="80dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="8dp"
             android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/lLayout2"
+        android:layout_below="@id/lLayout1"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/background_light">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:textSize="18sp"
+            android:text="@string/zhonglei"/>
         <Spinner android:id="@+id/spinner2"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginLeft="16dp"
             android:layout_gravity="center_vertical"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:textSize="18sp"
+            android:text="@string/nianfen"/>
         <Spinner android:id="@+id/spinner3"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginLeft="16dp"
             android:layout_gravity="center_vertical"/>
     </LinearLayout>
+
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
         android:layout_height="200dip"
         android:id="@+id/graph"
-        android:layout_below="@id/lLayout1"
-        />
+        android:layout_below="@id/lLayout2"
+        android:background="@android:color/background_light"/>
+    <LinearLayout
+        android:id="@+id/contain_year_fei"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/graph"
+        android:background="@android:color/background_light"
+        android:layout_marginTop="4dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:textSize="18sp"
+            android:text="@string/year_feiyong"/>
+        <TextView android:id="@+id/year_feiyong_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginLeft="4dp"
+            android:textSize="18sp"
+            android:textColor="@android:color/holo_red_light"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/contain_year_w"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/contain_year_fei"
+        android:background="@android:color/background_light">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:textSize="18sp"
+            android:text="@string/year_feiyong_two"/>
+        <TextView android:id="@+id/year_feiyong_tv_t"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginLeft="4dp"
+            android:textSize="18sp"
+            android:textColor="@android:color/holo_red_light"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/contain_year_w"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/background_light">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:textSize="18sp"
+                android:text="@string/yuefen"/>
+            <Spinner android:id="@+id/spinner4"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="8dp"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:textSize="18sp"
+                android:text="@string/shebao_fee_str"/>
+            <TextView android:id="@+id/shebaoFee"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginLeft="4dp"
+                android:textSize="18sp"
+                android:textColor="@android:color/holo_red_light"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:textSize="18sp"
+                android:text="@string/shebao_p_num_str"/>
+            <TextView android:id="@+id/shebaoPNum"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginLeft="4dp"
+                android:textSize="18sp"
+                android:textColor="@android:color/holo_red_light"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:textSize="18sp"
+                android:text="@string/baoshui_fee_str"/>
+            <TextView android:id="@+id/baoshuiFee"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginLeft="4dp"
+                android:textSize="18sp"
+                android:textColor="@android:color/holo_red_light"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:textSize="18sp"
+                android:text="@string/fapiao_fee_str"/>
+            <TextView android:id="@+id/fapiaoFee"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginLeft="4dp"
+                android:textSize="18sp"
+                android:textColor="@android:color/holo_red_light"/>
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

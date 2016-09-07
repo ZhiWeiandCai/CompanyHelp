@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
@@ -29,7 +33,7 @@ import java.util.Calendar;
  * Use the {@link SLookBoardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SLookBoardFragment extends Fragment {
+public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -42,10 +46,16 @@ public class SLookBoardFragment extends Fragment {
     private static final String TAG = "SLookBoardFragment";
     ProgressDialog mProgDoal;
     GraphView mGraph;
+    Spinner mCompNameSpinner, mWeiDuSpinner, mYearsSpinner, mMonthsSpinner;
+    TextView mYearFeiYongTV;
     ServerLookBoardActivity mActivity;
     int mUId;
     String[] mWeiDus;   //维度种类
     String[] mYears;
+    int mCurYear;   //当前年
+    int mCurMonth;
+
+    boolean mInitDataCompFlag;  //用于标识数据初始化完成，因为Spinner的onItemSelected最初会被调用
 
     public SLookBoardFragment() {
         // Required empty public constructor
@@ -86,20 +96,48 @@ public class SLookBoardFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_slook_board, container, false);
         mGraph = (GraphView) rootView.findViewById(R.id.graph);
+        mCompNameSpinner = (Spinner) rootView.findViewById(R.id.spinner1);
+        mWeiDuSpinner = (Spinner) rootView.findViewById(R.id.spinner2);
+        ArrayAdapter<CharSequence> arrayAdapter2 = ArrayAdapter.createFromResource(getActivity(),
+                R.array.fwkb_wd, android.R.layout.simple_spinner_item);
+        arrayAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mWeiDuSpinner.setAdapter(arrayAdapter2);
+        mYearsSpinner = (Spinner) rootView.findViewById(R.id.spinner3);
+        mCompNameSpinner.setOnItemSelectedListener(this);
+        mWeiDuSpinner.setOnItemSelectedListener(this);
+        mYearsSpinner.setOnItemSelectedListener(this);
+        mYearFeiYongTV = (TextView) rootView.findViewById(R.id.year_feiyong_tv);
+        mMonthsSpinner = (Spinner) rootView.findViewById(R.id.spinner4);
+        ArrayAdapter<CharSequence> arrayAdapter4 = ArrayAdapter.createFromResource(getActivity(),
+                R.array.fwkb_months, android.R.layout.simple_spinner_item);
+        arrayAdapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mMonthsSpinner.setAdapter(arrayAdapter4);
         getInitData();
-        showBarGraph();
+        showLineGraph();
         return rootView;
     }
 
     private void getInitData() {
         createProgressDialog("获取数据中...");
         Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        LogHelper.i(TAG, "year-month=" + year + "-" + month);
-        VolleyHelpApi.getInstance().getInitDataSLB(mUId, new APIListener() {
+        mCurYear = calendar.get(Calendar.YEAR);
+        mCurMonth = calendar.get(Calendar.MONTH) + 1;
+        int yearNums = mCurYear - 2016 + 1;
+        mYears = new String[yearNums];
+        for (int i = 0; i < yearNums; i++) {
+            mYears[i] = "" + (2016 + i);
+        }
+        ArrayAdapter<CharSequence> arrayAdapter3 = new ArrayAdapter(getActivity(),
+                android.R.layout.simple_spinner_item, mYears);
+        arrayAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mYearsSpinner.setAdapter(arrayAdapter3);
+        mYearsSpinner.setSelection(mCurYear - 2016);
+        mMonthsSpinner.setSelection(mCurMonth - 1);
+        LogHelper.i(TAG, "year-month=" + mCurYear + "-" + mCurMonth);
+        VolleyHelpApi.getInstance().getInitDataSLB(mUId, mCurYear, mCurMonth, new APIListener() {
             @Override
             public void onResult(Object result) {
+                mInitDataCompFlag = true;
                 dismissProgressDialog();
             }
 
@@ -146,7 +184,7 @@ public class SLookBoardFragment extends Fragment {
 
     private void showLineGraph() {
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, 1),
+                //new DataPoint(0, 1),
                 new DataPoint(1, 5985),
                 new DataPoint(2, 3333),
                 new DataPoint(3, 1456),
@@ -157,18 +195,18 @@ public class SLookBoardFragment extends Fragment {
         mGraph.setTitleColor(Color.BLUE);
         mGraph.setTitleTextSize(18 * Constants.DENSITY);*/
         /*mGraph.getGridLabelRenderer().setVerticalAxisTitle("金额（元）");
-        mGraph.getGridLabelRenderer().setHorizontalAxisTitle("季度");
         mGraph.getGridLabelRenderer().setVerticalAxisTitleTextSize(60);
-        mGraph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
-        mGraph.getGridLabelRenderer().setHorizontalAxisTitleTextSize(60);
-        mGraph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);*/
+        mGraph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);*/
+        mGraph.getGridLabelRenderer().setHorizontalAxisTitle("季度");
+        mGraph.getGridLabelRenderer().setHorizontalAxisTitleTextSize(18 * Constants.DENSITY);
+        mGraph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
         mGraph.getViewport().setXAxisBoundsManual(true);
-        mGraph.getViewport().setMinX(0);
-        mGraph.getViewport().setMaxX(4);
+        mGraph.getViewport().setMinX(0.5);
+        mGraph.getViewport().setMaxX(4.5);
         // legend
-//        series.setTitle("foo");
-//        graph.getLegendRenderer().setVisible(true);
-//        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.BOTTOM);
+        series.setTitle("金额");
+        mGraph.getLegendRenderer().setVisible(true);
+        mGraph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
     }
 
     private void showBarGraph() {
@@ -208,4 +246,24 @@ public class SLookBoardFragment extends Fragment {
         mGraph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (!mInitDataCompFlag) return;
+        switch (parent.getId()) {
+            case R.id.spinner1:
+
+                break;
+            case R.id.spinner2:
+
+                break;
+            case R.id.spinner3:
+
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

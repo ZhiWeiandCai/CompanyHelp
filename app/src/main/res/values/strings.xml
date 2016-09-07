@@ -132,6 +132,15 @@
 
     <string name="baocun_str">保存</string>
     <string name="title_activity_server_look_board">ServerLookBoardActivity</string>
+    <string name="zhonglei">种类</string>
+    <string name="nianfen">年份</string>
+    <string name="year_feiyong">本年总费用</string>
+    <string name="year_feiyong_two">税额/社保</string>
+    <string name="yuefen">月份</string>
+    <string name="shebao_fee_str">社保费用</string>
+    <string name="shebao_p_num_str">社保人数</string>
+    <string name="baoshui_fee_str">报税金额</string>
+    <string name="fapiao_fee_str">发票金额</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

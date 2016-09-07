@@ -974,10 +974,11 @@ public class VolleyHelpApi extends BaseApi{
 	 * @param uid 用户id
 	 * @param apiListener 回调监听器
 	 */
-	public void getInitDataSLB(final int uid, final APIListener apiListener) {
-		String urlString = MakeURL(FUWU_GET_BIAN_GENG_URL, new LinkedHashMap<String, Object>() {{
-			put("userId", uid);
-
+	public void getInitDataSLB(final int uid, final int year, final int month,final APIListener apiListener) {
+		String urlString = MakeURL(FWKB_D_Get_Url, new LinkedHashMap<String, Object>() {{
+			put("openId", uid);
+			put("year", year);
+			put("yue", month);
 		}});
 		JsonObjectRequest req = new JsonObjectRequest(urlString, null, new Response.Listener<JSONObject>() {
 			@Override
