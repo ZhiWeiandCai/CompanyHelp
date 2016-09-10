@@ -133,14 +133,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@android:color/white"
-        android:layout_marginTop="1dp">
+        android:background="@android:color/white">
         <EditText android:id="@+id/name_jiazhang"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:hint="@string/please_name"
             android:singleLine="true"
-            android:drawableLeft="@mipmap/phone_sym_img"
+            android:drawableLeft="@mipmap/lianxiren"
             android:drawablePadding="4dp"
             android:inputType="textPersonName"
             android:maxLength="15"/>
@@ -153,7 +152,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        />
+        android:background="@android:color/darker_gray"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -163,7 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_marginLeft="16dp"
-            android:text="@string/heji"
+            android:text="@string/jine"
             android:textSize="18sp"/>
         <TextView android:id="@+id/shu_heji"
             android:layout_width="wrap_content"
@@ -177,10 +176,12 @@
             android:layout_weight="1"/>
         <Button android:id="@+id/bookYuQue"
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
+            android:layout_height="44dp"
             android:layout_marginRight="16dp"
-            android:padding="4dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:text="@string/book_yuque"
+            android:textColor="@android:color/white"
             android:background="@drawable/btn_bookyuyue_selector"/>
     </LinearLayout>
 </LinearLayout>

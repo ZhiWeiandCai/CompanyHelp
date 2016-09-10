@@ -66,6 +66,7 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener, A
         mUId = bundle.getInt("uid");
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
+        mCustomView.setTextSize(18);
         mCustomView.setText("下单预约-社保服务");
         final ActionBar aBar = getActionBar();
         aBar.setCustomView(mCustomView,

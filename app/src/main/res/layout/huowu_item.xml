@@ -24,7 +24,6 @@
                 android:layout_marginLeft="16dp"
                 android:singleLine="true"
                 android:maxLength="15"
-                android:background="@android:drawable/edit_text"
                 android:textSize="18sp"/>
         </LinearLayout>
         <LinearLayout
@@ -43,7 +42,6 @@
                 android:layout_marginLeft="16dp"
                 android:singleLine="true"
                 android:maxLength="15"
-                android:background="@android:drawable/edit_text"
                 android:textSize="18sp"/>
         </LinearLayout>
         <LinearLayout
@@ -62,7 +60,6 @@
                 android:layout_marginLeft="16dp"
                 android:singleLine="true"
                 android:maxLength="15"
-                android:background="@android:drawable/edit_text"
                 android:textSize="18sp"/>
         </LinearLayout>
         <LinearLayout
@@ -81,7 +78,6 @@
                 android:layout_marginLeft="16dp"
                 android:singleLine="true"
                 android:maxLength="15"
-                android:background="@android:drawable/edit_text"
                 android:textSize="18sp"/>
         </LinearLayout>
         <LinearLayout
@@ -100,7 +96,6 @@
                 android:layout_marginLeft="16dp"
                 android:singleLine="true"
                 android:maxLength="15"
-                android:background="@android:drawable/edit_text"
                 android:textSize="18sp"/>
         </LinearLayout>
         <LinearLayout
@@ -119,7 +114,6 @@
                 android:layout_marginLeft="16dp"
                 android:singleLine="true"
                 android:maxLength="15"
-                android:background="@android:drawable/edit_text"
                 android:textSize="18sp"/>
         </LinearLayout>
     </LinearLayout>

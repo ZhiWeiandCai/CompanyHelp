@@ -30,7 +30,7 @@
             android:singleLine="true"
             android:maxLength="15"/>
         <Spinner
-            android:layout_width="100dp"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
             android:id="@+id/jia_c_et"

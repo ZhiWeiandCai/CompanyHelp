@@ -82,7 +82,6 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ServerLookBoardActivity"
-            android:label="@string/title_activity_server_look_board"
             android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>
         <activity android:name=".ArticleActivity"

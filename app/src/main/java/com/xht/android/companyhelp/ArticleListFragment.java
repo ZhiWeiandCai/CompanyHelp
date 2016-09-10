@@ -66,7 +66,8 @@ public class ArticleListFragment extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String tempS = mArticles.get(position).getmArtUrl();
+                String tempS = "http://www.xiaohoutai.com.cn:8888/XHT/ArticleinfoGetController/findArticleNews?id=" +
+                        mArticles.get(position).getId();
                 Intent intent = new Intent(getActivity(), ArticleActivity.class);
                 intent.putExtra("article_url", tempS);
                 getActivity().startActivity(intent);
@@ -109,6 +110,7 @@ public class ArticleListFragment extends Fragment {
     }
 
     private void parseArticles(JSONArray jA) {
+        int artId;
         Article article;
         String artT;
         String imgUrl;
@@ -117,10 +119,12 @@ public class ArticleListFragment extends Fragment {
         for (int i = 0; i < length; i++) {
             try {
                 jO = jA.getJSONObject(i);
+                artId = jO.getInt("artid");
                 artT = jO.getString("title");
-                imgUrl = jO.getString("imgurl");
+                imgUrl = "http://www.xiaohoutai.com.cn:8888/XHT/" + jO.getString("imageurl");
+                LogHelper.i(TAG, "imgUrl=" + imgUrl);
                 long pbTime = Long.parseLong(jO.getString("pbtime"));
-                article = new Article(0, artT, pbTime, null, imgUrl);
+                article = new Article(artId, artT, pbTime, null, imgUrl);
                 mArticles.add(article);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -152,14 +156,15 @@ public class ArticleListFragment extends Fragment {
             holder.pbT.setText(mSDF.format(new Date(item.getmShijian())));
 //            holder.imgV.setImageResource(R.mipmap.phone_sym_img);
             //异步加载图片
-            String urlRegex = "http://i.imgur.com/7spzG.png".replaceAll("[^a-z0-9]", "");
+            //String urlRegex = "http://i.imgur.com/7spzG.png".replaceAll("[^a-z0-9]", "");
+            String urlRegex = item.getArtPicUrl().replaceAll("[^a-z0-9]", "");
             LogHelper.i(TAG, "urlRegex=" + urlRegex);
             Bitmap bm = App.getInstance().getLruCacheManager().getLruImageCache()
                     .getBitmap(urlRegex);
             if (bm != null)
                 holder.imgV.setImageBitmap(bm);
             else
-                loadBitmap("http://i.imgur.com/7spzG.png", holder.imgV);
+                loadBitmap(item.getArtPicUrl(), holder.imgV);
             /*App.getInstance().getImageLoader().get(item.getArtPicUrl(), new ImageLoader.ImageListener() {
                 @Override
                 public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {

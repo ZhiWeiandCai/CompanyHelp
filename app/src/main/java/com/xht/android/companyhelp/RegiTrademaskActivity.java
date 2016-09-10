@@ -1,11 +1,15 @@
 package com.xht.android.companyhelp;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -47,6 +51,15 @@ public class RegiTrademaskActivity extends Activity {
         mUPhone = bundle.getLong("uphone");
         mUName = bundle.getString("uname");
         setContentView(R.layout.activity_regi_trademask);
+        TextView mCustomView = new TextView(this);
+        mCustomView.setGravity(Gravity.CENTER);
+        mCustomView.setText("注册商标");
+        mCustomView.setTextSize(18);
+        final ActionBar aBar = getActionBar();
+        aBar.setCustomView(mCustomView,
+                new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        int change = ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM;
+        aBar.setDisplayOptions(change);
         initView();
         getComListAndJiaGeOfFP(mUId);
     }
@@ -65,6 +78,19 @@ public class RegiTrademaskActivity extends Activity {
             }
         });
         mSpinner = (Spinner) findViewById(R.id.jia_c_et);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

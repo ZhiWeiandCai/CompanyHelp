@@ -1,5 +1,6 @@
 package com.xht.android.companyhelp;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -7,7 +8,10 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -50,7 +54,15 @@ public class FaPiaoActivity extends Activity {
         Bundle bundle = getIntent().getBundleExtra("uData");
         mUId = bundle.getInt("uid");
         setContentView(R.layout.activity_fa_piao);
-
+        TextView mCustomView = new TextView(this);
+        mCustomView.setGravity(Gravity.CENTER);
+        mCustomView.setText("发票服务");
+        mCustomView.setTextSize(18);
+        final ActionBar aBar = getActionBar();
+        aBar.setCustomView(mCustomView,
+                new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        int change = ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM;
+        aBar.setDisplayOptions(change);
         initView();
 
         getComListAndJiaGeOfFP(mUId);
@@ -162,6 +174,19 @@ public class FaPiaoActivity extends Activity {
             ft.hide(mFragment3);
         }
         ft.commit();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

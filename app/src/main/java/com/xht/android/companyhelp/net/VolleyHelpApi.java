@@ -975,7 +975,7 @@ public class VolleyHelpApi extends BaseApi{
 	 * @param apiListener 回调监听器
 	 */
 	public void getInitDataSLB(final int uid, final int year, final int month,final APIListener apiListener) {
-		String urlString = MakeURL(FWKB_D_Get_Url, new LinkedHashMap<String, Object>() {{
+		String urlString = MakeURL(FWKB_DF_Get_Url, new LinkedHashMap<String, Object>() {{
 			put("openId", uid);
 			put("year", year);
 			put("yue", month);
@@ -988,11 +988,7 @@ public class VolleyHelpApi extends BaseApi{
 					String errMsg = response.optString("message");
 					apiListener.onError(errMsg);
 				} else {
-					JSONObject jsonObject = response.optJSONObject("entity");
-					if (jsonObject==null){
-						return;
-					}
-					apiListener.onResult(jsonObject);
+					apiListener.onResult(response);
 				}
 			}
 		}, new Response.ErrorListener() {
@@ -1012,7 +1008,7 @@ public class VolleyHelpApi extends BaseApi{
 					default:
 						LogHelper.i(TAG, "未知错误");
 				}
-				apiListener.onError("获取价格出错");
+				apiListener.onError("初始化数据出错");
 			}
 		});
 		App.getInstance().addToRequestQueue(req, TAG);

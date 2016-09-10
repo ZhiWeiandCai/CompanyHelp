@@ -5,7 +5,7 @@
     android:orientation="vertical" >
     <RadioGroup 
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="48dp"
         android:id="@+id/switch_tabs"
         android:checkedButton="@+id/tab1"
         android:orientation="horizontal">

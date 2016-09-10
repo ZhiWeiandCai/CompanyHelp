@@ -18,32 +18,34 @@
             android:id="@+id/gmorsx"
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
             android:gravity="center"
-            android:text="@string/jia_c_add"
             android:textSize="18sp"
-            android:background="@android:drawable/edit_text"/>
+            />
     </LinearLayout>
 
     <TextView android:id="@+id/shebaoren_name"
         android:layout_width="220dp"
         android:layout_height="45dp"
         android:layout_below="@id/rg1"
+        android:layout_marginLeft="16dp"
         android:singleLine="true"
-        android:drawableLeft="@mipmap/phone_sym_img"
+        android:drawableLeft="@mipmap/xingming_sb"
         android:drawablePadding="4dp"
         android:hint="@string/please_name"
-        android:background="@android:drawable/edit_text"/>
+        android:gravity="center_vertical"
+        android:textSize="18sp"/>
     <TextView android:id="@+id/shebaoren_idcard"
         android:layout_width="220dp"
         android:layout_height="45dp"
         android:layout_below="@id/shebaoren_name"
+        android:layout_marginLeft="16dp"
         android:hint="@string/please_idcard_nums"
         android:singleLine="true"
-        android:drawableLeft="@mipmap/phone_sym_img"
+        android:drawableLeft="@mipmap/sb_pid"
         android:drawablePadding="4dp"
         android:inputType="phone"
-        android:background="@android:drawable/edit_text"/>
+        android:gravity="center_vertical"
+        android:textSize="18sp"/>
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

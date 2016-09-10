@@ -1,7 +1,9 @@
 package com.xht.android.companyhelp;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -25,6 +28,10 @@ import com.xht.android.companyhelp.net.APIListener;
 import com.xht.android.companyhelp.net.VolleyHelpApi;
 import com.xht.android.companyhelp.util.LogHelper;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
 
 
@@ -33,7 +40,7 @@ import java.util.Calendar;
  * Use the {@link SLookBoardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -47,13 +54,17 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
     ProgressDialog mProgDoal;
     GraphView mGraph;
     Spinner mCompNameSpinner, mWeiDuSpinner, mYearsSpinner, mMonthsSpinner;
-    TextView mYearFeiYongTV;
+    TextView mYearFeiYongTV, mYearFeiYong2TV, mSheBaoFeeTV, mSheBaoPNTV, mBaoSTV, mFaPFeeTV;
+    LinearLayout mMingXi1, mMingXi2, mMingXi3;
     ServerLookBoardActivity mActivity;
     int mUId;
     String[] mWeiDus;   //维度种类
     String[] mYears;
     int mCurYear;   //当前年
     int mCurMonth;
+    private int[] mCompIds;
+    private String[] mCompNames;
+    float[] graphBS;    //每个月或者季度的金额
 
     boolean mInitDataCompFlag;  //用于标识数据初始化完成，因为Spinner的onItemSelected最初会被调用
 
@@ -112,6 +123,17 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
                 R.array.fwkb_months, android.R.layout.simple_spinner_item);
         arrayAdapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mMonthsSpinner.setAdapter(arrayAdapter4);
+        mMingXi1 = (LinearLayout) rootView.findViewById(R.id.mingxi1);
+        mMingXi2 = (LinearLayout) rootView.findViewById(R.id.mingxi2);
+        mMingXi3 = (LinearLayout) rootView.findViewById(R.id.mingxi3);
+        mMingXi1.setOnClickListener(this);
+        mMingXi2.setOnClickListener(this);
+        mMingXi3.setOnClickListener(this);
+        mYearFeiYong2TV = (TextView) rootView.findViewById(R.id.year_feiyong_tv_t);
+        mSheBaoFeeTV = (TextView) rootView.findViewById(R.id.shebaoFee);
+        mSheBaoPNTV = (TextView) rootView.findViewById(R.id.shebaoPNum);
+        mBaoSTV = (TextView) rootView.findViewById(R.id.baoshuiFee);
+        mFaPFeeTV = (TextView) rootView.findViewById(R.id.fapiaoFee);
         getInitData();
         showLineGraph();
         return rootView;
@@ -137,7 +159,29 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
         VolleyHelpApi.getInstance().getInitDataSLB(mUId, mCurYear, mCurMonth, new APIListener() {
             @Override
             public void onResult(Object result) {
+                JSONObject jsonObject = (JSONObject) result;
+                try {
+                    JSONObject compList = jsonObject.getJSONObject("companyList");
+                    JSONArray compListJA = compList.getJSONArray("list");
+                    int compListLength = compListJA.length();
+                    mCompIds = new int[compListLength];
+                    mCompNames = new String[compListLength];
+                    for (int i = 0; i < compListLength; i++) {
+                        JSONObject temp = compListJA.optJSONObject(i);
+                        mCompIds[i] = temp.optInt("companyId");
+                        mCompNames[i] = temp.optString("companyName");
+                    }
+                    compList = jsonObject.getJSONObject("baoshui");
+                    compListJA = compList.getJSONArray("list5");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 mInitDataCompFlag = true;
+                ArrayAdapter<CharSequence> arrayAdapter;
+                arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, mCompNames);
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                mCompNameSpinner.setAdapter(arrayAdapter);
                 dismissProgressDialog();
             }
 
@@ -145,6 +189,7 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
             public void onError(Object e) {
                 dismissProgressDialog();
                 App.getInstance().showToast(e.toString());
+                getActivity().finish();
             }
         });
     }
@@ -265,5 +310,37 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.mingxi1:
+                showDialog(1);
+                break;
+            case R.id.mingxi2:
+
+                break;
+            case R.id.mingxi3:
+
+                break;
+        }
+    }
+
+    void showDialog(int which) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        switch (which) {
+            case 1:
+                // Create and show the dialog.
+                DialogFragment newFragment = MyDialogFragment.newInstance(0);
+                newFragment.show(ft, "dialog");
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+        }
     }
 }

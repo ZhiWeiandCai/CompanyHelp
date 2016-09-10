@@ -64,6 +64,7 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
         mUserName = bundle.getString("uname");
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
+        mCustomView.setTextSize(18);
         mCustomView.setText("下单预约-记账报税");
         final ActionBar aBar = getActionBar();
         aBar.setCustomView(mCustomView,

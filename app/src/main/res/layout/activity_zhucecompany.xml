@@ -33,7 +33,7 @@
 	    	<LinearLayout 
 			    android:layout_width="match_parent"
 		    	android:layout_height="45dp"
-		    	android:layout_marginTop="1dp"
+				android:layout_marginTop="1dp"
 		    	android:background="@android:color/white">
 	    	<TextView 
 	    	    android:layout_width="wrap_content"
@@ -52,7 +52,6 @@
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="45dp"
-				android:layout_marginTop="1dp"
 				android:background="@android:color/white"
 				android:gravity="center">
 				<TextView
@@ -68,13 +67,13 @@
 				<Switch android:id="@+id/tSFJJBtn"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginRight="8dp"/>
+					android:layout_marginRight="8dp"
+					android:showText="false"/>
 			</LinearLayout>
 	    	<LinearLayout 
 			    android:layout_width="match_parent"
 		    	android:layout_height="45dp"
 		    	android:gravity="center_vertical"
-		    	android:layout_marginTop="1dp"
 		    	android:background="@android:color/white">
 	    	<TextView 
 	    	    android:layout_width="wrap_content"
@@ -96,12 +95,12 @@
 	    	<Switch android:id="@+id/toggleButton1"
 	    	    android:layout_width="wrap_content"
 	    	    android:layout_height="wrap_content"
-	    	    android:layout_marginRight="8dp"/>
+	    	    android:layout_marginRight="8dp"
+				android:showText="false"/>
 	    	</LinearLayout>
 	    	<LinearLayout 
 			    android:layout_width="match_parent"
 		    	android:layout_height="45dp"
-		    	android:layout_marginTop="1dp"
 		    	android:background="@android:color/white"
 				android:gravity="center_vertical">
 	    	<TextView 
@@ -117,7 +116,8 @@
 	    	<Switch android:id="@+id/toggleButton2"
 	    	    android:layout_width="wrap_content"
 	    	    android:layout_height="wrap_content"
-	    	    android:layout_marginRight="8dp"/>
+	    	    android:layout_marginRight="8dp"
+				android:showText="false"/>
 	    	</LinearLayout>
 	    	<LinearLayout 
 			    android:layout_width="match_parent"
@@ -213,13 +213,12 @@
 	    	<LinearLayout 
 			    android:layout_width="match_parent"
 		    	android:layout_height="45dp"
-		    	android:background="@android:color/white"
-		    	android:layout_marginTop="1dp">
+		    	android:background="@android:color/white">
 	    		<EditText android:id="@+id/book_name"
 	    		    android:layout_width="match_parent"
 		    		android:layout_height="45dp"
 		    		android:singleLine="true"
-		    		android:drawableLeft="@mipmap/phone_sym_img"
+		    		android:drawableLeft="@mipmap/lianxiren"
 		    		android:drawablePadding="4dp"
 		    		android:hint="@string/please_name"
 					android:maxLength="15"/>
@@ -228,27 +227,23 @@
 			    android:layout_width="match_parent"
 		    	android:layout_height="60dp"
 		    	android:background="@android:color/white"
-		    	android:layout_marginTop="4dp"
-		    	
 		    	android:gravity="center">
 	    		<Spinner android:id="@+id/spinner2"
 		    	    android:layout_width="wrap_content"
-		    	    android:layout_height="40dp"
+		    	    android:layout_height="45dp"
 		    	    android:gravity="center"
-		    	    
 		    	    android:background="@drawable/btn_background_circle"/>
 	    	</LinearLayout>
 	    	<LinearLayout 
 			    android:layout_width="match_parent"
 		    	android:layout_height="45dp"
 		    	android:background="@android:color/white"
-		    	android:layout_marginTop="4dp"		    	
 		    	android:gravity="center_vertical">
 	    		<EditText android:id="@+id/anthor_c1"
 	    		    android:layout_width="match_parent"
 		    		android:layout_height="45dp"
 		    		android:singleLine="true"
-		    		android:drawableLeft="@mipmap/phone_sym_img"
+		    		android:drawableLeft="@mipmap/comp_n_beixuan"
 		    		android:drawablePadding="4dp"
 		    		android:hint="@string/tip_input_c1"
 					android:maxLength="15"/>
@@ -257,13 +252,12 @@
 			    android:layout_width="match_parent"
 		    	android:layout_height="45dp"
 		    	android:background="@android:color/white"
-		    	android:layout_marginTop="4dp"		    	
 		    	android:gravity="center_vertical">
 	    		<EditText android:id="@+id/anthor_c2"
 	    		    android:layout_width="match_parent"
 		    		android:layout_height="45dp"
 		    		android:singleLine="true"
-		    		android:drawableLeft="@mipmap/phone_sym_img"
+		    		android:drawableLeft="@mipmap/comp_n_beixuan"
 		    		android:drawablePadding="4dp"
 		    		android:hint="@string/tip_input_c2"
 					android:maxLength="15"/>
@@ -272,13 +266,12 @@
 			    android:layout_width="match_parent"
 		    	android:layout_height="45dp"
 		    	android:background="@android:color/white"
-		    	android:layout_marginTop="4dp"		    	
 		    	android:gravity="center_vertical">
 	    		<EditText android:id="@+id/anthor_c3"
 	    		    android:layout_width="match_parent"
 		    		android:layout_height="45dp"
 		    		android:singleLine="true"
-		    		android:drawableLeft="@mipmap/phone_sym_img"
+		    		android:drawableLeft="@mipmap/comp_n_beixuan"
 		    		android:drawablePadding="4dp"
 		    		android:hint="@string/tip_input_c3"
 					android:maxLength="15"/>
@@ -306,13 +299,12 @@
 	        android:layout_width="wrap_content"
     		android:layout_height="45dp"
     		android:layout_marginLeft="16dp"
-    		android:text="@string/heji"
+    		android:text="@string/jine"
     		android:textSize="18sp"/>
 	    <TextView android:id="@+id/shu_heji"
 	        android:layout_width="wrap_content"
     		android:layout_height="45dp"
     		android:layout_marginLeft="4dp"
-    		
     		android:textSize="18sp"
     		android:textColor="@android:color/holo_red_light"/>
 	    <View android:layout_width="0dp"
@@ -320,10 +312,12 @@
 	        android:layout_weight="1"/>
 	    <Button android:id="@+id/bookYuQue"
 	        android:layout_width="wrap_content"
-	        android:layout_height="45dp"
+	        android:layout_height="44dp"
 	        android:layout_marginRight="16dp"
-	        android:padding="4dp"
+	        android:paddingLeft="16dp"
+			android:paddingRight="16dp"
 	        android:text="@string/book_yuque"
+			android:textColor="@android:color/white"
 	        android:background="@drawable/btn_bookyuyue_selector"/>
 	</LinearLayout>
 </LinearLayout>

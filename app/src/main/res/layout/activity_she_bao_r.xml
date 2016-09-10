@@ -35,7 +35,7 @@
         android:layout_height="45dp"
         android:layout_below="@id/rg1"
         android:singleLine="true"
-        android:drawableLeft="@mipmap/phone_sym_img"
+        android:drawableLeft="@mipmap/xingming_sb"
         android:drawablePadding="4dp"
         android:hint="@string/please_name"
         android:maxLength="15"/>
@@ -45,7 +45,7 @@
         android:layout_below="@id/shebaoren_name"
         android:hint="@string/please_idcard_nums"
         android:singleLine="true"
-        android:drawableLeft="@mipmap/phone_sym_img"
+        android:drawableLeft="@mipmap/sb_pid"
         android:drawablePadding="4dp"
         android:inputType="phone"
         android:maxLength="25"/>
@@ -58,5 +58,6 @@
         android:background="@drawable/btn_background_circle"
         android:id="@+id/jian_item_btn"
         android:gravity="center"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:text="@string/baocun_str"/>
 </RelativeLayout>

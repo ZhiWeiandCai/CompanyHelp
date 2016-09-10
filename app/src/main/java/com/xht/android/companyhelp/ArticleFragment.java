@@ -70,7 +70,7 @@ public class ArticleFragment extends Fragment {
                 return false;
             }
         });
-        webView.loadUrl("http://www.baidu.com");
+        webView.loadUrl(mParam1);
         return view;
     }
 

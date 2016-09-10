@@ -90,7 +90,7 @@
     <string name="app_tip">提示</string>
 
     <string name="jine">金额： </string>
-    <string name="goumaiorchexiao">购买/撤销</string>
+    <string name="goumaiorchexiao">购买/撤销：</string>
     <string name="goumai">购买</string>
     <string name="chexiao">撤销</string>
     <string name="please_idcard_nums">请填写身份证号</string>
@@ -118,17 +118,17 @@
     <string name="yi_c_phone">公司电话</string>
     <string name="yi_c_kfh">开户行</string>
     <string name="yi_c_kfhao">开户账号</string>
-    <string name="huowu_str">货物</string>
-    <string name="guigexinghao">规格型号</string>
-    <string name="danwei_str">单位</string>
-    <string name="shuliang_str">数量</string>
-    <string name="danjia_str">单价(不含税)</string>
-    <string name="je_buhanshui_str">金额(不含税)</string>
-    <string name="huowu_ms">货物明细</string>
+    <string name="huowu_str">货物：</string>
+    <string name="guigexinghao">规格型号：</string>
+    <string name="danwei_str">单位：</string>
+    <string name="shuliang_str">数量：</string>
+    <string name="danjia_str">单价(不含税)：</string>
+    <string name="je_buhanshui_str">金额(不含税)：</string>
+    <string name="huowu_ms">货物明细：</string>
     <!-- 注册商标界面 -->
     <string name="str_rpn">联系人姓名</string>
     <string name="str_rpp">联系人电话</string>
-    <string name="rm_name">商标名称</string>
+    <string name="rm_name">请填写商标名称</string>
 
     <string name="baocun_str">保存</string>
     <string name="title_activity_server_look_board">ServerLookBoardActivity</string>
@@ -142,6 +142,6 @@
     <string name="baoshui_fee_str">报税金额</string>
     <string name="fapiao_fee_str">发票金额</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- MyDialogFragment -->
+    <string name="shebao_md">社保名单</string>
 </resources>
