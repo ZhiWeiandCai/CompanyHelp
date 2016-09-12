@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.TextureView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
@@ -22,22 +23,17 @@ public class PersonOfBianGengAvtivity extends Activity {
     private EditText mEDSFZHao;
     private EditText mSFZAddress;
     private EditText mGuQuanBiLi;
-    private ImageButton mAddItemImg;
-
+    private Button mAddItemImg;
     private String textGuDGuQ =null;
     private String textZenJian=null;
-
     private int textGuQuanBiLi;
     private static final String TAG = "PersonOfBianGengAvtivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_listview_biangeng);
         initView();
-
     }
-
     //初始化控件
     private void initView() {
         mRadioGroupGQ = (RadioGroup) findViewById(R.id.item_rg1);
@@ -47,7 +43,7 @@ public class PersonOfBianGengAvtivity extends Activity {
         mEDSFZHao = (EditText) findViewById(R.id.item_shengfengzhenghao_edit);
         mSFZAddress = (EditText) findViewById(R.id.item_biangeng_sfz_address);
         mGuQuanBiLi = (EditText) findViewById(R.id.item_biangeng_guquan_bili);
-        mAddItemImg = (ImageButton) findViewById(R.id.item_imageview_contacts);
+        mAddItemImg = (Button) findViewById(R.id.item_imageview_contacts);
 
         mRadioGroupGQ.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -62,7 +58,6 @@ public class PersonOfBianGengAvtivity extends Activity {
                 }
             }
         });
-
         mRadioGroupZJ.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

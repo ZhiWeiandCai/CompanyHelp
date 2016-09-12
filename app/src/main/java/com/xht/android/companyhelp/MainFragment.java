@@ -13,6 +13,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
+import com.umeng.message.ALIAS_TYPE;
+import com.umeng.message.PushAgent;
+
 public class MainFragment extends Fragment {
 	
 	private RadioButton radioButton1, radioButton2, radioButton3;

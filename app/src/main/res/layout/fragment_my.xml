@@ -128,5 +128,23 @@
                 android:drawablePadding="3dp"
                 android:drawableLeft="@mipmap/img_yijian_fankui"/>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/fragm_my_ll7"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical"
+        android:background="@android:color/white">
+        <TextView android:id="@+id/complete_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+
+            android:text="完善信息"
+            android:textSize="18sp"
+            android:drawablePadding="3dp"
+            android:drawableLeft="@mipmap/img_yijian_fankui"/>
+    </LinearLayout>
 
 </LinearLayout>

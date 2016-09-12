@@ -119,7 +119,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
         int change = ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM;
         aBar.setDisplayOptions(change);
 
-       // mArrayList.add(new PersonOfBianGengService());
+        //mArrayList.add(new PersonOfBianGengService());
         //初始化变更界面主布局
         initView();
         //添加子listview的头
@@ -147,6 +147,8 @@ public class BianGengService extends Activity implements View.OnClickListener {
         //根据用户ID获取公司名称
         getComListZhuCe(mUid);
 
+
+
     }
 
     @Override
@@ -167,11 +169,6 @@ public class BianGengService extends Activity implements View.OnClickListener {
                LogHelper.i(TAG,"-------"+Data.toString()+"-------------------------");
 
             }
-
-
-
-
-
         }
     }
 
@@ -256,6 +253,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     mPrice+=mGuDongGuQuanPrice;
+                    mArrayList.add(new PersonOfBianGengService());
 
                 }else{
                     mPrice-=mGuDongGuQuanPrice;
@@ -291,11 +289,8 @@ public class BianGengService extends Activity implements View.OnClickListener {
         //价钱文本和下单按钮
         mTVMoney= (TextView) findViewById(R.id.zong_money);
         mSendMoney= (Button) findViewById(R.id.sendbook_biangeng);
-
         //listview
         mListViewItem= (ListView) findViewById(R.id.biangeng_list_view);
-
-
         mSendMoney.setOnClickListener(this);
     }
 
@@ -304,14 +299,11 @@ public class BianGengService extends Activity implements View.OnClickListener {
 //适配器
     private class PersonOfBianGengServiceAdapter extends  ArrayAdapter<PersonOfBianGengService> {
 
-
         public PersonOfBianGengServiceAdapter(ArrayList<PersonOfBianGengService> item) {
             super(BianGengService.this, 0, item);
         }
-
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-
              ViewHolder holder;
            if (convertView==null){
                holder = new ViewHolder();
@@ -323,8 +315,6 @@ public class BianGengService extends Activity implements View.OnClickListener {
                holder.mJianImgContacts= (ImageButton) convertView.findViewById(R.id.item_biangeng_list_button);
                holder.mSFZAddress= (TextView) convertView.findViewById(R.id.item_biangeng_shenfz_address);
                holder.mGuQuangBiLi= (TextView)convertView.findViewById(R.id.item_biangeng_text_guquan_bili);
-
-
                convertView.setTag(holder);
            }else{
                holder= (ViewHolder) convertView.getTag();
@@ -406,7 +396,8 @@ public class BianGengService extends Activity implements View.OnClickListener {
                         mNamePrice = jiageJO.optInt("ChgCompName");
                         mFanWeiPrice = jiageJO.optInt("ChgBusinessScope");
                     LogHelper.i(TAG,"变更服务价格的所有信息"+jiageJO.toString()+"::::::::::::"+mFaRenPrice+mGuDongGuQuanPrice+mAddressPrice+mNamePrice+mFanWeiPrice+"----------------");
-                    companyJA = ((JSONObject) result).getJSONArray("companyName");
+                  //  companyJA = ((JSONObject) result).getJSONArray("companyName");
+                        companyJA = ((JSONObject) result).optJSONArray("companyName");
                     int compJALength = companyJA.length();
                     mCompIds = new int[compJALength];
                     mCompNames = new String[compJALength];
@@ -415,6 +406,9 @@ public class BianGengService extends Activity implements View.OnClickListener {
                         mCompIds[i] = temp.optInt("id");
                         mCompNames[i] = temp.optString("name");
                     }
+
+                        companyName=mCompNames[0];
+                        LogHelper.i(TAG,"------------------------"+companyName+"---------------");
                 } catch (JSONException e) {
                     e.printStackTrace();
                     }
@@ -492,7 +486,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
 
         boolean mCheckBoxAddress=  mCheckBoxChangeAddress.isChecked();
         if (mCheckBoxAddress) {
-            mPrice+=mAddressPrice;
+         //   mPrice+=mAddressPrice;
             //跨区域
             mCheckKuaQuYU= mCheckBoxKuaQuYU.isChecked();
             //变更公司地址
@@ -506,7 +500,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
 
         boolean mCheckBoXFaren=mCheckBoxChangeFaRen.isChecked();
         if (mCheckBoXFaren) {
-            mPrice+=mFaRenPrice;
+          //  mPrice+=mFaRenPrice;
             //变更法人和身份证号
             mBGFaRenName=mEditNewFaRenName.getText().toString();
              mBGFaRenSFZHao=mEditNewShengFengZhengHao.getText().toString();
@@ -522,7 +516,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
 
         boolean mCheckBoxFanWei=mCheckBoxChangeFanWei.isChecked();
         if (mCheckBoxFanWei) {
-            mPrice+=mFanWeiPrice;
+           // mPrice+=mFanWeiPrice;
             //变更范围
             mBGJYFanWei=mEditNewFanWei.getText().toString();
             if(TextUtils.isEmpty(mBGJYFanWei)){
@@ -532,20 +526,22 @@ public class BianGengService extends Activity implements View.OnClickListener {
         }
 
 
-
         boolean mCheckBoxGuDong = mCheckBoxChangeGuDong.isChecked();
-        if (mArrayList.size()<=0){
-            App.getInstance().showToast("请添加变更股东股权的相关信息");
+        if (mCheckBoxGuDong){
+            if (mArrayList.size()<=0){
+                App.getInstance().showToast("请添加变更股东股权的相关信息");
+                return;
+            }
         }
 
-        if (!mCheckBoxGuDong) {
-
+      /*  if (mCheckBoxGuDong) {
             //添加股东股权
             App.getInstance().showToast("请添加变更股东股权的相关信息");
 
-        }
+        }*/
         if (!mCheckBoxCompany&&!mCheckBoxAddress&&!mCheckBoXFaren&&!mCheckBoxFanWei&&!mCheckBoxGuDong){
             App.getInstance().showToast("变更业务请先勾选类型，若无请退出！");
+            return;
         }
 
         //封装数据
@@ -554,6 +550,8 @@ public class BianGengService extends Activity implements View.OnClickListener {
         try {
             mBG.put("CustomerId",mUid);//下单用户id
             // mBG.put("CompanyId",mSelectedCompId);//公司id
+
+            mBG.put("CompanyName",companyName);
             mBG.put("Price",mPrice);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -600,7 +598,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
         try {
             JSONObject mBGJYYeWu = new JSONObject();
             mBGJYYeWu.put("bgcheckfanwei", mCheckBoxFanWei);
-            mBGJYYeWu.put("bgnewfarensfz",mBGJYFanWei);
+            mBGJYYeWu.put("bgnewfanwei",mBGJYFanWei);
             mBG.putOpt("bgfw",mBGJYYeWu);
             LogHelper.i(TAG,mBGJYYeWu.toString());
         }catch (Exception e){
@@ -609,6 +607,8 @@ public class BianGengService extends Activity implements View.OnClickListener {
         //变更股东股权
         try {
             JSONArray mBGList=new JSONArray();
+            JSONObject mBGoject = new JSONObject();
+            mBGoject.put("biangengguquan",mCheckBoxGuDong);
             for (PersonOfBianGengService temp : mArrayList) {
                 JSONObject mBianGengJo = new JSONObject();
                 mBianGengJo.put("bggudongguquan", temp.getmGuDongGuQuan());
@@ -621,6 +621,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
                 mBGList.put(mBianGengJo);
 
             }
+
             mBG.putOpt("bggq",mBGList);
         }catch (Exception e){
             e.printStackTrace();

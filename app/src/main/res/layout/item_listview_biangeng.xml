@@ -9,6 +9,8 @@
         android:id="@+id/item_rg1"
         android:layout_width="match_parent"
         android:orientation="horizontal"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white"
         android:layout_height="wrap_content">
         <RadioButton
             android:id="@+id/item_biangeng_gudong"
@@ -21,14 +23,13 @@
             android:layout_height="wrap_content"
             android:text="变更股权"/>
     </RadioGroup>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+
     <RadioGroup
         android:id="@+id/item_rg2"
         android:layout_width="match_parent"
         android:orientation="horizontal"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white"
         android:layout_height="wrap_content">
         <RadioButton
             android:id="@+id/item_biangeng_zeng"
@@ -44,13 +45,12 @@
             android:textSize="18sp"
             android:text="减"/>
     </RadioGroup>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
@@ -65,13 +65,12 @@
             android:layout_height="wrap_content"
             android:hint="请输入姓名"/>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white">
         <TextView
             android:id="@+id/shengfengzhenghao_text"
             android:layout_width="wrap_content"
@@ -79,23 +78,25 @@
             android:textSize="17sp"
             android:layout_marginLeft="10dp"
             android:padding="3dp"
+            android:layout_marginTop="6dp"
+            android:layout_gravity="center_vertical"
             android:text="身份证号："/>
         <EditText
             android:id="@+id/item_shengfengzhenghao_edit"
             android:layout_toRightOf="@id/shengfengzhenghao_text"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:numeric="integer"
             android:hint="请输入身份证号"/>
 
     </RelativeLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white">
         <TextView
             android:layout_width="wrap_content"
             android:layout_marginLeft="10dp"
@@ -109,13 +110,12 @@
             android:layout_height="wrap_content"
             android:hint="请输入身份证地址"/>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white">
         <TextView
             android:layout_width="wrap_content"
             android:layout_marginLeft="10dp"
@@ -126,6 +126,7 @@
         <EditText
             android:id="@+id/item_biangeng_guquan_bili"
             android:layout_width="150dp"
+            android:phoneNumber="true"
             android:layout_height="wrap_content"
             android:hint="请输入股权比例"/>
         <TextView
@@ -140,11 +141,12 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"/>
-    <ImageButton
+    <Button
         android:id="@+id/item_imageview_contacts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
        android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:src="@drawable/common_ic_googleplayservices"/>
+        android:text="确认保存"
+     />
 </LinearLayout>

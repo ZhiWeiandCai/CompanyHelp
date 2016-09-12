@@ -19,6 +19,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.umeng.message.ALIAS_TYPE;
 import com.xht.android.companyhelp.net.APIListener;
 import com.xht.android.companyhelp.net.VolleyHelpApi;
 import com.xht.android.companyhelp.util.LogHelper;
@@ -55,6 +56,7 @@ public class ZhuCeZiJinActivity extends Activity implements RadioGroup.OnChecked
 
     private static final String TAG = "ZhuCeZiJinActivity";
 
+   private static final String XHT="XHT";//String SINA_WEIBO = "SINA_WEIBO";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +64,35 @@ public class ZhuCeZiJinActivity extends Activity implements RadioGroup.OnChecked
         setContentView(R.layout.activity_zhucezijin);
         Bundle bundle = getIntent().getBundleExtra("uData");
         mUId = bundle.getInt("uid");//下单人ID
-        LogHelper.i(TAG,"下单人ID---"+mUId);
+
+      //  String uid=String.valueOf(mUId);
+       /* //设置用户ID为标签
+                try {
+                    //App.getmPushAgent().getTagManager().add("movie","sport");
+                    App.getmPushAgent().getTagManager().add("uid");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }*/
+
+        //设置用户id为标签
+                try {
+                    App.getmPushAgent().getTagManager().add(mUId+"");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+        try {
+            App.getmPushAgent().addAlias(mUId+"", XHT);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        //特定用户
+       // App.getmPushAgent().setAlias("uid", ALIAS_TYPE.SINA_WEIBO);
+       // App.getmPushAgent().setExclusiveAlias("uid", ALIAS_TYPE.SINA_WEIBO);
+
+        LogHelper.i(TAG,"用户ID---"+mUId);
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
         mCustomView.setText("下单预约-变更注册资金");
@@ -202,7 +232,8 @@ public class ZhuCeZiJinActivity extends Activity implements RadioGroup.OnChecked
                     jiageJO = ((JSONObject) result).getJSONObject("price");
                     mPrice = jiageJO.optInt("ChgRgCapital");
                     LogHelper.i(TAG,"价钱--------"+mPrice);
-                    companyJA = ((JSONObject) result).getJSONArray("companyName");
+                   // companyJA = ((JSONObject) result).getJSONArray("companyName");
+                    companyJA = ((JSONObject) result).optJSONArray("companyName");
                     int compJALength = companyJA.length();
                     LogHelper.i(TAG,"公司个数："+compJALength);
                     mCompIds = new int[compJALength];
@@ -236,7 +267,7 @@ public class ZhuCeZiJinActivity extends Activity implements RadioGroup.OnChecked
         mSpinner.setAdapter(arrayAdapter);
         //mTVTotalMoney.setText(mPrice);
         mTVTotalMoney.setTextColor(Color.RED);
-        mTVTotalMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice / 100.0f));
+        mTVTotalMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice / 1.0f));
     }
 
     /**

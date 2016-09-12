@@ -159,7 +159,7 @@ public class CancelComActivity extends Activity {
      */
     private void showTotalMoney() {
         mTVTotalMoney.setTextColor(Color.RED);
-        mTVTotalMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice / 100.0f));
+        mTVTotalMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice / 1.0f));
 
     }
 
@@ -209,7 +209,8 @@ public class CancelComActivity extends Activity {
                    jiageJO = ((JSONObject) result).getJSONObject("price");
                     mPrice= jiageJO.optInt("CancelCompany");//注销公司价格
                     LogHelper.i(TAG,"价钱----"+mPrice);
-                    companyJA = ((JSONObject) result).getJSONArray("companyName");
+                    //companyJA = ((JSONObject) result).getJSONArray("companyName");
+                    companyJA = ((JSONObject) result).optJSONArray("companyName");
                     LogHelper.i(TAG, "---所有信息--" + companyJA.toString());
                     int compJALength = companyJA.length();
                     mCompIds = new int[compJALength];

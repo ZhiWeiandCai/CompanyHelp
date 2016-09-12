@@ -1,6 +1,11 @@
 package com.xht.android.companyhelp;
 
+import com.umeng.message.ALIAS_TYPE;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UmengRegistrar;
 import com.xht.android.companyhelp.model.UserInfo;
+import com.xht.android.companyhelp.util.LogHelper;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -8,7 +13,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,6 +24,7 @@ public class MainActivity extends FragmentActivity {
 	
 //	Fragment mSwitchFragment;
 	public UserInfo mUserInfo = new UserInfo();
+	private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +35,16 @@ public class MainActivity extends FragmentActivity {
         /*FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         mSwitchFragment = fragmentManager.findFragmentById(R.id.switchFragment);*/
-        
-    }
+		//友盟推送初始化
+		PushAgent mPushAgent = PushAgent.getInstance(this);
+		//mPushAgent.enable();
+		PushAgent.getInstance(this).onAppStart();
+		final String device_token = UmengRegistrar.getRegistrationId(this);
+		LogHelper.i(TAG,"--------------"+device_token);
+
+
+
+	}
 
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {

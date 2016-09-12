@@ -4,6 +4,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.xht.android.companyhelp.App;
@@ -480,9 +481,7 @@ public class VolleyHelpApi extends BaseApi{
 						apiListener.onError("您还没有在我们这里注册公司！");
 						return;
 					}
-					if (jsonObject==null){
-						return;
-					}
+					
 					apiListener.onResult(jsonObject);
 				}
 			}
@@ -665,7 +664,8 @@ public class VolleyHelpApi extends BaseApi{
 					apiListener.onError(errMsg);
 				} else {
 					JSONObject jsonObject = response.optJSONObject("entity");
-					if (jsonObject==null){
+					if (jsonObject.optJSONArray("companyName") == null) {
+						apiListener.onError("您还没有在我们这里注册公司！");
 						return;
 					}
 					apiListener.onResult(jsonObject);
@@ -693,6 +693,97 @@ public class VolleyHelpApi extends BaseApi{
 		});
 		App.getInstance().addToRequestQueue(req, TAG);
 	}
+
+
+
+	/**
+	 * 根据用户id获取-----账户信息
+	 * @param uid 用户id
+	 * @param apiListener 回调监听器
+	 */
+	public void getZhangHuGuanLiYeWu11(final int uid, final APIListener apiListener) {
+		String urlString = MakeURL(FUWU_GET_ZHANGHU_URL, new LinkedHashMap<String, Object>() {{
+			put("userid", uid);
+
+
+		}});
+		JsonObjectRequest req = new JsonObjectRequest(urlString, null, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				if (isResponseError(response)) {
+					String errMsg = response.optString("message");
+					apiListener.onError(errMsg);
+				} else {
+					JSONObject jsonObject = response.optJSONObject("entity");
+
+					apiListener.onResult(jsonObject);
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("获取信息出错");
+			}
+		});
+		App.getInstance().addToRequestQueue(req, TAG);
+	}
+
+	/**
+	 * 账户信息
+	 *//*
+	public void postZhanghu(int userId, JSONObject jsonObject, final APIListener apiListener) {
+		JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, FUWU_POST_ZHANGHU_URL, jsonObject, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				if (isResponseError(response)) {
+					String errMsg = response.optString("message");
+					apiListener.onError(errMsg);
+				} else {
+
+					apiListener.onResult(response);
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("获取账户信息出错");
+			}
+		});
+		App.getInstance().addToRequestQueue(req, TAG);
+
+	}
+*/
+
 	/**
 	 * 注册变更服务资金--提交订单
 	 */
@@ -727,6 +818,86 @@ public class VolleyHelpApi extends BaseApi{
 						LogHelper.i(TAG, "未知错误");
 				}
 				apiListener.onError("提交订单出错");
+			}
+		});
+		App.getInstance().addToRequestQueue(req, TAG);
+
+	}
+	
+	/**
+	 * 提交----修改账户信息
+	 */
+	public void postXiuGaiZhangHu(int userId, JSONObject jsonObject, final APIListener apiListener) {
+		JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, FUWU_POST_ZHANGHU_URL, jsonObject, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				if (isResponseError(response)) {
+					String errMsg = response.optString("message");
+					apiListener.onError(errMsg);
+				} else {
+
+					apiListener.onResult(response);
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("提交订单出错");
+			}
+		});
+		App.getInstance().addToRequestQueue(req, TAG);
+
+	}
+
+	/**
+	 * 完善信息--提交
+	 */
+	public void postCompleteMessage(int userId, JSONObject jsonObject, final APIListener apiListener) {
+		JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, FUWU_POST_COMPLETE_URL, jsonObject, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				if (isResponseError(response)) {
+					String errMsg = response.optString("message");
+					apiListener.onError(errMsg);
+				} else {
+
+					apiListener.onResult(response);
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("完善信息出错");
 			}
 		});
 		App.getInstance().addToRequestQueue(req, TAG);

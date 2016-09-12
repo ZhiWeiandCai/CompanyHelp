@@ -1,25 +1,51 @@
 package com.xht.android.companyhelp;
 
 import android.app.Application;
+import android.app.Notification;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UTrack;
+import com.umeng.message.UmengMessageHandler;
+import com.umeng.message.UmengNotificationClickHandler;
+import com.umeng.message.UmengRegistrar;
+import com.umeng.message.entity.UMessage;
+import com.umeng.message.tag.TagManager;
 import com.xht.android.companyhelp.ceche.LruCacheManager;
 import com.xht.android.companyhelp.model.Constants;
+import com.xht.android.companyhelp.model.MessageDetail;
 import com.xht.android.companyhelp.util.LogHelper;
 import com.xht.android.companyhelp.util.Utils;
 
+import org.json.JSONObject;
+
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class App extends Application {
 	
@@ -29,17 +55,138 @@ public class App extends Application {
 	private RequestQueue mRequestQueue;
 	private ImageLoader mImageLoader;
 	private LruCacheManager mLruCacheManager;
-	
+	public static ArrayList<MessageDetail> messageList;
+	public static PushAgent mPushAgent;
+
+
 	public static App getInstance() {
 		return sAppInstance;
 	}
-	
+
+	public static ArrayList<MessageDetail> getMessageList() {
+		return messageList;
+	}
+
+	public static PushAgent getmPushAgent() {
+		return mPushAgent;
+	}
+
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		sAppInstance = this;
 		mLruCacheManager = LruCacheManager.getInstance(getApplicationContext());
 		init();
+		messageList = new ArrayList<MessageDetail>();
+
+		//友盟推送初始化
+		mPushAgent = PushAgent.getInstance(this);
+		mPushAgent.enable();
+		mPushAgent.getInstance(this).onAppStart();
+		//mPushAgent.setDebugMode(false);
+
+		//处理通知和消息
+		UmengMessageHandler handlerMess=new UmengMessageHandler(){
+
+			//dealWithNotificationMessage()方法负责处理通知消息
+			@Override
+			public void dealWithNotificationMessage(Context context, UMessage uMessage) {
+				super.dealWithNotificationMessage(context, uMessage);
+				Toast.makeText(context, uMessage.title, Toast.LENGTH_LONG).show();
+				LogHelper.i(TAG,"----------"+uMessage.title);
+				String title=uMessage.title;
+				String content=uMessage.text;
+				String url=uMessage.url;
+				//String url="http://shehui.firefox.163.com/16/0908/06/CXFNU21MPBLIDY3A.html";
+				String iconurl="http://a1.peoplecdn.cn/60e66fb39bcff8e28c831eed027b4844.jpg@1l";
+				final MessageDetail itemMess = new MessageDetail();
+				//把通知的数据添加到消息界面中的消息中心
+				itemMess.setmTime(Utils.getTimeUtils(System.currentTimeMillis()));
+				itemMess.setmTitle(title);
+				itemMess.setmContent(content);
+				//itemMess.setmUrl(url);
+
+				LogHelper.i(TAG,"----tttttttttttttt------");
+				LogHelper.i(TAG,"---"+title+"--"+content+"--"+url);
+				messageList.add(itemMess);
+				LogHelper.i(TAG,"??????????-------------------------??????");
+
+				ImageRequest request = new ImageRequest(iconurl, new Response.Listener<Bitmap>() {
+					@Override
+					public void onResponse(Bitmap arg0) {
+						itemMess.setmBitmap(arg0);
+					}
+				}, 0, 0, Bitmap.Config.RGB_565, new Response.ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						showToast("图片解析出错");
+					}
+				});
+				addToRequestQueue(request, TAG);
+
+				//额外信息extras
+				if (uMessage.extra.entrySet()!=null) {
+					for (Map.Entry<String, String> entry : uMessage.extra.entrySet()) {
+						String key = entry.getKey();
+						String value = entry.getValue();
+						itemMess.setmUrl(value);
+						LogHelper.i(TAG, "--111---" + key.toString() + "---11--" + value.toString());
+					}
+					LogHelper.i(TAG,"??????????????????????????????????????????????????????????");
+					messageList.add(itemMess);
+				}
+			}
+			//dealWithCustomMessage()方法负责处理自定义消息，需由用户处理。 若开发者需要处理自定义消息
+			@Override
+			public void dealWithCustomMessage(final Context context, final UMessage msg) {
+				new Handler(getMainLooper()).post(new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						// 对自定义消息的处理方式，点击或者忽略
+
+						LogHelper.i(TAG,"-----------"+msg.custom.toString());
+
+						boolean isClickOrDismissed = true;
+						if(isClickOrDismissed) {
+							//自定义消息的点击统计
+							UTrack.getInstance(getApplicationContext()).trackMsgClick(msg);
+						} else {
+							//自定义消息的忽略统计
+							UTrack.getInstance(getApplicationContext()).trackMsgDismissed(msg);
+						}
+						Toast.makeText(context, msg.custom, Toast.LENGTH_LONG).show();
+					}
+				});
+			}
+
+		};
+		mPushAgent.setMessageHandler(handlerMess);
+
+		//自定义通知的打开行为
+		UmengNotificationClickHandler notificationClickHandler = new UmengNotificationClickHandler(){
+			@Override
+			public void dealWithCustomAction(Context context, UMessage msg) {
+				Toast.makeText(context, msg.title, Toast.LENGTH_LONG).show();
+				String content=msg.getRaw().toString();
+
+				String title=msg.title;
+				String text=msg.text;
+				String url=msg.url;
+
+				LogHelper.i(TAG,"--33---"+title+"-"+text+"=77===");
+				LogHelper.i(TAG,"-----"+content+"------=");
+				//额外信息extras
+				for (Map.Entry<String, String> entry : msg.extra.entrySet()) {
+					String key = entry.getKey();
+					String value = entry.getValue();
+					LogHelper.i(TAG, "-----" + key.toString() + "-----" + value.toString());
+				}
+			}
+		};
+		mPushAgent.setNotificationClickHandler(notificationClickHandler);
 	}
 
 	private void init() {

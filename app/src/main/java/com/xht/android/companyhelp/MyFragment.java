@@ -26,12 +26,16 @@ public class MyFragment extends Fragment implements OnClickListener {
 	public static final String PHONENUM_KEY = "phone_key";
 	public static final String UID_KEY = "userId_key";
 	public static final String UNAME_KEY = "userName_key";
-	private LinearLayout mLinearLayout1, mLinearLayout2, mLinearLayout4;
+	private LinearLayout mLinearLayout1, mLinearLayout2, mLinearLayout4,mLinearLayout5,mLinearLayout6,mLinearLayout7;
 	private ImageView mHeadImageView;
 	private MainActivity mActivity;
 	private UserInfo mUserInfo;
 	private TextView mPhoneNumView;
-	
+	private TextView mZhangHu;//账户管理
+
+
+
+
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 		
 		@Override
@@ -70,10 +74,17 @@ public class MyFragment extends Fragment implements OnClickListener {
 		mLinearLayout1 = (LinearLayout) view.findViewById(R.id.fragm_my_ll1);
 		mLinearLayout2 = (LinearLayout) view.findViewById(R.id.fragm_my_ll2);
 		mLinearLayout4 = (LinearLayout) view.findViewById(R.id.fragm_my_ll4);
+		mLinearLayout5 = (LinearLayout) view.findViewById(R.id.	fragm_my_ll5);
+		mLinearLayout6 = (LinearLayout) view.findViewById(R.id.	fragm_my_ll6);
+		mLinearLayout7 = (LinearLayout) view.findViewById(R.id.	fragm_my_ll7);
 		mHeadImageView = (ImageView) view.findViewById(R.id.head_img);
 		mPhoneNumView = (TextView) view.findViewById(R.id.aPhoneNum);
+		mZhangHu= (TextView) view.findViewById(R.id.changhuAdmin);
 		mLinearLayout1.setOnClickListener(this);
 		mLinearLayout4.setOnClickListener(this);
+		mLinearLayout5.setOnClickListener(this);
+		mLinearLayout6.setOnClickListener(this);
+		mLinearLayout7.setOnClickListener(this);
 		return view;		
 	}
 
@@ -111,6 +122,26 @@ public class MyFragment extends Fragment implements OnClickListener {
 					mActivity.switchToActivity(LoginActivity.class, null, 0, false, false);
 					return;
 				}
+				break;
+			case R.id.fragm_my_ll5://账户管理
+
+				Intent intent =new Intent(getActivity(),ZhangHuManager.class);
+				Bundle bundle=new Bundle();
+				bundle.putInt("mUid",mUserInfo.getUid());
+				bundle.putLong("mPhone",mUserInfo.getPhoneNum());
+				bundle.putString("mName",mUserInfo.getUserName());
+				intent.putExtra("mBundle",bundle);
+				startActivity(intent);
+				//mActivity.switchToActivity(ZhangHuManager.class,bundle,0,false,false);
+				break;
+
+			case R.id.fragm_my_ll7:
+				Intent intent2=new Intent(getActivity(), CompleteMessage.class);
+				Bundle bundle2=new Bundle();
+				bundle2.putInt("mUid",mUserInfo.getUid());
+				intent2.putExtra("mBundle",bundle2);
+				startActivity(intent2);
+				
 				break;
 		}
 	}

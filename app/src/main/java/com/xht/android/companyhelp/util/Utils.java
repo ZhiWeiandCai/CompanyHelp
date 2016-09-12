@@ -16,6 +16,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * 工具类，里面有一些工具函数
@@ -216,5 +221,17 @@ public class Utils {
 			return null;
 		}
 	}
+	
+	public static String getTimeUtils(long now) {
+		/*DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		//long now = System.currentTimeMillis();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(now);
+		return formatter.format(calendar.getTime());*/
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return sd.format(new Date(now));
+
+
+    }
 
 }

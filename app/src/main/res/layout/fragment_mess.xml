@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:id="@+id/linear_message"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/but_zhufu"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/but_selector"
+            android:textSize="15sp"
+            android:text="支付助手"
+            />
+        <Button
+            android:id="@+id/but_message"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/but_selector"
+            android:layout_height="40dp"
+            android:textSize="15sp"
+            android:text="消息中心"
+            />
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/frage_list"
+        android:layout_below="@id/linear_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/fram_listzhifu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+        <ListView
+            android:visibility="gone"
+            android:id="@+id/fram_listmessage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+    </FrameLayout>
 
 </RelativeLayout>

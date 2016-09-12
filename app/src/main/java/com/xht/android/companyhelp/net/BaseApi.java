@@ -45,5 +45,14 @@ public class BaseApi {
 	//获取变更服务的公司名和价格
 	public static final String FUWU_GET_BIAN_GENG_URL="http://www.xiaohoutai.com.cn:8888/XHT/bizchangeorderController/loadCompanyNameAndPriceOfChgBusiness";
 	//变更服务提交的服务器
-	public static final String BIANGENG_SERVICE_LIST_POST_URL = "";
+	public static final String BIANGENG_SERVICE_LIST_POST_URL = "http://www.xiaohoutai.com.cn:8888/XHT/bizchangeorderController/savaChangeBusinessOrderInfo";
+
+	public static final String FUWU_GET_ZHANGHU_URL="http://www.xiaohoutai.com.cn:8888/XHT/ordercontactController/loadUserInfo";
+
+	//获取账户参数信息
+	public static final String FUWU_POST_ZHANGHU_URL="http://www.xiaohoutai.com.cn:8888/XHT/ordercontactController/modifyContactInfo";
+
+	//完善信息--提交
+	public static final String FUWU_POST_COMPLETE_URL="";
+
 }

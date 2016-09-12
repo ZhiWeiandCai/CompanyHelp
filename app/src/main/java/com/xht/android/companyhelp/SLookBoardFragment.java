@@ -162,7 +162,13 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
                 JSONObject jsonObject = (JSONObject) result;
                 try {
                     JSONObject compList = jsonObject.getJSONObject("companyList");
-                    JSONArray compListJA = compList.getJSONArray("list");
+                    JSONArray compListJA = compList.optJSONArray("list");
+                    if (compListJA == null) {
+                        dismissProgressDialog();
+                        App.getInstance().showToast("没有公司数据");
+                        getActivity().finish();
+                        return;
+                    }
                     int compListLength = compListJA.length();
                     mCompIds = new int[compListLength];
                     mCompNames = new String[compListLength];
