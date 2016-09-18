@@ -52,7 +52,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
-        android:background="@drawable/jianitem_btn_sel"
+        android:background="@drawable/btn_minus_sel"
         android:id="@+id/jian_item_btn"/>
 
 </RelativeLayout>

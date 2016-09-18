@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,6 @@ import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
-import com.jjoe64.graphview.ValueDependentColor;
-import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.xht.android.companyhelp.model.Constants;
@@ -52,8 +51,8 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
 
     private static final String TAG = "SLookBoardFragment";
     ProgressDialog mProgDoal;
-    GraphView mGraph;
-    Spinner mCompNameSpinner, mWeiDuSpinner, mYearsSpinner, mMonthsSpinner;
+
+    Spinner mCompNameSpinner, mWeiDuSpinner, mYearsSpinner, mMonthsSpinner, mSpinnerX2;
     TextView mYearFeiYongTV, mYearFeiYong2TV, mSheBaoFeeTV, mSheBaoPNTV, mBaoSTV, mFaPFeeTV;
     LinearLayout mMingXi1, mMingXi2, mMingXi3;
     ServerLookBoardActivity mActivity;
@@ -64,9 +63,23 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
     int mCurMonth;
     private int[] mCompIds;
     private String[] mCompNames;
-    float[] graphBS;    //每个月或者季度的金额
+    double[] graphBS;    //每个月或者季度的金额
+    double[] mJinXiangShui;
+    double[] mSheBaoMonth = new double[12];
+    int[] mSheBaoMP = new int[12];
+    ArrayAdapter<CharSequence> mJiDiAAdapter;   //季度的Adapter
+    ArrayAdapter<CharSequence> arrayAdapter4;   //月份的Adapter
+    double mYearFee;   //本年总费用
+    double mYShuiE;     //本年税额
+    double mYSheBao;    //本年社保
 
+    private static final String[] mKeyBSMonth = {"list1", "list2", "list3", "list4", "list5", "list6",
+        "list7", "list8", "list9", "list10", "list11", "list12"};
     boolean mInitDataCompFlag;  //用于标识数据初始化完成，因为Spinner的onItemSelected最初会被调用
+
+    GraphView mGraph;
+    LineGraphSeries<DataPoint> series;
+    Handler mHandler = new Handler();
 
     public SLookBoardFragment() {
         // Required empty public constructor
@@ -119,10 +132,17 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
         mYearsSpinner.setOnItemSelectedListener(this);
         mYearFeiYongTV = (TextView) rootView.findViewById(R.id.year_feiyong_tv);
         mMonthsSpinner = (Spinner) rootView.findViewById(R.id.spinner4);
-        ArrayAdapter<CharSequence> arrayAdapter4 = ArrayAdapter.createFromResource(getActivity(),
+        arrayAdapter4 = ArrayAdapter.createFromResource(getActivity(),
                 R.array.fwkb_months, android.R.layout.simple_spinner_item);
         arrayAdapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mMonthsSpinner.setAdapter(arrayAdapter4);
+        mMonthsSpinner.setOnItemSelectedListener(this);
+        mJiDiAAdapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.fwkb_jds, android.R.layout.simple_spinner_item);
+        mJiDiAAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //报税金额的选择spinner
+        mSpinnerX2 = (Spinner) rootView.findViewById(R.id.spinner_x2);
+        mSpinnerX2.setOnItemSelectedListener(this);
         mMingXi1 = (LinearLayout) rootView.findViewById(R.id.mingxi1);
         mMingXi2 = (LinearLayout) rootView.findViewById(R.id.mingxi2);
         mMingXi3 = (LinearLayout) rootView.findViewById(R.id.mingxi3);
@@ -135,7 +155,6 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
         mBaoSTV = (TextView) rootView.findViewById(R.id.baoshuiFee);
         mFaPFeeTV = (TextView) rootView.findViewById(R.id.fapiaoFee);
         getInitData();
-        showLineGraph();
         return rootView;
     }
 
@@ -178,17 +197,67 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
                         mCompNames[i] = temp.optString("companyName");
                     }
                     compList = jsonObject.getJSONObject("baoshui");
-                    compListJA = compList.getJSONArray("list5");
+                    compListJA = compList.optJSONArray("list5");
+                    if (compListJA == null) {
+                        graphBS = new double[4];
+                        for (int i = 0; i < 4; i++) {
+                            graphBS[i] = compList.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
+                            mYShuiE += graphBS[i];
+                        }
+                        mSpinnerX2.setAdapter(mJiDiAAdapter);
+                        if (1 <= mCurMonth && mCurMonth <= 3) {
+                            mSpinnerX2.setSelection(0);
+                            reFleshUIMonthBS(0);
+                        } else if (4 <= mCurMonth && mCurMonth <= 6) {
+                            mSpinnerX2.setSelection(1);
+                            reFleshUIMonthBS(1);
+                        } else if (7 <= mCurMonth && mCurMonth <= 9) {
+                            mSpinnerX2.setSelection(2);
+                            reFleshUIMonthBS(2);
+                        } else if (10 <= mCurMonth && mCurMonth <= 12) {
+                            mSpinnerX2.setSelection(3);
+                            reFleshUIMonthBS(3);
+                        }
 
+                    } else {
+                        JSONObject temp = jsonObject.getJSONObject("jinXiangshui");
+                        graphBS = new double[12];
+                        mJinXiangShui = new double[12];
+                        for (int i = 0; i < 12; i++) {
+                            graphBS[i] = compList.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
+                            mJinXiangShui[i] = temp.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
+                            mYShuiE += graphBS[i];
+                        }
+                        mSpinnerX2.setAdapter(arrayAdapter4);
+                        mSpinnerX2.setSelection(mCurMonth - 1);
+                        reFleshUIMonthBS(mCurMonth - 1);
+                    }
+                    compList = jsonObject.getJSONObject("yuFenShebao");
+                    for (int i = 0; i < 12; i++) {
+                        mSheBaoMonth[i] = compList.optJSONArray(mKeyBSMonth[i]).getJSONArray(0).optDouble(0, 0);
+                        mSheBaoMP[i] = compList.optJSONArray(mKeyBSMonth[i]).getJSONArray(0).optInt(1, 0);
+                        mYSheBao += mSheBaoMonth[i];
+                    }
+                    mYearFee = jsonObject.getJSONObject("yearShui").optJSONArray("list").getJSONObject(0).getDouble("sum");
+                    LogHelper.i(TAG, "mYearFee=" + mYearFee + "---------------------------");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                mInitDataCompFlag = true;
+
                 ArrayAdapter<CharSequence> arrayAdapter;
                 arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, mCompNames);
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 mCompNameSpinner.setAdapter(arrayAdapter);
-                dismissProgressDialog();
+                showLineGraph(graphBS);
+                reFleshUI();
+                reFleshUI(mCurMonth - 1);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismissProgressDialog();
+                        mInitDataCompFlag = true;
+                    }
+                }, 300);
             }
 
             @Override
@@ -198,6 +267,30 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
                 getActivity().finish();
             }
         });
+    }
+
+    /**
+     * 刷新年-费用-税额-社保
+     */
+    private void reFleshUI() {
+        mYearFeiYongTV.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mYearFee));
+        mYearFeiYong2TV.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mYShuiE)
+                + "/" + String.format(getResources().getString(R.string.heji_yuanjiaofen), mYSheBao));
+    }
+
+    /**
+     * 刷新-社保-每月
+     */
+    private void reFleshUI(int which) {
+        mSheBaoFeeTV.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mSheBaoMonth[which]));
+        mSheBaoPNTV.setText("" + mSheBaoMP[which]);
+    }
+
+    /**
+     * 刷新-报税-每月
+     */
+    private void reFleshUIMonthBS(int which) {
+        mBaoSTV.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), graphBS[which]));
     }
 
     private void createProgressDialog(String title) {
@@ -233,14 +326,45 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
         super.onDetach();
     }
 
-    private void showLineGraph() {
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                //new DataPoint(0, 1),
-                new DataPoint(1, 5985),
-                new DataPoint(2, 3333),
-                new DataPoint(3, 1456),
-                new DataPoint(4, 6)
-        });
+    private void showLineGraph(double[] datas) {
+        if (datas == null) {
+            return;
+        }
+        int length = datas.length;
+        DataPoint[] values;
+        if (length == 4) {
+            values = new DataPoint[]{
+                    new DataPoint(1, datas[0]),
+                    new DataPoint(2, datas[1]),
+                    new DataPoint(3, datas[2]),
+                    new DataPoint(4, datas[3])
+            };
+            series = new LineGraphSeries<>(values);
+            mGraph.getGridLabelRenderer().setHorizontalAxisTitle("季度");
+            mGraph.getViewport().setXAxisBoundsManual(true);
+            mGraph.getViewport().setMinX(0.5);
+            mGraph.getViewport().setMaxX(4.5);
+        } else {
+            values = new DataPoint[]{
+                    new DataPoint(1, datas[0]),
+                    new DataPoint(2, datas[1]),
+                    new DataPoint(3, datas[2]),
+                    new DataPoint(4, datas[3]),
+                    new DataPoint(5, datas[4]),
+                    new DataPoint(6, datas[5]),
+                    new DataPoint(7, datas[6]),
+                    new DataPoint(8, datas[7]),
+                    new DataPoint(9, datas[8]),
+                    new DataPoint(10, datas[9]),
+                    new DataPoint(11, datas[10]),
+                    new DataPoint(12, datas[11])
+            };
+            series = new LineGraphSeries<>(values);
+            mGraph.getGridLabelRenderer().setHorizontalAxisTitle("月份");
+            mGraph.getViewport().setXAxisBoundsManual(true);
+            mGraph.getViewport().setMinX(1);
+            mGraph.getViewport().setMaxX(12);
+        }
         mGraph.addSeries(series);
         /*mGraph.setTitle("金额（元）/季度");
         mGraph.setTitleColor(Color.BLUE);
@@ -248,49 +372,10 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
         /*mGraph.getGridLabelRenderer().setVerticalAxisTitle("金额（元）");
         mGraph.getGridLabelRenderer().setVerticalAxisTitleTextSize(60);
         mGraph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);*/
-        mGraph.getGridLabelRenderer().setHorizontalAxisTitle("季度");
+
         mGraph.getGridLabelRenderer().setHorizontalAxisTitleTextSize(18 * Constants.DENSITY);
         mGraph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
-        mGraph.getViewport().setXAxisBoundsManual(true);
-        mGraph.getViewport().setMinX(0.5);
-        mGraph.getViewport().setMaxX(4.5);
-        // legend
-        series.setTitle("金额");
-        mGraph.getLegendRenderer().setVisible(true);
-        mGraph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-    }
 
-    private void showBarGraph() {
-        BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(new DataPoint[] {
-                //new DataPoint(0, 0),
-                new DataPoint(1, 6432),
-                new DataPoint(2, 3456),
-                //new DataPoint(3, 4444),
-                //new DataPoint(4, 3333),
-                //new DataPoint(5, 0)
-        });
-        mGraph.addSeries(series);
-
-        // styling
-        series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
-            @Override
-            public int get(DataPoint data) {
-                return Color.rgb((int) data.getX()*255/4, (int) Math.abs(data.getY()*255/6), 100);
-            }
-        });
-
-        series.setSpacing(50);
-
-        // draw values on top
-        series.setDrawValuesOnTop(true);
-        series.setValuesOnTopColor(Color.RED);
-        //series.setValuesOnTopSize(50);
-        mGraph.getGridLabelRenderer().setHorizontalAxisTitle("季度");
-        mGraph.getGridLabelRenderer().setHorizontalAxisTitleTextSize(18 * Constants.DENSITY);
-        mGraph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
-        mGraph.getViewport().setXAxisBoundsManual(true);
-        mGraph.getViewport().setMinX(0.5);
-        mGraph.getViewport().setMaxX(4.5);
         // legend
         series.setTitle("金额");
         mGraph.getLegendRenderer().setVisible(true);
@@ -302,15 +387,167 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
         if (!mInitDataCompFlag) return;
         switch (parent.getId()) {
             case R.id.spinner1:
-
+                switchData(mCompIds[position], mCurYear, mCurMonth);
                 break;
             case R.id.spinner2:
+                if (position == 0) {
 
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            showLineGraphS2(genelateDataP(graphBS));
+                        }
+                    }, 300);
+                } else if (position == 1) {
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            showLineGraphS2(genelateDataP(mSheBaoMonth));
+                        }
+                    }, 300);
+
+                }
                 break;
             case R.id.spinner3:
-
+                mCurYear = Integer.parseInt((String) mYearsSpinner.getSelectedItem());
+                switchData(mCompIds[mCompNameSpinner.getSelectedItemPosition()], mCurYear, mCurMonth);
+                break;
+            case R.id.spinner4:
+                reFleshUI(position);
+                break;
+            case R.id.spinner_x2:
+                reFleshUIMonthBS(position);
                 break;
         }
+    }
+
+    /**
+     * 选择年份或公司时
+     */
+    private void switchData(int compId, int year, int yue) {
+        mYShuiE = 0;
+        mYSheBao = 0;
+        VolleyHelpApi.getInstance().getDataSLB(compId, year, yue, new APIListener() {
+            @Override
+            public void onResult(Object result) {
+                JSONObject jsonObject = (JSONObject) result;
+                JSONObject compList;
+                JSONArray compListJA;
+                try {
+                    compList = jsonObject.getJSONObject("baoshui");
+                    compListJA = compList.optJSONArray("list5");
+                    if (compListJA == null) {
+                        graphBS = new double[4];
+                        for (int i = 0; i < 4; i++) {
+                            graphBS[i] = compList.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
+                            mYShuiE += graphBS[i];
+                        }
+                        mSpinnerX2.setAdapter(mJiDiAAdapter);
+                        if (1 <= mCurMonth && mCurMonth <= 3) {
+                            mSpinnerX2.setSelection(0);
+                            reFleshUIMonthBS(0);
+                        } else if (4 <= mCurMonth && mCurMonth <= 6) {
+                            mSpinnerX2.setSelection(1);
+                            reFleshUIMonthBS(1);
+                        } else if (7 <= mCurMonth && mCurMonth <= 9) {
+                            mSpinnerX2.setSelection(2);
+                            reFleshUIMonthBS(2);
+                        } else if (10 <= mCurMonth && mCurMonth <= 12) {
+                            mSpinnerX2.setSelection(3);
+                            reFleshUIMonthBS(3);
+                        }
+
+                    } else {
+                        JSONObject temp = jsonObject.getJSONObject("jinXiangshui");
+                        graphBS = new double[12];
+                        mJinXiangShui = new double[12];
+                        for (int i = 0; i < 12; i++) {
+                            graphBS[i] = compList.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
+                            mJinXiangShui[i] = temp.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
+                            mYShuiE += graphBS[i];
+                        }
+                        mSpinnerX2.setAdapter(arrayAdapter4);
+                        mSpinnerX2.setSelection(mCurMonth - 1);
+                        reFleshUIMonthBS(mCurMonth - 1);
+                    }
+                    compList = jsonObject.getJSONObject("shebao");
+                    for (int i = 0; i < 12; i++) {
+                        mSheBaoMonth[i] = compList.optJSONArray(mKeyBSMonth[i]).getJSONArray(0).optDouble(0, 0);
+                        mSheBaoMP[i] = compList.optJSONArray(mKeyBSMonth[i]).getJSONArray(0).optInt(1, 0);
+                        mYSheBao += mSheBaoMonth[i];
+                    }
+                    mYearFee = jsonObject.getJSONObject("yearShui").optJSONArray("list").getJSONObject(0).getDouble("sum");
+                    LogHelper.i(TAG, "mYearFee=" + mYearFee + "---------------------------");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (mWeiDuSpinner.getSelectedItemPosition() == 0) {
+                    showLineGraphS2(genelateDataP(graphBS));
+                } else if (mWeiDuSpinner.getSelectedItemPosition() == 1) {
+                    showLineGraphS2(genelateDataP(mSheBaoMonth));
+                }
+                mMonthsSpinner.setSelection(mCurMonth - 1);
+                reFleshUI();
+                reFleshUI(mCurMonth - 1);
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Object e) {
+                dismissProgressDialog();
+                App.getInstance().showToast(e.toString());
+            }
+        });
+    }
+
+    private void showLineGraphS2(DataPoint[] datas) {
+        int length = datas.length;
+        if (length == 4) {
+            series.resetData(datas);
+            mGraph.getGridLabelRenderer().setHorizontalAxisTitle("季度");
+            mGraph.getViewport().setMinX(0.5);
+            mGraph.getViewport().setMaxX(4.5);
+        } else {
+            mGraph.getGridLabelRenderer().setHorizontalAxisTitle("月份");
+            mGraph.getViewport().setMinX(1);
+            mGraph.getViewport().setMaxX(12);
+            series.resetData(datas);
+
+
+            LogHelper.i(TAG, "--------resetData 后--------");
+
+        }
+        LogHelper.i(TAG, "--------invalidate 前--------");
+//        mGraph.invalidate();
+    }
+
+    private DataPoint[] genelateDataP(double[] datas) {
+        int length = datas.length;
+        DataPoint[] values;
+        if (length == 4) {
+            values = new DataPoint[] {
+                    new DataPoint(1, datas[0]),
+                    new DataPoint(2, datas[1]),
+                    new DataPoint(3, datas[2]),
+                    new DataPoint(4, datas[3])
+            };
+        } else  {
+            values = new DataPoint[] {
+                    new DataPoint(1, datas[0]),
+                    new DataPoint(2, datas[1]),
+                    new DataPoint(3, datas[2]),
+                    new DataPoint(4, datas[3]),
+                    new DataPoint(5, datas[4]),
+                    new DataPoint(6, datas[5]),
+                    new DataPoint(7, datas[6]),
+                    new DataPoint(8, datas[7]),
+                    new DataPoint(9, datas[8]),
+                    new DataPoint(10, datas[9]),
+                    new DataPoint(11, datas[10]),
+                    new DataPoint(12, datas[11])
+            };
+        }
+        return values;
     }
 
     @Override

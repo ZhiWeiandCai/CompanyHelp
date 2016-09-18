@@ -121,7 +121,7 @@ public class ArticleListFragment extends Fragment {
                 jO = jA.getJSONObject(i);
                 artId = jO.getInt("artid");
                 artT = jO.getString("title");
-                imgUrl = "http://www.xiaohoutai.com.cn:8888/XHT/" + jO.getString("imageurl");
+                imgUrl = "http://www.xiaohoutai.com.cn:8888/XHT/" + jO.getString("imageurl").replaceAll("\\\\", "/");
                 LogHelper.i(TAG, "imgUrl=" + imgUrl);
                 long pbTime = Long.parseLong(jO.getString("pbtime"));
                 article = new Article(artId, artT, pbTime, null, imgUrl);

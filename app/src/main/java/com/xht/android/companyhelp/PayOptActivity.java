@@ -30,6 +30,7 @@ import java.util.LinkedHashMap;
 public class PayOptActivity extends Activity {
 
     private IWXAPI mIWXAPI;
+    private Button payBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +59,9 @@ public class PayOptActivity extends Activity {
                 String.format(resources.getString(R.string.dingdanjine), bundle.getFloat("pay_money")));
 
         mIWXAPI = WXAPIFactory.createWXAPI(this, null);
-        mIWXAPI.registerApp("");
-        findViewById(R.id.zhifu_liji).setOnClickListener(new View.OnClickListener() {
+        mIWXAPI.registerApp("wx9d3b007949c52dd8");
+        payBtn = (Button) findViewById(R.id.zhifu_liji);
+        payBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //立即支付
@@ -70,42 +72,9 @@ public class PayOptActivity extends Activity {
                         put("shangpin", URLEncoder.encode(shangPin));
                     }
                 });
-                Button payBtn = (Button) findViewById(R.id.zhifu_liji);
                 payBtn.setEnabled(false);
                 Toast.makeText(PayOptActivity.this, "获取订单中...", Toast.LENGTH_SHORT).show();
-                try{
-                    byte[] buf = Utils.httpGet(url);
-                    if (buf != null && buf.length > 0) {
-                        String content = new String(buf);
-                        Log.e("get server pay params:",content);
-                        JSONObject json = new JSONObject(content);
-                        if(null != json && !json.has("retcode")){
-                            PayReq req = new PayReq();
-                            //req.appId = "wxf8b4f85f3a794e77";  // 测试用appId
-                            req.appId			= json.getString("appid");
-                            req.partnerId		= json.getString("partnerid");
-                            req.prepayId		= json.getString("prepayid");
-                            req.nonceStr		= json.getString("noncestr");
-                            req.timeStamp		= json.getString("timestamp");
-                            req.packageValue	= json.getString("package");
-                            req.sign			= json.getString("sign");
-                            req.extData			= "app data"; // optional
-                            Toast.makeText(PayOptActivity.this, "正常调起支付", Toast.LENGTH_SHORT).show();
-                            // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
-                            mIWXAPI.sendReq(req);
-                        }else{
-                            Log.d("PAY_GET", "返回错误"+json.getString("retmsg"));
-                            Toast.makeText(PayOptActivity.this, "返回错误"+json.getString("retmsg"), Toast.LENGTH_SHORT).show();
-                        }
-                    }else{
-                        Log.d("PAY_GET", "服务器请求错误");
-                        Toast.makeText(PayOptActivity.this, "服务器请求错误", Toast.LENGTH_SHORT).show();
-                    }
-                }catch(Exception e){
-                    Log.e("PAY_GET", "异常："+e.getMessage());
-                    Toast.makeText(PayOptActivity.this, "异常："+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-                payBtn.setEnabled(true);
+                new ZhiFuTask().execute(url);
             }
         });
     }
@@ -123,11 +92,48 @@ public class PayOptActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class ZhiFuTask extends AsyncTask<String, Void, String> {
+    private class ZhiFuTask extends AsyncTask<String, Void, byte[]> {
 
         @Override
-        protected String doInBackground(String... params) {
-            return null;
+        protected byte[] doInBackground(String... params) {
+            byte[] buf = Utils.httpGet(params[0]);
+            return buf;
+        }
+
+        @Override
+        protected void onPostExecute(byte[] result) {
+            try{
+                if (result != null && result.length > 0) {
+                    String content = new String(result);
+                    Log.e("get server pay params:",content);
+                    JSONObject json = new JSONObject(content);
+                    if(null != json && !json.has("retcode")){
+                        PayReq req = new PayReq();
+                        //req.appId = "wxf8b4f85f3a794e77";  // 测试用appId
+                        req.appId			= json.getString("appid");
+                        req.partnerId		= json.getString("partnerid");
+                        req.prepayId		= json.getString("prepayid");
+                        req.nonceStr		= json.getString("noncestr");
+                        req.timeStamp		= json.getString("timestamp");
+                        req.packageValue	= json.getString("package");
+                        req.sign			= json.getString("sign");
+                        req.extData			= "app data"; // optional
+                        Toast.makeText(PayOptActivity.this, "正常调起支付", Toast.LENGTH_SHORT).show();
+                        // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
+                        mIWXAPI.sendReq(req);
+                    }else{
+                        Log.d("PAY_GET", "返回错误"+json.getString("retmsg"));
+                        Toast.makeText(PayOptActivity.this, "返回错误"+json.getString("retmsg"), Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Log.d("PAY_GET", "服务器请求错误");
+                    Toast.makeText(PayOptActivity.this, "服务器请求错误", Toast.LENGTH_SHORT).show();
+                }
+            }catch(Exception e){
+                Log.e("PAY_GET", "异常："+e.getMessage());
+                Toast.makeText(PayOptActivity.this, "异常："+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+            payBtn.setEnabled(true);
         }
     }
 }

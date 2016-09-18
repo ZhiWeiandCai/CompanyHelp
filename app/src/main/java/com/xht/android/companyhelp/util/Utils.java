@@ -16,11 +16,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * 工具类，里面有一些工具函数
@@ -170,12 +167,13 @@ public class Utils {
 			LogHelper.e(TAG, "InputStream前");
 			InputStream is = connection.getInputStream();
 			LogHelper.e(TAG, "InputStream后");
-			int count = 0;
+			/*int count = 0;
 			LogHelper.e(TAG, "count=" + count);
 			while (count == 0) {
 				count = is.available();
 				LogHelper.e(TAG, "count=" + count);
-			}
+			}*/
+			int count = connection.getContentLength();
 
 			byte[] bA = new byte[count];
 			is.read(bA);

@@ -256,7 +256,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/jianitem_btn_sel"
+            android:background="@drawable/btn_add_sel"
             android:id="@+id/add_item"
             android:layout_marginRight="8dp"/>
     </LinearLayout>

@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="12dp"
-            android:background="@mipmap/phone_sym_img"/>
+            android:background="@mipmap/erweima_pic"/>
     </LinearLayout>
     <LinearLayout 
         android:id="@+id/fragm_my_ll2"
@@ -50,10 +50,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
                 android:text="@string/myCompStr"
                 android:textSize="18sp"
                 android:drawablePadding="3dp"
-                android:drawableLeft="@mipmap/img_mycomp"/>
+                android:drawableLeft="@mipmap/comp_n_beixuan"/>
         <TextView android:id="@+id/myCompMess"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -72,6 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
+                android:gravity="center_vertical"
                 android:textSize="18sp"
                 android:text="@string/mybooklistStr"
                 android:drawablePadding="3dp"
@@ -89,6 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
+                android:gravity="center_vertical"
                 android:textSize="18sp"
                 android:text="@string/lookserviceboardStr"
                 android:drawablePadding="3dp"
@@ -106,6 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
+                android:gravity="center_vertical"
                 android:textSize="18sp"
                 android:text="@string/changhu_admin"
                 android:drawablePadding="3dp"
@@ -123,6 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
+                android:gravity="center_vertical"
                 android:text="@string/yijian_fankui"
                 android:textSize="18sp"
                 android:drawablePadding="3dp"
@@ -139,12 +144,12 @@
         <TextView android:id="@+id/complete_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-
+            android:layout_marginLeft="12dp"
+            android:gravity="center_vertical"
             android:text="完善信息"
             android:textSize="18sp"
             android:drawablePadding="3dp"
-            android:drawableLeft="@mipmap/img_yijian_fankui"/>
+            android:drawableLeft="@mipmap/wanshanxinxi"/>
     </LinearLayout>
 
 </LinearLayout>

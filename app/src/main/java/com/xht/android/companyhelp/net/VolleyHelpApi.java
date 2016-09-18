@@ -4,7 +4,6 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.xht.android.companyhelp.App;
@@ -1148,6 +1147,51 @@ public class VolleyHelpApi extends BaseApi{
 	public void getInitDataSLB(final int uid, final int year, final int month,final APIListener apiListener) {
 		String urlString = MakeURL(FWKB_DF_Get_Url, new LinkedHashMap<String, Object>() {{
 			put("openId", uid);
+			put("year", year);
+			put("yue", month);
+		}});
+		JsonObjectRequest req = new JsonObjectRequest(urlString, null, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				if (isResponseError(response)) {
+					String errMsg = response.optString("message");
+					apiListener.onError(errMsg);
+				} else {
+					apiListener.onResult(response);
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("初始化数据出错");
+			}
+		});
+		App.getInstance().addToRequestQueue(req, TAG);
+	}
+
+	/**
+	 * 根据id,年月获取初始数据-服务看板
+	 * @param cid 公司id
+	 * @param apiListener 回调监听器
+	 */
+	public void getDataSLB(final int cid, final int year, final int month,final APIListener apiListener) {
+		String urlString = MakeURL(FWKB_D_Get_Url, new LinkedHashMap<String, Object>() {{
+			put("companyId", cid);
 			put("year", year);
 			put("yue", month);
 		}});

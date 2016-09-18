@@ -35,6 +35,7 @@ android {
 
 dependencies {
     compile project(':PushSDK')
+    compile project(':GraphView')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile files('libs/libammsdk.jar')

@@ -4,7 +4,7 @@ import android.os.Environment;
 
 public class Constants {
 	
-	public static final String APP_ID = "";
+	public static final String APP_ID = "wx9d3b007949c52dd8";
 	/*
 	 * 外部存储器的根目录
 	 */

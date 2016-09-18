@@ -106,24 +106,24 @@
     <!-- 发票界面 -->
     <string name="jia_fang">开票方</string>
     <string name="jia_c_name">公司名称</string>
-    <string name="jia_c_nashuihao">纳税号</string>
+    <string name="jia_c_nashuihao">纳税编号</string>
     <string name="jia_c_add">公司地址</string>
     <string name="jia_c_phone">公司电话</string>
-    <string name="jia_c_kfh">开户行</string>
+    <string name="jia_c_kfh">开户银行</string>
     <string name="jia_c_kfhao">开户账号</string>
     <string name="yi_fang">收票方</string>
     <string name="yi_c_name">公司名称</string>
-    <string name="yi_c_nashuihao">纳税号</string>
+    <string name="yi_c_nashuihao">纳税编号</string>
     <string name="yi_c_add">公司地址</string>
     <string name="yi_c_phone">公司电话</string>
-    <string name="yi_c_kfh">开户行</string>
+    <string name="yi_c_kfh">开户银行</string>
     <string name="yi_c_kfhao">开户账号</string>
-    <string name="huowu_str">货物：</string>
-    <string name="guigexinghao">规格型号：</string>
-    <string name="danwei_str">单位：</string>
-    <string name="shuliang_str">数量：</string>
-    <string name="danjia_str">单价(不含税)：</string>
-    <string name="je_buhanshui_str">金额(不含税)：</string>
+    <string name="huowu_str">货&#160;&#160;&#160;&#160;&#160;&#160;&#160;物</string>
+    <string name="guigexinghao">规格型号</string>
+    <string name="danwei_str">单&#160;&#160;&#160;&#160;&#160;&#160;&#160;位</string>
+    <string name="shuliang_str">数&#160;&#160;&#160;&#160;&#160;&#160;&#160;量</string>
+    <string name="danjia_str">单价(不含税)</string>
+    <string name="je_buhanshui_str">金额(不含税)</string>
     <string name="huowu_ms">货物明细：</string>
     <!-- 注册商标界面 -->
     <string name="str_rpn">联系人姓名</string>
