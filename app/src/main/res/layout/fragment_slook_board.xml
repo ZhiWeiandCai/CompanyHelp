@@ -198,12 +198,7 @@
                 android:layout_marginLeft="16dp"
                 android:textSize="18sp"
                 android:text="@string/fapiao_fee_str"/>
-            <TextView android:id="@+id/fapiaoFee"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_marginLeft="4dp"
-                android:textSize="18sp"
-                android:textColor="@android:color/holo_red_light"/>
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -216,6 +211,38 @@
                 android:layout_marginRight="16dp">
 
             </Spinner>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/mingxi4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:textSize="18sp"
+                android:text="@string/kaipiao_fee_str"/>
+            <TextView android:id="@+id/fapiaoFee"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginLeft="4dp"
+                android:textSize="18sp"
+                android:textColor="@android:color/holo_red_light"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:textSize="18sp"
+                android:text="@string/jx_fee_str"/>
+            <TextView android:id="@+id/jxseFee"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginLeft="4dp"
+                android:textSize="18sp"
+                android:textColor="@android:color/holo_red_light"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

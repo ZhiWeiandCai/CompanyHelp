@@ -2,6 +2,10 @@ package com.xht.android.companyhelp;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,8 +33,20 @@ import java.util.LinkedHashMap;
 
 public class PayOptActivity extends Activity {
 
+    public static final String BRO_PAY_S = "com.xht.android.companyhelp.bro_pay_s";
+    public static final String PAY_STATUS = "s_key";
     private IWXAPI mIWXAPI;
     private Button payBtn;
+
+    private BroadcastReceiver mPayStatus = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int temp = intent.getIntExtra(PAY_STATUS, 0);
+            if (temp == 0) {
+                finish();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +86,7 @@ public class PayOptActivity extends Activity {
                         put("dingdanHao", dingdanHao);
                         put("jinE", jinE);
                         put("shangpin", URLEncoder.encode(shangPin));
+                        put("YeWuStyle", 14);
                     }
                 });
                 payBtn.setEnabled(false);
@@ -77,6 +94,14 @@ public class PayOptActivity extends Activity {
                 new ZhiFuTask().execute(url);
             }
         });
+        IntentFilter intentFilter = new IntentFilter(BRO_PAY_S);
+        registerReceiver(mPayStatus, intentFilter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(mPayStatus);
+        super.onDestroy();
     }
 
     @Override
@@ -110,16 +135,16 @@ public class PayOptActivity extends Activity {
                     if(null != json && !json.has("retcode")){
                         PayReq req = new PayReq();
                         //req.appId = "wxf8b4f85f3a794e77";  // 测试用appId
-                        req.appId			= json.getString("appid");
-                        req.partnerId		= json.getString("partnerid");
-                        req.prepayId		= json.getString("prepayid");
-                        req.nonceStr		= json.getString("noncestr");
-                        req.timeStamp		= json.getString("timestamp");
-                        req.packageValue	= json.getString("package");
-                        req.sign			= json.getString("sign");
-                        req.extData			= "app data"; // optional
+                        req.appId = json.getString("appid");
+                        req.partnerId = json.getString("partnerid");
+                        req.prepayId = json.getString("prepayid");
+                        req.nonceStr = json.getString("noncestr");
+                        req.timeStamp = json.getString("timestamp");
+                        req.packageValue = "Sign=WXPay";
+                        req.sign = json.getString("sign");
+                        //req.extData = "app data"; // optional
                         Toast.makeText(PayOptActivity.this, "正常调起支付", Toast.LENGTH_SHORT).show();
-                        // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
+                        //在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
                         mIWXAPI.sendReq(req);
                     }else{
                         Log.d("PAY_GET", "返回错误"+json.getString("retmsg"));

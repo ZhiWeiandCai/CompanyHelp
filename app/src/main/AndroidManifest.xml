@@ -62,12 +62,6 @@
         <activity android:name=".PersonOfBianGengAvtivity"
             android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name="net.sourceforge.simcpux.wxapi.WXPayEntryActivity"
-            android:exported="true"
-            android:launchMode="singleTop"
-            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
         <activity android:name=".FaPiaoActivity"
             android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>
@@ -104,7 +98,10 @@
         <activity android:name=".MessageListActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
-
+        <activity android:name=".wxapi.WXPayEntryActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"/>
         
 	<meta-data
             android:name="UMENG_APPKEY"

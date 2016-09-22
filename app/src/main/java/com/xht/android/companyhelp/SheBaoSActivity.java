@@ -247,7 +247,7 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener, A
                 JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
                 bundle.putString("shangpin", "社保服务");
                 bundle.putString("bookListId", tempJO.optString("orderId"));
-                bundle.putFloat("pay_money", mPrice);
+                bundle.putFloat("pay_money", mPrice / 100.0f);
                 Intent intent = new Intent(SheBaoSActivity.this, PayOptActivity.class);
                 intent.putExtra("booklistdata", bundle);
                 SheBaoSActivity.this.startActivity(intent);

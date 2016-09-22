@@ -28,7 +28,7 @@ public class BaseApi {
 	public static final String FWKB_D_Get_Url = "http://www.xiaohoutai.com.cn:8888/XHT/serverBoardController/findOnServerBoard";
 	public static final String FWKB_DF_Get_Url = "http://www.xiaohoutai.com.cn:8888/XHT/serverBoardController/findAllyue";
 
-	public static final String WEIXI_LJZF_URL = "http://1291115210.tunnel.2bdata.com/XHT/appwxzf/appwxyuzhifu";
+	public static final String WEIXI_LJZF_URL = "http://www.xiaohoutai.com.cn:8888/XHT/appwxzf/appwxyuzhifu";
 
 	//变更后提交的服务器
 	public static final String BIANGENG_LIST_POST_URL = "http://www.xiaohoutai.com.cn:8888/XHT/bizchangeorderController/saveBizchangeorderInfo";

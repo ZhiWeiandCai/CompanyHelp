@@ -62,7 +62,7 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 	private boolean mShiFouJiaJi;	//是否加急
 	private boolean mAddTuoGuan;	//地址托管
 	private int dljz = 0;	//代理记账-0,1,2,3,4,5,6
-	private int nsrFlag = 1;	//纳税人默认为小规模
+	private int nsrFlag = 3;	//纳税人默认为一般纳税人
 	private int zhouqiFlag = 1;	//默认为季度
 	private int[] dljz6 = new int[7];
 	private String[] dljz6JsonKey = new String[] {
@@ -301,7 +301,7 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 				Bundle bundle = new Bundle();
 				bundle.putString("shangpin", "公司注册");
 				bundle.putString("bookListId", tempJO.optString("registOrderId"));
-				bundle.putFloat("pay_money", mMoney);
+				bundle.putFloat("pay_money", mMoney / 100.0f);
 				Intent intent = new Intent(ZhuCeCompanyActivity.this, PayOptActivity.class);
 				intent.putExtra("booklistdata", bundle);
 				ZhuCeCompanyActivity.this.startActivity(intent);
@@ -321,7 +321,7 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 	 */
 	private void reFleshMoneyHeji() {
 		LogHelper.i("更新合计的View", "mMoney = " + mMoney);
-		mHeJiTV.setText(String.format(getResources().getString(R.string.heji_yuan), mMoney));
+		mHeJiTV.setText(String.format(getResources().getString(R.string.heji_yuan), mMoney / 100.0f));
 		mYouhuiTV.setText(String.format(getResources().getString(R.string.bookjichang_youhui_s), mMoneyYouHui));
 		mPhone.setText("" + mPhoneNum);
 		if (mUserName != null) {
@@ -348,9 +348,11 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 		switch (buttonView.getId()) {
 			case R.id.toggleButton2:
 				if (isChecked) {
+					dljz = nsrFlag + zhouqiFlag;
 					mLLJiZEx.setVisibility(View.VISIBLE);
 					mLLNaSR.setVisibility(View.VISIBLE);
 				} else {
+					dljz = 0;
 					mLLJiZEx.setVisibility(View.GONE);
 					mLLNaSR.setVisibility(View.GONE);
 				}

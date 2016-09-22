@@ -291,7 +291,7 @@ public class FaPiaoActivity extends Activity {
                 JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
                 bundle.putString("shangpin", "发票服务");
                 bundle.putString("bookListId", tempJO.optString("orderId"));
-                bundle.putFloat("pay_money", price);
+                bundle.putFloat("pay_money", price / 100.0f);
                 Intent intent = new Intent(FaPiaoActivity.this, PayOptActivity.class);
                 intent.putExtra("booklistdata", bundle);
                 FaPiaoActivity.this.startActivity(intent);
@@ -323,7 +323,7 @@ public class FaPiaoActivity extends Activity {
                 JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
                 bundle.putString("shangpin", "发票服务");
                 bundle.putString("bookListId", tempJO.optString("orderId"));
-                bundle.putFloat("pay_money", price);
+                bundle.putFloat("pay_money", price / 100.0f);
                 Intent intent = new Intent(FaPiaoActivity.this, PayOptActivity.class);
                 intent.putExtra("booklistdata", bundle);
                 FaPiaoActivity.this.startActivity(intent);
@@ -354,7 +354,7 @@ public class FaPiaoActivity extends Activity {
                 JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
                 bundle.putString("shangpin", "发票服务");
                 bundle.putString("bookListId", tempJO.optString("orderId"));
-                bundle.putFloat("pay_money", price);
+                bundle.putFloat("pay_money", price / 100.0f);
                 Intent intent = new Intent(FaPiaoActivity.this, PayOptActivity.class);
                 intent.putExtra("booklistdata", bundle);
                 FaPiaoActivity.this.startActivity(intent);

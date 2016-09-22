@@ -241,7 +241,7 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
                 JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
                 bundle.putString("shangpin", "代理记账");
                 bundle.putString("bookListId", tempJO.optString("accountOrderId"));
-                bundle.putFloat("pay_money", mMoney);
+                bundle.putFloat("pay_money", mMoney / 100.0f);
                 Intent intent = new Intent(DaiLiJIZhangActivity.this, PayOptActivity.class);
                 intent.putExtra("booklistdata", bundle);
                 DaiLiJIZhangActivity.this.startActivity(intent);
@@ -287,7 +287,7 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
      */
     private void reFleshMoneyHeji() {
         LogHelper.i("更新合计的View", "mMoney = " + mMoney);
-        mHeJiTV.setText(String.format(getResources().getString(R.string.heji_yuan), mMoney));
+        mHeJiTV.setText(String.format(getResources().getString(R.string.heji_yuan), mMoney / 100.0f));
         mPhone.setText("" + mPhoneNum);
         if (mUserName != null) {
             mNameET.setText(mUserName);

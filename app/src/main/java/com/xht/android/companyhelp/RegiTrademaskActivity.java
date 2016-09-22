@@ -252,7 +252,7 @@ public class RegiTrademaskActivity extends Activity {
                 JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
                 bundle.putString("shangpin", "注册商标");
                 bundle.putString("bookListId", tempJO.optString("orderId"));
-                bundle.putFloat("pay_money", mPrice);
+                bundle.putFloat("pay_money", mPrice / 100.0f);
                 Intent intent = new Intent(RegiTrademaskActivity.this, PayOptActivity.class);
                 intent.putExtra("booklistdata", bundle);
                 RegiTrademaskActivity.this.startActivity(intent);

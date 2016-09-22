@@ -52,7 +52,7 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
     private static final String TAG = "SLookBoardFragment";
     ProgressDialog mProgDoal;
 
-    Spinner mCompNameSpinner, mWeiDuSpinner, mYearsSpinner, mMonthsSpinner, mSpinnerX2;
+    Spinner mCompNameSpinner, mWeiDuSpinner, mYearsSpinner, mMonthsSpinner, mSpinnerX2, mSpinnerX3;
     TextView mYearFeiYongTV, mYearFeiYong2TV, mSheBaoFeeTV, mSheBaoPNTV, mBaoSTV, mFaPFeeTV;
     LinearLayout mMingXi1, mMingXi2, mMingXi3;
     ServerLookBoardActivity mActivity;
@@ -143,6 +143,9 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
         //报税金额的选择spinner
         mSpinnerX2 = (Spinner) rootView.findViewById(R.id.spinner_x2);
         mSpinnerX2.setOnItemSelectedListener(this);
+        //发票金额的选择spinner
+        mSpinnerX3 = (Spinner) rootView.findViewById(R.id.spinner_x3);
+        mSpinnerX3.setOnItemSelectedListener(this);
         mMingXi1 = (LinearLayout) rootView.findViewById(R.id.mingxi1);
         mMingXi2 = (LinearLayout) rootView.findViewById(R.id.mingxi2);
         mMingXi3 = (LinearLayout) rootView.findViewById(R.id.mingxi3);

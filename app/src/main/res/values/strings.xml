@@ -49,7 +49,7 @@
     <string name="login_changhu">登录账户</string>
     <string name="user_zhuce">用户注册</string>
     <string name="heji">合计： </string>
-    <string name="heji_yuan">¥ %1$d</string>
+    <string name="heji_yuan">¥ %1$.2f</string>
     <string name="zong_e_change">¥ %1$d</string>
     <string name="book_yuque">下单预约</string>
     <string name="area_zhuce">注册区域</string>
@@ -141,6 +141,8 @@
     <string name="shebao_p_num_str">社保人数</string>
     <string name="baoshui_fee_str">报税金额</string>
     <string name="fapiao_fee_str">发票金额</string>
+    <string name="kaipiao_fee_str">开票税额</string>
+    <string name="jx_fee_str">进项税额</string>
 
     <!-- MyDialogFragment -->
     <string name="shebao_md">社保名单</string>

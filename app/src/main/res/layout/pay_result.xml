@@ -4,15 +4,14 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-   <Button
-       android:id="@+id/but_return"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:text="返回"/>
-    <Button
-        android:id="@+id/but_complete"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="继续完善资料"/>
+        android:layout_height="50dp"
+        android:id="@+id/afterPayTip"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:text="显示返回状态"/>
 
 </LinearLayout>
