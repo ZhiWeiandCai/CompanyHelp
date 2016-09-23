@@ -228,6 +228,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:layout_marginLeft="4dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 android:textSize="18sp"
                 android:textColor="@android:color/holo_red_light"/>
             <TextView
@@ -241,6 +243,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:layout_marginLeft="4dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 android:textSize="18sp"
                 android:textColor="@android:color/holo_red_light"/>
         </LinearLayout>

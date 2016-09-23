@@ -53,7 +53,7 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
     ProgressDialog mProgDoal;
 
     Spinner mCompNameSpinner, mWeiDuSpinner, mYearsSpinner, mMonthsSpinner, mSpinnerX2, mSpinnerX3;
-    TextView mYearFeiYongTV, mYearFeiYong2TV, mSheBaoFeeTV, mSheBaoPNTV, mBaoSTV, mFaPFeeTV;
+    TextView mYearFeiYongTV, mYearFeiYong2TV, mSheBaoFeeTV, mSheBaoPNTV, mBaoSTV, mFaPFeeTV, mJXSE;
     LinearLayout mMingXi1, mMingXi2, mMingXi3;
     ServerLookBoardActivity mActivity;
     int mUId;
@@ -63,6 +63,7 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
     int mCurMonth;
     private int[] mCompIds;
     private String[] mCompNames;
+    private int mFlagCompP; //标记某公司的是小规模还是一般纳税人
     double[] graphBS;    //每个月或者季度的金额
     double[] mJinXiangShui;
     double[] mSheBaoMonth = new double[12];
@@ -157,6 +158,7 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
         mSheBaoPNTV = (TextView) rootView.findViewById(R.id.shebaoPNum);
         mBaoSTV = (TextView) rootView.findViewById(R.id.baoshuiFee);
         mFaPFeeTV = (TextView) rootView.findViewById(R.id.fapiaoFee);
+        mJXSE = (TextView) rootView.findViewById(R.id.jxseFee);
         getInitData();
         return rootView;
     }
@@ -202,27 +204,38 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
                     compList = jsonObject.getJSONObject("baoshui");
                     compListJA = compList.optJSONArray("list5");
                     if (compListJA == null) {
+                        mFlagCompP = 0;
                         graphBS = new double[4];
                         for (int i = 0; i < 4; i++) {
                             graphBS[i] = compList.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
                             mYShuiE += graphBS[i];
                         }
                         mSpinnerX2.setAdapter(mJiDiAAdapter);
+                        mSpinnerX3.setAdapter(mJiDiAAdapter);
                         if (1 <= mCurMonth && mCurMonth <= 3) {
                             mSpinnerX2.setSelection(0);
                             reFleshUIMonthBS(0);
+                            mSpinnerX3.setSelection(0);
+                            reFleshUIMonthFP(0);
                         } else if (4 <= mCurMonth && mCurMonth <= 6) {
                             mSpinnerX2.setSelection(1);
                             reFleshUIMonthBS(1);
+                            mSpinnerX3.setSelection(1);
+                            reFleshUIMonthFP(1);
                         } else if (7 <= mCurMonth && mCurMonth <= 9) {
                             mSpinnerX2.setSelection(2);
                             reFleshUIMonthBS(2);
+                            mSpinnerX3.setSelection(2);
+                            reFleshUIMonthFP(2);
                         } else if (10 <= mCurMonth && mCurMonth <= 12) {
                             mSpinnerX2.setSelection(3);
                             reFleshUIMonthBS(3);
+                            mSpinnerX3.setSelection(3);
+                            reFleshUIMonthFP(3);
                         }
 
                     } else {
+                        mFlagCompP = 1;
                         JSONObject temp = jsonObject.getJSONObject("jinXiangshui");
                         graphBS = new double[12];
                         mJinXiangShui = new double[12];
@@ -234,6 +247,9 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
                         mSpinnerX2.setAdapter(arrayAdapter4);
                         mSpinnerX2.setSelection(mCurMonth - 1);
                         reFleshUIMonthBS(mCurMonth - 1);
+                        mSpinnerX3.setAdapter(arrayAdapter4);
+                        mSpinnerX3.setSelection(mCurMonth - 1);
+                        reFleshUIMonthFP(mCurMonth - 1);
                     }
                     compList = jsonObject.getJSONObject("yuFenShebao");
                     for (int i = 0; i < 12; i++) {
@@ -294,6 +310,16 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
      */
     private void reFleshUIMonthBS(int which) {
         mBaoSTV.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), graphBS[which]));
+    }
+
+    /**
+     * 刷新-发票税额and进项税额-每月
+     */
+    private void reFleshUIMonthFP(int which) {
+        if (mFlagCompP == 1) {
+            mJXSE.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mJinXiangShui[which]));
+        }
+        mFaPFeeTV.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), graphBS[which]));
     }
 
     private void createProgressDialog(String title) {
