@@ -140,7 +140,7 @@ public class FaPiaoActivity extends Activity {
                             try {
                                 temp.put("ordContactId", mUId);
                                 temp.put("orderFee", mPrice1);
-                                postSJKPSQBookList(temp, mPrice1);
+                                postFPRZBookList(temp, mPrice1);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -44,8 +45,11 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class App extends Application {
 	
@@ -70,7 +74,11 @@ public class App extends Application {
 	public static PushAgent getmPushAgent() {
 		return mPushAgent;
 	}
+	public static  ArrayList<Map<String,String>> getArrayList() {
+		return arrayList;
+	}
 
+	private static ArrayList<Map<String,String>>arrayList;
 
 	@Override
 	public void onCreate() {
@@ -79,6 +87,20 @@ public class App extends Application {
 		mLruCacheManager = LruCacheManager.getInstance(getApplicationContext());
 		init();
 		messageList = new ArrayList<MessageDetail>();
+
+/**
+ *注册公司 1；
+ 记账报税 2；
+ 社保服务 3；
+ 发票服务 4；
+ 注册商标 5；
+ 雇主保险 6；
+ 变更服务 7；
+ 注册资金 8；
+ 注销服务 9；
+ 劳务派遣 10
+ */
+
 
 		//友盟推送初始化
 		mPushAgent = PushAgent.getInstance(this);
@@ -109,7 +131,7 @@ public class App extends Application {
 
 				LogHelper.i(TAG,"----tttttttttttttt------");
 				LogHelper.i(TAG,"---"+title+"--"+content+"--"+url);
-				messageList.add(itemMess);
+				//messageList.add(itemMess);
 				LogHelper.i(TAG,"??????????-------------------------??????");
 
 				ImageRequest request = new ImageRequest(iconurl, new Response.Listener<Bitmap>() {
@@ -130,12 +152,21 @@ public class App extends Application {
 					for (Map.Entry<String, String> entry : uMessage.extra.entrySet()) {
 						String key = entry.getKey();
 						String value = entry.getValue();
-						itemMess.setmUrl(value);
+
+						if (key.equals("url")){//健值----打开指定url
+							itemMess.setmUrl(value);
+							LogHelper.i(TAG, "1111111111111111111111111");
+						}
+						if (key.equals("uid")){//健值----获取传过来的推送id
+							itemMess.setmMessUid(value);
+							LogHelper.i(TAG, "1-------------------------`11---");
+						}
 						LogHelper.i(TAG, "--111---" + key.toString() + "---11--" + value.toString());
 					}
-					LogHelper.i(TAG,"??????????????????????????????????????????????????????????");
-					messageList.add(itemMess);
+					
 				}
+				LogHelper.i(TAG, "---------------------------");
+				messageList.add(itemMess);
 			}
 			//dealWithCustomMessage()方法负责处理自定义消息，需由用户处理。 若开发者需要处理自定义消息
 			@Override

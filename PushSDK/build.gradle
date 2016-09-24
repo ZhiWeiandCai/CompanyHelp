@@ -51,4 +51,5 @@ dependencies {
     compile 'com.squareup.okio:okio:1.6.0'
     compile 'com.squareup.wire:wire-runtime:2.1.2'
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    //compile files('libs/com.umeng.message_v2.8.1.jar')
 }

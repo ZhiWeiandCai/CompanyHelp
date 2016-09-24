@@ -36,27 +36,59 @@
         android:gravity="left|center_vertical"
         android:background="@android:color/darker_gray"/>
     <LinearLayout
+        android:id="@+id/wepay_pay"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:background="@android:drawable/edit_text"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="3dp">
+        android:layout_marginTop="10dp">
         <ImageView
-            android:layout_width="120dp"
+            android:layout_width="160dp"
             android:layout_height="40dp"
-            android:background="@mipmap/wepaylogo"
+            android:background="@mipmap/wepaylogo1"
             />
-        <CheckBox
+        <View
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/we_xin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:enabled="false"
-            android:layout_marginRight="0dp"/>
+            android:src="@mipmap/zhifu_dui"
+            android:layout_gravity="center_vertical"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/alipay_pay"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="5dp">
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:background="@mipmap/alipaylogo"
+            />
+        <View
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/zhi_fu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/zhifu_dui"
+            android:visibility="gone"
+            android:layout_gravity="center_vertical"
+          />
     </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
-    <Button android:id="@+id/zhifu_liji"
+    <Button
+        android:id="@+id/zhifu_liji"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_gravity="bottom"

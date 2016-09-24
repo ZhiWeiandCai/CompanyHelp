@@ -15,6 +15,7 @@ import com.xht.android.companyhelp.util.LogHelper;
 
 /**
  * Created by Administrator on 2016-8-26.
+ * author: an
  */
 public class PersonOfBianGengAvtivity extends Activity {
     private RadioGroup mRadioGroupGQ;

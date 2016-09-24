@@ -29,6 +29,8 @@ import java.util.Map;
 
 /**
  * Created by Administrator on 2016-8-30. 账户管理
+ *
+ * author: an
  */
 public class ZhangHuManager extends Activity{
     private static final String TAG = "ZhangHuManager";
@@ -169,7 +171,6 @@ public class ZhangHuManager extends Activity{
                /* Intent intent2=new Intent(ZhangHuManager.this, CompleteMessage.class);
                 startActivity(intent2);*/
                 App.getInstance().showToast("账户修改成功");
-                //伪代码，属于尝试完善信息 TODO
 
                 ZhangHuManager.this.finish();
             }
@@ -180,8 +181,6 @@ public class ZhangHuManager extends Activity{
             }
         });
     }
-
-
 
     /**
      * 获取账户信息

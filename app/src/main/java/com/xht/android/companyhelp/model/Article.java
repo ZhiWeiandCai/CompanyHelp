@@ -7,17 +7,19 @@ public class Article {
 	private int mLeiBie;	//文章属于哪一类（1。政策，2.学堂，3.活动）
 
 	private long mShijian;	//发表时间
-	private int mSmallLeiBie;	//文章小类别
+
+	private String mSmallLeiBie;	//文章小类别
 
 	private String mArtUrl;
 	private String mArtPicUrl;
 	
-	public Article(int artId, String title, long shijian, String artUrl, String artPicUrl) {
+	public Article(int artId, String title, long shijian, String artUrl, String artPicUrl, String sLeiBie) {
 		mArtId = artId;
 		mTitle = title;
 		mShijian = shijian;
 		mArtUrl = artUrl;
 		mArtPicUrl = artPicUrl;
+		mSmallLeiBie = sLeiBie;
 	}
 	
 	public void setId(int id) {
@@ -58,6 +60,14 @@ public class Article {
 
 	public void setmArtUrl(String mArtUrl) {
 		this.mArtUrl = mArtUrl;
+	}
+
+	public String getmSmallLeiBie() {
+		return mSmallLeiBie;
+	}
+
+	public void setmSmallLeiBie(String mSmallLeiBie) {
+		this.mSmallLeiBie = mSmallLeiBie;
 	}
 
 }

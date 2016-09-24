@@ -56,9 +56,12 @@ public class ServiceFragment extends Fragment implements OnClickListener{
 		mTextView3.setOnClickListener(this);
 		mTextView4.setOnClickListener(this);
 		mTextView5.setOnClickListener(this);
+		mTextView6.setOnClickListener(this);
 		mTextView7.setOnClickListener(this);
 		mTextView8.setOnClickListener(this);
 		mTextView9.setOnClickListener(this);
+		mTextView10.setOnClickListener(this);
+		mTextView11.setOnClickListener(this);
 		return view;		
 	}
 
@@ -100,6 +103,9 @@ public class ServiceFragment extends Fragment implements OnClickListener{
 			intent.putExtra("uData", bundle);
 			getActivity().startActivity(intent);
 			break;
+		case R.id.tv23:
+			App.getInstance().showToast("此功能暂未开放");
+			break;
 		case R.id.tv31:
 				intent = new Intent(getActivity(),BianGengService.class);
 				intent.putExtra("uData", bundle);
@@ -115,6 +121,12 @@ public class ServiceFragment extends Fragment implements OnClickListener{
 				intent.putExtra("uData", bundle);
 				getActivity().startActivity(intent);
 				break;
+		case R.id.tv41:
+			App.getInstance().showToast("此功能暂未开放");
+			break;
+		case R.id.tv42:
+			App.getInstance().showToast("此功能暂未开放");
+			break;
 		default:
 			break;
 		}

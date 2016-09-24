@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 /**
  * Created by Administrator on 2016/8/21.
+ * author: an
  */
 public class CancelComActivity extends Activity {
 
@@ -82,17 +83,13 @@ public class CancelComActivity extends Activity {
                 LogHelper.i(TAG, mCompNames[position]);
                 mSelectedCompId=mCompIds[position];
                 mETCompanyName.setText(mCompNames[position].toString());
-
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
-        //显示提交订单金额
-        showTotalMoney();
+
         mButtonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,13 +103,10 @@ public class CancelComActivity extends Activity {
                 //注销公司，把有关这个公司的相关信息从数据库中删除
                 deleteCompanyJSONPost();
 
-
-
             }
         });
     }
     public void deleteCompanyJSONPost() {
-
         JSONObject obj = new JSONObject();
         try {
             obj.put("CompanyName", mETCompanyName.getText().toString());
@@ -120,7 +114,6 @@ public class CancelComActivity extends Activity {
             obj.put("CustomerId",mUId);//下单用户Id
             obj.put("Price",mPrice);
             LogHelper.i(TAG,"---下单用户id-----"+mUId+"--公司Id:---"+mSelectedCompId);
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -135,9 +128,9 @@ public class CancelComActivity extends Activity {
                 dismissProgressDialog();
                 Bundle bundle = new Bundle();
                 JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
-                bundle.putString("shangpin", "注销公司");
+                bundle.putString("shangpin","注销服务");
                 bundle.putString("bookListId", tempJO.optString("orderId"));
-                bundle.putFloat("pay_money", mPrice);
+                bundle.putFloat("pay_money", mPrice/100.0f);
                 Intent intent = new Intent(CancelComActivity.this, PayOptActivity.class);
                 intent.putExtra("booklistdata", bundle);
                 CancelComActivity.this.startActivity(intent);
@@ -159,7 +152,7 @@ public class CancelComActivity extends Activity {
      */
     private void showTotalMoney() {
         mTVTotalMoney.setTextColor(Color.RED);
-        mTVTotalMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice / 1.0f));
+        mTVTotalMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice/100.0f));
 
     }
 
@@ -227,6 +220,9 @@ public class CancelComActivity extends Activity {
                 }
                 dismissProgressDialog();
                 mSelectedCompId = mCompIds[0];
+
+                //显示提交订单金额
+                showTotalMoney();
                 refleshCompanyView();
             }
 

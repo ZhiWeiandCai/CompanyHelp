@@ -30,6 +30,9 @@ import com.xht.android.companyhelp.util.Utils;
 
 import java.util.ArrayList;
 
+/**
+ * author: an
+ */
 public class MessFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
 	private MainActivity mActivity;//上下文
@@ -43,13 +46,13 @@ public class MessFragment extends Fragment implements View.OnClickListener, Adap
 	private MessageAdapter mMessageAdapter;
 	private int mUid;
 
-	private ArrayList<PayDetail> mPayList=new ArrayList();//订单支付成功发送的消息数据源
+
+	public ArrayList<PayDetail> mPayList=PayOptActivity.getPayList();
+	//private ArrayList<PayDetail> mPayList=new ArrayList();//订单支付成功发送的消息数据源
 
 	private ArrayList<MessageDetail>mMessageList=App.getMessageList();//推送过来的消息的数据源
 
-	public ArrayList<PayDetail> getPayList(){
-		return mPayList;
-	}
+
 	private static final String TAG = "MessFragment";
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,24 +61,7 @@ public class MessFragment extends Fragment implements View.OnClickListener, Adap
 		mMessageAdapter=new MessageAdapter(mMessageList);
 		Bitmap mBitmap= BitmapFactory.decodeFile("http://photo.enterdesk.com/2008-11-23/200811221700467000.jpg");
 		mUserInfo = ((MainActivity) mActivity).mUserInfo;
-		//填充获取数据
-		for (int i=0;i<10;i++){
-			String time=Utils.getTimeUtils(System.currentTimeMillis());
-			PayDetail itempay=new PayDetail();
-			itempay.setmTime(time);
-			itempay.setmTitle("注册资金");
-			itempay.setmOrderNumber(123+i+"");
-			itempay.setmTotalMoney(290*i+"");
-			mPayList.add(itempay);
 
-
-			//模拟数据报税请求 TODO
-			/*MessageDetail itemMess=new MessageDetail();
-			itemMess.setmTime(time);
-			itemMess.setmTitle("报税请求");
-			itemMess.setmContent(290*i+"");
-			mMessageList.add(itemMess);*/
-		}
 	}
 	@Override
 	public void onAttach(Activity activity) {
@@ -148,13 +134,28 @@ public class MessFragment extends Fragment implements View.OnClickListener, Adap
 			}else{
 				mPayHolder= (ViewHolderPay) convertView.getTag();
 			}
-			//获取条目，给每个条目1填充数据
-			PayDetail mPayItem=mPayList.get(position);
+			//获取条目，给每个条目填充数据
+			final PayDetail mPayItem=mPayList.get(position);
 			mPayHolder.mTVTime.setText(mPayItem.getmTime());
 			mPayHolder.mTVMoney.setText(mPayItem.getmTotalMoney()+"元");
 			mPayHolder.mTVGoods.setText(mPayItem.getmTitle());
 			mPayHolder.mTVNumber.setText(mPayItem.getmOrderNumber());
 
+		//点击条目
+			mListPay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					Intent intent=new Intent(getActivity(),PayItemActivity.class);
+					intent.putExtra("time",mPayItem.getmTime());
+					intent.putExtra("money",mPayItem.getmTotalMoney());
+					intent.putExtra("goods",mPayItem.getmTitle());
+					intent.putExtra("number",mPayItem.getmOrderNumber());
+					intent.putExtra("flag",mPayItem.getMethod());
+					intent.putExtra("busy",mPayItem.getBusyer());
+
+					startActivity(intent);
+				}
+			});
 			return convertView;
 		}
 	}
@@ -164,8 +165,6 @@ public class MessFragment extends Fragment implements View.OnClickListener, Adap
 		TextView mTVGoods;
 		TextView mTVNumber;
 	}
-
-
 
 
 	//推送消息中心的适配器 TODO 推送的消息还没有获取
@@ -203,13 +202,21 @@ public class MessFragment extends Fragment implements View.OnClickListener, Adap
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					String url=messItem.getmUrl();
-					LogHelper.i(TAG,"-----"+url+"!!!!!!!!!!!!!!");
+					LogHelper.i(TAG,"-----"+url+"=============");
 
-					if (TextUtils.isEmpty(url)){
+					String MessageUid=messItem.getmMessUid();
+					LogHelper.i(TAG,"-----"+MessageUid+"!!!!!!!!!!!!!!");
+
+					if (!TextUtils.isEmpty(MessageUid)){
 						Intent intent=new Intent(getActivity(),MessageListActivity.class);
+						Bundle bundle=new Bundle();
+						bundle.putString("messId",MessageUid);
+						bundle.putInt("mUid",mUid);
+						intent.putExtra("MessUid",bundle);
+
 						LogHelper.i(TAG,"----==!!!!!!!!!!!!!!");
 						startActivity(intent);
-					}else{
+					}else if (!TextUtils.isEmpty(url)){
 						Intent intent=new Intent(getActivity(),UMessActivity.class);
 						LogHelper.i(TAG,"----================");
 						Bundle bundle=new Bundle();
@@ -243,6 +250,7 @@ public class MessFragment extends Fragment implements View.OnClickListener, Adap
 			case R.id.but_zhufu://点击支付助手
 				mListPay.setVisibility(View.VISIBLE);
 				mListMessage.setVisibility(View.GONE);
+
 				mPayAdapter.notifyDataSetChanged();
 				mMessageAdapter.notifyDataSetChanged();
 				mZhiFuZhuShou.setBackgroundColor(Color.TRANSPARENT);

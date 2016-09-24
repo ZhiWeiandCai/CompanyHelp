@@ -18,48 +18,55 @@
         android:background="@android:color/darker_gray"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:background="@android:color/white"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="公司名称："
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
+
+
             android:textSize="18sp"/>
+
         <EditText
             android:id="@+id/complete_company_name"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="35dp"
             android:textSize="18sp"
+            android:drawableLeft="@mipmap/new_company"
+            android:enabled="true"
             android:layout_marginRight="20dp"
-            android:hint="请输入公司名称"/>
+            android:hint="请选择公司名称"/>
+        <Spinner
+            android:id="@+id/complete_spinner"
+            android:layout_width="50dp"
+            android:layout_height="35dp">
+
+        </Spinner>
 
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="1dp"
+        android:layout_height="wrap_content"
+
         android:background="@android:color/white"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="注册金额："
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
             android:textSize="18sp"/>
         <EditText
             android:id="@+id/complete_zhuce_money"
             android:layout_width="200dp"
             android:layout_height="35dp"
             android:textSize="18sp"
+            android:drawableLeft="@mipmap/company_money"
             android:phoneNumber="true"
             android:layout_marginRight="20dp"
-            android:hint="请输入注册金额"/>
+            android:hint="请输入注册资金"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,9 +84,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="公司类型："
-            android:layout_gravity="center"
+            android:drawableLeft="@mipmap/company_style"
             android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
             android:textSize="18sp"/>
         <Spinner
             android:id="@+id/complete_company_leixing"
@@ -88,7 +95,7 @@
             android:textSize="18sp"
             android:layout_marginRight="20dp"
             android:layout_gravity="center"
-           />
+            />
 
     </LinearLayout>
 
@@ -96,14 +103,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:layout_marginTop="1dp"
+
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="经营地址："
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
             android:textSize="18sp"/>
         <EditText
             android:id="@+id/complete_jingying_address"
@@ -111,6 +116,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:singleLine="true"
+            android:drawableLeft="@mipmap/company_address"
             android:layout_marginRight="20dp"
             android:hint="请输入经营地址"/>
 
@@ -118,25 +124,22 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:layout_marginTop="1dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="经营范围："
-            android:layout_marginLeft="10dp"
             android:layout_gravity="center"
             android:textSize="18sp"/>
         <EditText
             android:id="@+id/complete_company_fanwei"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:textSize="18sp"
+            android:drawableLeft="@mipmap/fanwei"
             android:layout_marginRight="20dp"
-            android:singleLine="true"
-            android:maxLength="15"
+
             android:hint="请输入经营范围"/>
 
     </LinearLayout>

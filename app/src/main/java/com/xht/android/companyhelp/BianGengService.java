@@ -39,6 +39,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2016/8/24.
+ * author: an
  */
 public class BianGengService extends Activity implements View.OnClickListener {
 
@@ -101,6 +102,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
     private String companyName;//输入或选择的公司名字
     private ArrayList<PersonOfBianGengService> mArrayList = new ArrayList<>();//存储变更股东股权的信息
     private PersonOfBianGengServiceAdapter mPersonOfBianGengAdapter;//每个item的信息
+    //private boolean mCheckBoxGuDong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,7 +192,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
                 }else{
                     mPrice-=mNamePrice;
                 }
-                mTVMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice/1.0f));
+                mTVMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice/100.0f));
 
             }
         });
@@ -208,7 +210,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
                 }else{
                     mPrice-=mAddressPrice;
                 }
-                mTVMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice/1.0f));
+                mTVMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice/100.0f));
             }
         });
 
@@ -225,7 +227,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
                 }else{
                     mPrice-=mFaRenPrice;
                 }
-                mTVMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice/1.0f));
+                mTVMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice/100.0f));
             }
         });
 
@@ -241,7 +243,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
                 }else{
                     mPrice-=mFanWeiPrice;
                 }
-                mTVMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice/1.0f));
+                mTVMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice/100.0f));
             }
         });
 
@@ -257,13 +259,14 @@ public class BianGengService extends Activity implements View.OnClickListener {
 
                 }else{
                     mPrice-=mGuDongGuQuanPrice;
+                    //mArrayList.remove(new PersonOfBianGengService());
+                    mArrayList.removeAll(mArrayList);
                 }
-                mTVMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice/1.0f));
+                mPersonOfBianGengAdapter.notifyDataSetChanged();
+                mTVMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice/100.0f));
             }
         });
         mTVMoney.setTextColor(Color.RED);
-
-
 
         //点击动态添加ListView的item
         mImageContacts.setOnClickListener(this);
@@ -282,7 +285,6 @@ public class BianGengService extends Activity implements View.OnClickListener {
             }
         });
 
-
     }
     private void initView() {
 
@@ -293,8 +295,6 @@ public class BianGengService extends Activity implements View.OnClickListener {
         mListViewItem= (ListView) findViewById(R.id.biangeng_list_view);
         mSendMoney.setOnClickListener(this);
     }
-
-
 
 //适配器
     private class PersonOfBianGengServiceAdapter extends  ArrayAdapter<PersonOfBianGengService> {
@@ -342,7 +342,6 @@ public class BianGengService extends Activity implements View.OnClickListener {
 
     }
 
-
     static class ViewHolder{
        TextView mGuDongGuQuan;
        TextView mGuQuanZenJian;
@@ -352,9 +351,6 @@ public class BianGengService extends Activity implements View.OnClickListener {
         ImageButton mJianImgContacts;
         TextView mGuQuangBiLi;
         int position;
-
-
-
     }
     private void deleteOneItem(int position) {
         if (mArrayList.size() > 0) {
@@ -419,9 +415,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
                     e.printStackTrace();
                 }
 
-
             }
-
             @Override
             public void onError(Object e) {
                 dismissProgressDialog();
@@ -430,26 +424,23 @@ public class BianGengService extends Activity implements View.OnClickListener {
             }
         });
     }
-
     private void refleshCompanyView() {
-
         ArrayAdapter<CharSequence> arrayAdapter = new ArrayAdapter<CharSequence>(BianGengService.this, android.R.layout.simple_spinner_item, mCompNames);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerCompany.setAdapter(arrayAdapter);
         //mTVTotalMoney.setText(mPrice);
         mTVMoney.setTextColor(Color.RED);
-        mTVMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice/1.0f));
+        mTVMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice/100.0f));
     }
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
             case R.id.biangeng_add_contacts:
-                boolean mCheckBoxGuDong = mCheckBoxChangeGuDong.isChecked();
+                boolean  mCheckBoxGuDong = mCheckBoxChangeGuDong.isChecked();
                 if (mCheckBoxGuDong) {
                     //添加股东股权
-                    mPrice+=mGuDongGuQuanPrice;
+                  //  mPrice+=mGuDongGuQuanPrice;
                     if (mArrayList.size() < 10) {
                         mArrayList.add(new PersonOfBianGengService());
                         mPersonOfBianGengAdapter.notifyDataSetChanged();
@@ -460,22 +451,31 @@ public class BianGengService extends Activity implements View.OnClickListener {
                 }else{
                     App.getInstance().showToast("请选勾选变更股东股权");
                 }
-
-
                 break;
             case R.id.sendbook_biangeng:
-                //提交订单
-                postBookList();
+                //检查是否填写信息
+                checkInFo();
                 break;
         }
     }
+    private void checkInFo() {
+
+        for (PersonOfBianGengService temp:mArrayList){
+            if (temp.getName()==null || temp.getName()==""){
+                App.getInstance().showToast("请填写信息再提交");
+                return;
+            }
+        }
+        //提交订单
+        postBookList();
+    }
+
     /**
      * 获取信息提交订单 TODO
      */
     private void postBookList() {
         boolean mCheckBoxCompany=mCheckBoxChangemCompany.isChecked();
         if (mCheckBoxCompany) {
-
             //变更公司名称
             mBGCompanyName=mEditNewCompany.getText().toString();
             if(TextUtils.isEmpty(mBGCompanyName)){
@@ -483,7 +483,6 @@ public class BianGengService extends Activity implements View.OnClickListener {
                 return;
             }
         }
-
         boolean mCheckBoxAddress=  mCheckBoxChangeAddress.isChecked();
         if (mCheckBoxAddress) {
          //   mPrice+=mAddressPrice;
@@ -526,7 +525,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
         }
 
 
-        boolean mCheckBoxGuDong = mCheckBoxChangeGuDong.isChecked();
+        boolean  mCheckBoxGuDong = mCheckBoxChangeGuDong.isChecked();
         if (mCheckBoxGuDong){
             if (mArrayList.size()<=0){
                 App.getInstance().showToast("请添加变更股东股权的相关信息");
@@ -608,7 +607,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
         try {
             JSONArray mBGList=new JSONArray();
             JSONObject mBGoject = new JSONObject();
-            mBGoject.put("biangengguquan",mCheckBoxGuDong);
+            mBGoject.put("biangengguquan", mCheckBoxGuDong);
             for (PersonOfBianGengService temp : mArrayList) {
                 JSONObject mBianGengJo = new JSONObject();
                 mBianGengJo.put("bggudongguquan", temp.getmGuDongGuQuan());
@@ -628,7 +627,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
         }
 
         mTVMoney.setTextColor(Color.RED);
-        mTVMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice/1.0f));
+        mTVMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice/100.0f));
         createProgressDialog("订单提交中...");
         LogHelper.i(TAG, "----提交的所有信息" + mBG.toString());
 
@@ -641,9 +640,9 @@ public class BianGengService extends Activity implements View.OnClickListener {
                 dismissProgressDialog();
                 Bundle bundle = new Bundle();
                 JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
-                bundle.putString("shangpin", "变更服务资金");
+                bundle.putString("shangpin", "变更服务");
                 bundle.putString("bookListId", tempJO.optString("orderid"));
-                bundle.putFloat("pay_money", mPrice);
+                bundle.putFloat("pay_money", mPrice/100.0f);
                 Intent intent = new Intent(BianGengService.this, PayOptActivity.class);
                 intent.putExtra("booklistdata", bundle);
                 BianGengService.this.startActivity(intent);
@@ -657,7 +656,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
             }
         });
 
-        LogHelper.i(TAG,"---"+mCheckBoxCompany+"---"+mCheckBoxAddress+"--"+mCheckBoXFaren+"--"+mCheckBoxFanWei+"--"+mCheckBoxGuDong+"--");
+        LogHelper.i(TAG,"---"+mCheckBoxCompany+"---"+mCheckBoxAddress+"--"+mCheckBoXFaren+"--"+mCheckBoxFanWei+"--"+ mCheckBoxGuDong +"--");
     }
 
 

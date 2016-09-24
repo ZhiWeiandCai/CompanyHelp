@@ -5,7 +5,7 @@
     android:orientation="vertical" >
     <ImageView 
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:background="@mipmap/xuanchuan"/>
     <ListView android:id="@+id/articleListV"
         android:layout_width="match_parent"

@@ -10,6 +10,24 @@ public class CompleteJavaBean {
     private String mNumber;
     private String mAddress;
     private String mPWork;
+    private Boolean mClick;
+    private int mWorkId;
+
+    public int getmWorkId() {
+        return mWorkId;
+    }
+
+    public void setmWorkId(int mWorkId) {
+        this.mWorkId = mWorkId;
+    }
+
+    public Boolean getmClick() {
+        return mClick;
+    }
+
+    public void setmClick(Boolean mClick) {
+        this.mClick = mClick;
+    }
 
     public String getmPWork() {
         return mPWork;

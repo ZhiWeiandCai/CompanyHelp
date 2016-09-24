@@ -28,7 +28,12 @@ public class BaseApi {
 	public static final String FWKB_D_Get_Url = "http://www.xiaohoutai.com.cn:8888/XHT/serverBoardController/findOnServerBoard";
 	public static final String FWKB_DF_Get_Url = "http://www.xiaohoutai.com.cn:8888/XHT/serverBoardController/findAllyue";
 
+	public static final String GET_SB_PEOPLE = "http://www.xiaohoutai.com.cn:8888/XHT/serverBoardController/loadSclSecurityPersonInfo";
+
 	public static final String WEIXI_LJZF_URL = "http://www.xiaohoutai.com.cn:8888/XHT/appwxzf/appwxyuzhifu";
+	public static final String ZHIFUBAO_URL = "http://www.xiaohoutai.com.cn:8888/XHT/pay/alipay/zhifubao";
+	//public static final String ZHIFUBAO_URL = "http://12911152120.tunnel.2bdata.com/XHT/pay/alipay/zhifubao";
+
 
 	//变更后提交的服务器
 	public static final String BIANGENG_LIST_POST_URL = "http://www.xiaohoutai.com.cn:8888/XHT/bizchangeorderController/saveBizchangeorderInfo";
@@ -52,7 +57,17 @@ public class BaseApi {
 	//获取账户参数信息
 	public static final String FUWU_POST_ZHANGHU_URL="http://www.xiaohoutai.com.cn:8888/XHT/ordercontactController/modifyContactInfo";
 
+
+
+	//获取公司类型
+	public static final String FUWU_GET_COMP_TYPE_URL="http://www.xiaohoutai.com.cn:8888/XHT/appCompanyController/loadCompanyType";
+	//获取公司职位
+	public static final String FUWU_GET_COMP_WORK_URL="http://www.xiaohoutai.com.cn:8888/XHT/appCompanyController/loadCompanyPost";
 	//完善信息--提交
-	public static final String FUWU_POST_COMPLETE_URL="";
+	public static final String FUWU_POST_COMPLETE_URL="http://www.xiaohoutai.com.cn:8888/XHT/appCompanyController/perfectCompanyData";
+
+	//根据消息id请求消息
+	public static final String FUWU_GET_YOUMENG_URL="http://www.xiaohoutai.com.cn:8888/XHT/serverBoardController/getTaxData";
+	public static final String FUWU_POST_YOUMENG_URL="http://www.xiaohoutai.com.cn:8888/XHT/serverBoardController/userConfirmTaxData";
 
 }

@@ -54,7 +54,7 @@ public class ArticleListFragment extends Fragment {
         Bundle bundle = getArguments();
         witchF = bundle.getInt("witchF", 0);
         LogHelper.i(TAG, "witchF=" + witchF);
-        mPlaceHolderBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.phone_sym_img);
+        mPlaceHolderBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.p_head);
         fetchItemTask(witchF);
     }
 
@@ -114,6 +114,7 @@ public class ArticleListFragment extends Fragment {
         Article article;
         String artT;
         String imgUrl;
+        String sLB;
         JSONObject jO;
         int length = jA.length();
         for (int i = 0; i < length; i++) {
@@ -121,10 +122,12 @@ public class ArticleListFragment extends Fragment {
                 jO = jA.getJSONObject(i);
                 artId = jO.getInt("artid");
                 artT = jO.getString("title");
+                sLB = jO.getString("subArtTypeName");
+                LogHelper.i(TAG, "小类别=" + sLB);
                 imgUrl = "http://www.xiaohoutai.com.cn:8888/XHT/" + jO.getString("imageurl").replaceAll("\\\\", "/");
                 LogHelper.i(TAG, "imgUrl=" + imgUrl);
                 long pbTime = Long.parseLong(jO.getString("pbtime"));
-                article = new Article(artId, artT, pbTime, null, imgUrl);
+                article = new Article(artId, artT, pbTime, null, imgUrl, sLB);
                 mArticles.add(article);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -146,6 +149,7 @@ public class ArticleListFragment extends Fragment {
                 holder = new ViewHolder();
                 holder.title = (TextView) convertView.findViewById(R.id.artTitle_item);
                 holder.pbT = (TextView) convertView.findViewById(R.id.timeTV);
+                holder.smallLeiBie = (TextView) convertView.findViewById(R.id.smallLeiBieTV);
                 holder.imgV = (ImageView) convertView.findViewById(R.id.artPic);
                 convertView.setTag(holder);
             } else {
@@ -153,6 +157,7 @@ public class ArticleListFragment extends Fragment {
             }
             Article item = getItem(position);
             holder.title.setText(item.getTitle());
+            holder.smallLeiBie.setText(item.getmSmallLeiBie());
             holder.pbT.setText(mSDF.format(new Date(item.getmShijian())));
 //            holder.imgV.setImageResource(R.mipmap.phone_sym_img);
             //异步加载图片
@@ -281,6 +286,7 @@ public class ArticleListFragment extends Fragment {
     class ViewHolder {
         public TextView title;
         public TextView pbT;
+        public TextView smallLeiBie;
         public ImageView imgV;
     }
 

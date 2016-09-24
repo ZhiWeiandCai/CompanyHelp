@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:gravity="center_horizontal"
+        android:background="@android:color/white"
+        android:text="我的订单"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/switch_tabs"
+        android:checkedButton="@+id/tab1"
+        android:orientation="horizontal">
+        <RadioButton android:id="@id/tab1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/tab_selector"
+            android:button="@null"
+            />
+        <RadioButton android:id="@+id/tab2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/tab_selector"
+            android:button="@null"
+            />
+
+    </RadioGroup>
+
+
+
+</LinearLayout>

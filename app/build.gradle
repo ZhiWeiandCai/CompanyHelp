@@ -10,6 +10,7 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        //multiDexEnabled true
     }
 
     signingConfigs {
@@ -36,9 +37,10 @@ android {
 dependencies {
     compile project(':PushSDK')
     compile project(':GraphView')
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    //compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile files('libs/libammsdk.jar')
+    compile files('libs/alipaySdk-20160825.jar')
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:support-v4:22.2.1'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'

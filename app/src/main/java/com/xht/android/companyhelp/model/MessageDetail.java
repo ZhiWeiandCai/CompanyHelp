@@ -10,8 +10,17 @@ public class MessageDetail {
     private String mContent;//推送通知的内容
     private String mTime;//记录通知到达的时间
     private String mUrl;//推送消息的url
+    private String mMessUid;//推送消息的id
    // private String mUrlIcom;//推送过来的图标url
     private Bitmap mBitmap;
+
+    public String getmMessUid() {
+        return mMessUid;
+    }
+
+    public void setmMessUid(String mMessUid) {
+        this.mMessUid = mMessUid;
+    }
 
     public String getmUrl() {
         return mUrl;

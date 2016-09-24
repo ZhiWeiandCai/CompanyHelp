@@ -13,7 +13,8 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="12dp"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:background="@mipmap/p_head"/>
         <LinearLayout android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="1"
@@ -36,7 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="12dp"
-            android:background="@mipmap/erweima_pic"/>
+            />
+        <!--android:background="@mipmap/erweima_pic"-->
     </LinearLayout>
     <LinearLayout 
         android:id="@+id/fragm_my_ll2"
@@ -115,7 +117,7 @@
                 android:drawablePadding="3dp"
                 android:drawableLeft="@mipmap/img_changhu_admin"/>
     </LinearLayout>
-    <LinearLayout 
+    <!--<LinearLayout
         android:id="@+id/fragm_my_ll6"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -132,7 +134,7 @@
                 android:textSize="18sp"
                 android:drawablePadding="3dp"
                 android:drawableLeft="@mipmap/img_yijian_fankui"/>
-    </LinearLayout>
+    </LinearLayout>-->
     <LinearLayout
         android:id="@+id/fragm_my_ll7"
         android:layout_width="match_parent"

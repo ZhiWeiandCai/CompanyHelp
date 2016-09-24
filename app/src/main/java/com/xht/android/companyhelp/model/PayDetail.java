@@ -10,6 +10,25 @@ public class PayDetail {
     private String commen;//备注
     private String mOrderNumber;//订单编号
     private String mTotalMoney;//下单金额
+    private int method;//下单支付方式
+
+    private String busyer;//商家账号
+
+    public String getBusyer() {
+        return busyer;
+    }
+
+    public void setBusyer(String busyer) {
+        this.busyer = busyer;
+    }
+
+    public int getMethod() {
+        return method;
+    }
+
+    public void setMethod(int method) {
+        this.method = method;
+    }
 
     public String getmUid() {
         return mUid;

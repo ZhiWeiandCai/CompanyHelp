@@ -31,6 +31,8 @@ import org.json.JSONObject;
 /**
  * Created by Administrator on 2016/8/20.
  * 服务里面的注册资金变更的活动
+ *
+ *  author: an
  */
 public class ZhuCeZiJinActivity extends Activity implements RadioGroup.OnCheckedChangeListener {
 
@@ -74,18 +76,19 @@ public class ZhuCeZiJinActivity extends Activity implements RadioGroup.OnChecked
                     e.printStackTrace();
                 }*/
 
-        //设置用户id为标签
+        //设置用户id为标签  TODO 在这个界面尝试的设置标签
                 try {
                     App.getmPushAgent().getTagManager().add(mUId+"");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-        try {
+        //设置为特定用户
+      /*  try {
             App.getmPushAgent().addAlias(mUId+"", XHT);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
 
         //特定用户
@@ -199,9 +202,9 @@ public class ZhuCeZiJinActivity extends Activity implements RadioGroup.OnChecked
                 dismissProgressDialog();
                 Bundle bundle = new Bundle();
                 JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
-                bundle.putString("shangpin", "注册变更资金");
+                bundle.putString("shangpin", "注册资金");
                 bundle.putString("bookListId", tempJO.optString("orderid"));
-                bundle.putFloat("pay_money", mPrice);
+                bundle.putFloat("pay_money", mPrice/100.0f);
                 Intent intent = new Intent(ZhuCeZiJinActivity.this, PayOptActivity.class);
                 intent.putExtra("booklistdata", bundle);
                 ZhuCeZiJinActivity.this.startActivity(intent);
@@ -267,7 +270,7 @@ public class ZhuCeZiJinActivity extends Activity implements RadioGroup.OnChecked
         mSpinner.setAdapter(arrayAdapter);
         //mTVTotalMoney.setText(mPrice);
         mTVTotalMoney.setTextColor(Color.RED);
-        mTVTotalMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice / 1.0f));
+        mTVTotalMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mPrice / 100.0f));
     }
 
     /**

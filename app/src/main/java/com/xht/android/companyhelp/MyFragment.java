@@ -75,7 +75,7 @@ public class MyFragment extends Fragment implements OnClickListener {
 		mLinearLayout2 = (LinearLayout) view.findViewById(R.id.fragm_my_ll2);
 		mLinearLayout4 = (LinearLayout) view.findViewById(R.id.fragm_my_ll4);
 		mLinearLayout5 = (LinearLayout) view.findViewById(R.id.	fragm_my_ll5);
-		mLinearLayout6 = (LinearLayout) view.findViewById(R.id.	fragm_my_ll6);
+		//mLinearLayout6 = (LinearLayout) view.findViewById(R.id.	fragm_my_ll6);
 		mLinearLayout7 = (LinearLayout) view.findViewById(R.id.	fragm_my_ll7);
 		mHeadImageView = (ImageView) view.findViewById(R.id.head_img);
 		mPhoneNumView = (TextView) view.findViewById(R.id.aPhoneNum);
@@ -83,7 +83,7 @@ public class MyFragment extends Fragment implements OnClickListener {
 		mLinearLayout1.setOnClickListener(this);
 		mLinearLayout4.setOnClickListener(this);
 		mLinearLayout5.setOnClickListener(this);
-		mLinearLayout6.setOnClickListener(this);
+		//mLinearLayout6.setOnClickListener(this);
 		mLinearLayout7.setOnClickListener(this);
 		return view;		
 	}

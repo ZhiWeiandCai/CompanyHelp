@@ -66,6 +66,7 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
     private int mFlagCompP; //标记某公司的是小规模还是一般纳税人
     double[] graphBS;    //每个月或者季度的金额
     double[] mJinXiangShui;
+    double[] mKPSES;
     double[] mSheBaoMonth = new double[12];
     int[] mSheBaoMP = new int[12];
     ArrayAdapter<CharSequence> mJiDiAAdapter;   //季度的Adapter
@@ -201,15 +202,19 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
                         mCompIds[i] = temp.optInt("companyId");
                         mCompNames[i] = temp.optString("companyName");
                     }
+                    JSONObject tempKPSE = jsonObject.getJSONObject("kaiPiaoShui");
                     compList = jsonObject.getJSONObject("baoshui");
                     compListJA = compList.optJSONArray("list5");
                     if (compListJA == null) {
                         mFlagCompP = 0;
                         graphBS = new double[4];
+                        mKPSES = new double[4];
                         for (int i = 0; i < 4; i++) {
                             graphBS[i] = compList.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
                             mYShuiE += graphBS[i];
+                            mKPSES[i] = tempKPSE.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
                         }
+
                         mSpinnerX2.setAdapter(mJiDiAAdapter);
                         mSpinnerX3.setAdapter(mJiDiAAdapter);
                         if (1 <= mCurMonth && mCurMonth <= 3) {
@@ -237,12 +242,14 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
                     } else {
                         mFlagCompP = 1;
                         JSONObject temp = jsonObject.getJSONObject("jinXiangshui");
+                        mKPSES = new double[12];
                         graphBS = new double[12];
                         mJinXiangShui = new double[12];
                         for (int i = 0; i < 12; i++) {
                             graphBS[i] = compList.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
                             mJinXiangShui[i] = temp.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
                             mYShuiE += graphBS[i];
+                            mKPSES[i] = tempKPSE.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
                         }
                         mSpinnerX2.setAdapter(arrayAdapter4);
                         mSpinnerX2.setSelection(mCurMonth - 1);
@@ -253,8 +260,8 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
                     }
                     compList = jsonObject.getJSONObject("yuFenShebao");
                     for (int i = 0; i < 12; i++) {
-                        mSheBaoMonth[i] = compList.optJSONArray(mKeyBSMonth[i]).getJSONArray(0).optDouble(0, 0);
-                        mSheBaoMP[i] = compList.optJSONArray(mKeyBSMonth[i]).getJSONArray(0).optInt(1, 0);
+                        mSheBaoMonth[i] = compList.optJSONArray(mKeyBSMonth[i]).getJSONArray(0).optDouble(1, 0);
+                        mSheBaoMP[i] = compList.optJSONArray(mKeyBSMonth[i]).getJSONArray(0).optInt(0, 0);
                         mYSheBao += mSheBaoMonth[i];
                     }
                     mYearFee = jsonObject.getJSONObject("yearShui").optJSONArray("list").getJSONObject(0).getDouble("sum");
@@ -318,8 +325,10 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
     private void reFleshUIMonthFP(int which) {
         if (mFlagCompP == 1) {
             mJXSE.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mJinXiangShui[which]));
+        } else {
+            mJXSE.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), 0f));
         }
-        mFaPFeeTV.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), graphBS[which]));
+        mFaPFeeTV.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen), mKPSES[which]));
     }
 
     private void createProgressDialog(String title) {
@@ -463,46 +472,63 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
                 JSONObject compList;
                 JSONArray compListJA;
                 try {
+                    JSONObject tempKPSE = jsonObject.getJSONObject("kaiPiaoshui");
                     compList = jsonObject.getJSONObject("baoshui");
                     compListJA = compList.optJSONArray("list5");
                     if (compListJA == null) {
                         graphBS = new double[4];
+                        mKPSES = new double[4];
                         for (int i = 0; i < 4; i++) {
                             graphBS[i] = compList.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
                             mYShuiE += graphBS[i];
+                            mKPSES[i] = tempKPSE.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
                         }
                         mSpinnerX2.setAdapter(mJiDiAAdapter);
+                        mSpinnerX3.setAdapter(mJiDiAAdapter);
                         if (1 <= mCurMonth && mCurMonth <= 3) {
                             mSpinnerX2.setSelection(0);
                             reFleshUIMonthBS(0);
+                            mSpinnerX3.setSelection(0);
+                            reFleshUIMonthFP(0);
                         } else if (4 <= mCurMonth && mCurMonth <= 6) {
                             mSpinnerX2.setSelection(1);
                             reFleshUIMonthBS(1);
+                            mSpinnerX3.setSelection(1);
+                            reFleshUIMonthFP(1);
                         } else if (7 <= mCurMonth && mCurMonth <= 9) {
                             mSpinnerX2.setSelection(2);
                             reFleshUIMonthBS(2);
+                            mSpinnerX3.setSelection(2);
+                            reFleshUIMonthFP(2);
                         } else if (10 <= mCurMonth && mCurMonth <= 12) {
                             mSpinnerX2.setSelection(3);
                             reFleshUIMonthBS(3);
+                            mSpinnerX3.setSelection(3);
+                            reFleshUIMonthFP(3);
                         }
 
                     } else {
                         JSONObject temp = jsonObject.getJSONObject("jinXiangshui");
+                        mKPSES = new double[12];
                         graphBS = new double[12];
                         mJinXiangShui = new double[12];
                         for (int i = 0; i < 12; i++) {
                             graphBS[i] = compList.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
                             mJinXiangShui[i] = temp.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
                             mYShuiE += graphBS[i];
+                            mKPSES[i] = tempKPSE.optJSONArray(mKeyBSMonth[i]).optDouble(0, 0);
                         }
                         mSpinnerX2.setAdapter(arrayAdapter4);
                         mSpinnerX2.setSelection(mCurMonth - 1);
                         reFleshUIMonthBS(mCurMonth - 1);
+                        mSpinnerX3.setAdapter(arrayAdapter4);
+                        mSpinnerX3.setSelection(mCurMonth - 1);
+                        reFleshUIMonthFP(mCurMonth - 1);
                     }
                     compList = jsonObject.getJSONObject("shebao");
                     for (int i = 0; i < 12; i++) {
-                        mSheBaoMonth[i] = compList.optJSONArray(mKeyBSMonth[i]).getJSONArray(0).optDouble(0, 0);
-                        mSheBaoMP[i] = compList.optJSONArray(mKeyBSMonth[i]).getJSONArray(0).optInt(1, 0);
+                        mSheBaoMonth[i] = compList.optJSONArray(mKeyBSMonth[i]).getJSONArray(0).optDouble(1, 0);
+                        mSheBaoMP[i] = compList.optJSONArray(mKeyBSMonth[i]).getJSONArray(0).optInt(0, 0);
                         mYSheBao += mSheBaoMonth[i];
                     }
                     mYearFee = jsonObject.getJSONObject("yearShui").optJSONArray("list").getJSONObject(0).getDouble("sum");
@@ -588,7 +614,8 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.mingxi1:
-                showDialog(1);
+                showDialog(1, mCompIds[mCompNameSpinner.getSelectedItemPosition()],
+                        mCurYear, mMonthsSpinner.getSelectedItemPosition() + 1);
                 break;
             case R.id.mingxi2:
 
@@ -599,12 +626,12 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
         }
     }
 
-    void showDialog(int which) {
+    void showDialog(int which, int cid, int year, int month) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         switch (which) {
             case 1:
                 // Create and show the dialog.
-                DialogFragment newFragment = MyDialogFragment.newInstance(0);
+                DialogFragment newFragment = MyDialogFragment.newInstance(cid,year,month);
                 newFragment.show(ft, "dialog");
                 break;
             case 2:

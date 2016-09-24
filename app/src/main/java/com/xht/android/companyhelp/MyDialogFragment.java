@@ -12,6 +12,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xht.android.companyhelp.model.PersonOfSheBao;
+import com.xht.android.companyhelp.net.APIListener;
+import com.xht.android.companyhelp.net.VolleyHelpApi;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -22,6 +28,8 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class MyDialogFragment extends DialogFragment {
+    int mCompId;
+    int mYear;
     int mNum;
     private ListView mListView;
     private ArrayList<PersonOfSheBao> mPSheBs = new ArrayList<>();
@@ -30,12 +38,14 @@ public class MyDialogFragment extends DialogFragment {
      * Create a new instance of MyDialogFragment, providing "num"
      * as an argument.
      */
-    static MyDialogFragment newInstance(int num) {
+    static MyDialogFragment newInstance(int compId, int year, int month) {
         MyDialogFragment f = new MyDialogFragment();
 
         // Supply num input as an argument.
         Bundle args = new Bundle();
-        args.putInt("num", num);
+        args.putInt("cid", compId);
+        args.putInt("year", year);
+        args.putInt("num", month);
         f.setArguments(args);
 
         return f;
@@ -44,13 +54,10 @@ public class MyDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mCompId = getArguments().getInt("cid");
+        mYear = getArguments().getInt("year");
         mNum = getArguments().getInt("num");
-        PersonOfSheBao temp = new PersonOfSheBao();
-        temp.setmName("黄小忠");
-        mPSheBs.add(temp);
-        temp = new PersonOfSheBao();
-        temp.setmName("黑酷子");
-        mPSheBs.add(temp);
+
         int style = DialogFragment.STYLE_NO_TITLE, theme = 0;
         setStyle(style, theme);
 
@@ -62,9 +69,42 @@ public class MyDialogFragment extends DialogFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_dialog, container, false);
         mListView = (ListView) view.findViewById(R.id.sb_l_view);
-        SBAdapter adapter = new SBAdapter(mPSheBs);
-        mListView.setAdapter(adapter);
+        getSBPeople();
+
         return view;
+    }
+
+    private void getSBPeople() {
+        VolleyHelpApi.getInstance().getSBPeople(mCompId, mYear, mNum, new APIListener() {
+            @Override
+            public void onResult(Object result) {
+                JSONArray tempJA = ((JSONObject) result).optJSONArray("entity");
+                JSONObject tempJO;
+                if (tempJA != null) {
+                    int len = tempJA.length();
+                    for (int i = 0; i < len; i ++) {
+                        try {
+                            tempJO = tempJA.getJSONObject(i);
+                            PersonOfSheBao temp = new PersonOfSheBao();
+                            temp.setmName(tempJO.getString("personName"));
+                            mPSheBs.add(temp);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    SBAdapter adapter = new SBAdapter(mPSheBs);
+                    mListView.setAdapter(adapter);
+                } else {
+                    App.getInstance().showToast("没有数据");
+                }
+
+            }
+
+            @Override
+            public void onError(Object e) {
+                App.getInstance().showToast(e.toString());
+            }
+        });
     }
 
     @Override

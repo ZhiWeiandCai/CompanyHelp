@@ -299,7 +299,7 @@ public class ZhuCeCompanyActivity extends Activity implements OnCheckedChangeLis
 				JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
 				dismissProgressDialog();
 				Bundle bundle = new Bundle();
-				bundle.putString("shangpin", "公司注册");
+				bundle.putString("shangpin", "注册公司");
 				bundle.putString("bookListId", tempJO.optString("registOrderId"));
 				bundle.putFloat("pay_money", mMoney / 100.0f);
 				Intent intent = new Intent(ZhuCeCompanyActivity.this, PayOptActivity.class);

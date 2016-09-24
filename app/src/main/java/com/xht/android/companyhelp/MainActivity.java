@@ -1,40 +1,43 @@
 package com.xht.android.companyhelp;
 
-import com.umeng.message.ALIAS_TYPE;
-import com.umeng.message.IUmengRegisterCallback;
+import android.app.ActionBar;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.Gravity;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
 import com.umeng.message.PushAgent;
 import com.umeng.message.UmengRegistrar;
 import com.xht.android.companyhelp.model.UserInfo;
 import com.xht.android.companyhelp.util.LogHelper;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-
 
 public class MainActivity extends FragmentActivity {
 	
 //	Fragment mSwitchFragment;
-	public UserInfo mUserInfo = new UserInfo();
+	public static UserInfo mUserInfo = new UserInfo();
 	private static final String TAG = "MainActivity";
+	public static UserInfo getInstance() {
+		return mUserInfo;
+	}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(null);
         setContentView(R.layout.activity_main);
-        
-        /*FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        mSwitchFragment = fragmentManager.findFragmentById(R.id.switchFragment);*/
+		ImageView mCustomView = new ImageView(this);
+		mCustomView.setBackgroundResource(R.mipmap.logo);
+		final ActionBar aBar = getActionBar();
+		aBar.setCustomView(mCustomView,
+				new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+		ActionBar.LayoutParams lp = (ActionBar.LayoutParams) mCustomView.getLayoutParams();
+		lp.gravity = lp.gravity & ~Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK | Gravity.CENTER_HORIZONTAL;
+		aBar.setCustomView(mCustomView, lp);
+		int change = ActionBar.DISPLAY_SHOW_CUSTOM;
+		aBar.setDisplayOptions(change);
 		//友盟推送初始化
 		PushAgent mPushAgent = PushAgent.getInstance(this);
 		//mPushAgent.enable();
@@ -42,7 +45,15 @@ public class MainActivity extends FragmentActivity {
 		final String device_token = UmengRegistrar.getRegistrationId(this);
 		LogHelper.i(TAG,"--------------"+device_token);
 
+		int uid = mUserInfo.getUid();
+		LogHelper.i(TAG,"-----"+uid);
 
+		//设置用户id为标签  TODO 在这个界面尝试的设置标签
+		try {
+			App.getmPushAgent().getTagManager().add(uid+"");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 

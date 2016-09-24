@@ -44,7 +44,7 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
     private int mMoney = 0;    //合计
     private int mArea = 0;    //spinner注册区域所选的id
     private int dljz = 1;	//代理记账-0,1,2,3,4,5,6
-    private int nsrFlag = 1;	//纳税人默认为小规模
+    private int nsrFlag = 0;	//纳税人默认为小规模
     private int zhouqiFlag = 1;	//默认为季度
     private int[] dljz6 = new int[7];
     private String[] dljz6JsonKey = new String[] {
@@ -170,6 +170,7 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
     }
 
     private void jiaZaiJaiGe() {
+        mMoney = 0;
         createProgressDialog("价格初始化中...");
         VolleyHelpApi.getInstance().getJifGeofYeFu(1, mArea, new APIListener() {
             @Override
@@ -179,9 +180,9 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
                 for (int i = 0; i < 6; i++) {
                     dljz6[i + 1] = jO.optInt(dljz6JsonKey[i]);
                 }
-                mMoney = jO.optInt("yewu1");
+                //mMoney = jO.optInt("yewu1");
 
-                mMoney += dljz6[dljz];
+                mMoney = dljz6[dljz];
 
                 mShiFouFlag = true;
                 dismissProgressDialog();
@@ -239,7 +240,7 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
                 dismissProgressDialog();
                 Bundle bundle = new Bundle();
                 JSONObject tempJO = ((JSONObject) result).optJSONObject("entity");
-                bundle.putString("shangpin", "代理记账");
+                bundle.putString("shangpin", "记账报税");
                 bundle.putString("bookListId", tempJO.optString("accountOrderId"));
                 bundle.putFloat("pay_money", mMoney / 100.0f);
                 Intent intent = new Intent(DaiLiJIZhangActivity.this, PayOptActivity.class);
@@ -278,7 +279,7 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
                 break;
         }
         dljz = nsrFlag + zhouqiFlag;
-        mMoney = mMoney + dljz6[dljz];
+        mMoney = dljz6[dljz];
         LogHelper.i("代理记账纳税人周期", "dljz=" + dljz);
     }
 

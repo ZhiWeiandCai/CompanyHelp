@@ -75,12 +75,14 @@
                 android:id="@+id/biangeng_check_company_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+
+                android:layout_marginLeft="20dp"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="变更名称"/>
         </LinearLayout>
 
@@ -137,12 +139,13 @@
                 android:id="@+id/biangeng_checkbox_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="变更地址"/>
         </LinearLayout>
 
@@ -197,12 +200,13 @@
                 android:id="@+id/biangeng_new_faren_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="变更法人"/>
 
         </LinearLayout>
@@ -214,14 +218,13 @@
             android:background="@android:color/darker_gray"/>
 
 
-
         <EditText
             android:id="@+id/biangeng_edit_new_faren_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/biangeng_faren"
             android:drawableLeft="@mipmap/faren_name"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="3dp"
             android:textSize="17sp"
             android:hint="请输入新法人姓名"/>
 
@@ -233,7 +236,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/biangeng_edit_new_faren_name"
             android:layout_toRightOf="@id/biangeng_faren"
-            android:drawableLeft="@mipmap/sfz_number"
+            android:drawableLeft="@mipmap/number"
             android:textSize="17sp"
             android:numeric="integer"
             android:hint="请输入法人身份证号"/>
@@ -263,7 +266,7 @@
                 android:id="@+id/biangeng_check_jingying_fanwei"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 />
 
             <TextView
@@ -287,7 +290,7 @@
             android:layout_height="wrap_content"
             android:textSize="17sp"
             android:layout_marginTop="15dp"
-            android:drawableLeft="@mipmap/jy_fanwei"
+            android:drawableLeft="@mipmap/fanwei"
             android:layout_toRightOf="@id/biangeng_fanwei"
             android:hint="请输入新的经营范围"/>
 
