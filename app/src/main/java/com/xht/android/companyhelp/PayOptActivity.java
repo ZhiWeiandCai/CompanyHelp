@@ -80,6 +80,8 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
     private String time;
     private ImageView mImageWeXin;
     private ImageView mImageZhiFu;
+    private int position;
+    private String weizhifu;
 
     public static ArrayList<PayDetail> getPayList() {
         return mPayList;
@@ -112,8 +114,12 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
                         intent.putExtra("money",jinE+"");
                         intent.putExtra("busy",SELLER);
                         intent.putExtra("flag",mPayFlag);
+                        intent.putExtra("position",position);
+                        intent.putExtra("weizhifu",weizhifu);
 
                         payListData();
+
+                        setResult(10,intent);
 
                         LogHelper.i(TAG,"-------------：：："+time+shangPin+dingdanHao+mPayFlag);
 
@@ -184,14 +190,20 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
         aBar.setDisplayOptions(change);
         Bundle bundle = getIntent().getBundleExtra("booklistdata");
         shangPin = bundle.getString("shangpin");
+        weizhifu = bundle.getString("weizhifu");
 
+        LogHelper.i("------商品名称", shangPin+"---"+ weizhifu);
         //判断业务类型
         switchMethod(shangPin);
 
 
         LogHelper.i("--商品名称", shangPin);
         dingdanHao = bundle.getString("bookListId");
+        position = bundle.getInt("position");
         jinE = bundle.getFloat("pay_money");
+
+        LogHelper.i("------商品名称", "---shangPin"+shangPin+"--hasAccount-"+ weizhifu +"--dingdanHao"+dingdanHao+"--jinE"+jinE);
+
         Resources resources = getResources();
         ((TextView) findViewById(R.id.shangpin)).setText(shangPin);
         ((TextView) findViewById(R.id.ddxq)).setText(
@@ -453,9 +465,14 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
                         req.packageValue = "Sign=WXPay";
                         req.sign = json.getString("sign");
                         //req.extData = "app data"; // optional
-                        Toast.makeText(PayOptActivity.this, "正常调起支付", Toast.LENGTH_SHORT).show();
+
                         //在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
-                        mIWXAPI.sendReq(req);
+                        boolean tempTest = mIWXAPI.sendReq(req);
+                        if (tempTest) {
+                            Toast.makeText(PayOptActivity.this, "正常调起支付", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(PayOptActivity.this, "您是否安装了微信", Toast.LENGTH_SHORT).show();
+                        }
                     }else{
                         Log.d("PAY_GET", "返回错误"+json.getString("retmsg"));
                         Toast.makeText(PayOptActivity.this, "返回错误"+json.getString("retmsg"), Toast.LENGTH_SHORT).show();

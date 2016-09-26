@@ -48,6 +48,12 @@ public class BaseApi {
 	//获取注销公司的公司名和ID
 	public static final String ZHUXIAO_GET_BIAN_GENG_URL="http://www.xiaohoutai.com.cn:8888/XHT/bizchangeorderController/loadCompanyNameAndPriceOfCancelCompany";
 
+	//获取未支付的订单
+	public static final String ZHUXIAO_GET_NO_PAY_URL="http://www.xiaohoutai.com.cn:8888/XHT/ordercontactController/getMyOrderHadNotPay";
+
+	//获取支付的订单
+	public static final String ZHUXIAO_GET_YES_PAY_URL="http://www.xiaohoutai.com.cn:8888/XHT/ordercontactController/getMyOrderHadPay";
+
 	//获取变更服务的公司名和价格
 	public static final String FUWU_GET_BIAN_GENG_URL="http://www.xiaohoutai.com.cn:8888/XHT/bizchangeorderController/loadCompanyNameAndPriceOfChgBusiness";
 	//变更服务提交的服务器

@@ -21,6 +21,7 @@
         android:layout_below="@id/artTitle_item"
         android:gravity="center"
         android:layout_marginLeft="8dp"
+        android:textColor="@android:color/darker_gray"
         android:text="小类别"/>
     <TextView android:id="@+id/timeTV"
         android:layout_width="wrap_content"

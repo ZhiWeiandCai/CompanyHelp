@@ -4,10 +4,14 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.xht.android.companyhelp.util.LogHelper;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -32,6 +36,8 @@ public class PayItemActivity extends Activity{
     @InjectView(R.id.pay_item_busyer)
     TextView mPayItemBusy;
 
+    private static final String TAG = "PayItemActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +59,7 @@ public class PayItemActivity extends Activity{
         String money = intent.getStringExtra("money");
         String shangPin = intent.getStringExtra("goods");
         String dingdanHao = intent.getStringExtra("number");
+        String weizhifu = intent.getStringExtra("weizhifu");
         int mPayFlag = intent.getIntExtra("flag", -1);
         String busy =intent.getStringExtra("busy");
 
@@ -75,13 +82,41 @@ public class PayItemActivity extends Activity{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+
+                if (!TextUtils.isEmpty("weizhifu")){
+                   startActivity(new Intent(PayItemActivity.this,MainActivity.class));
+                    finish();
+
+                }else{
+                    finish();
+                }
+
                 break;
 
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode,KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
+        //这里重写返回键
+            if (!TextUtils.isEmpty("weizhifu")){
+                startActivity(new Intent(PayItemActivity.this,MainActivity.class));
+                LogHelper.i(TAG,"-------fanhui");
+                finish();
+
+            }else{
+                LogHelper.i(TAG,"-------fan");
+                finish();
+            }
+            return true;
+        }
+        return false;
+
     }
 
 }

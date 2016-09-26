@@ -3,38 +3,41 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15dp"
-        android:gravity="center_horizontal"
-        android:background="@android:color/white"
-        android:text="我的订单"/>
+
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:id="@+id/switch_tabs"
-        android:checkedButton="@+id/tab1"
+        android:id="@+id/switch_tabpay"
+        android:checkedButton="@+id/but_nopay"
         android:orientation="horizontal">
-        <RadioButton android:id="@id/tab1"
+        <RadioButton android:id="@id/but_nopay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:background="@drawable/tab_selector"
             android:button="@null"
+            android:text="未支付"
             />
-        <RadioButton android:id="@+id/tab2"
+        <RadioButton android:id="@+id/but_yespay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:background="@drawable/tab_selector"
             android:button="@null"
+            android:text="已支付"
             />
 
     </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/fram_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 
 
 

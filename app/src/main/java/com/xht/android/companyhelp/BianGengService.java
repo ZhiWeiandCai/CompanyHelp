@@ -276,6 +276,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 LogHelper.i("单击了某些选项", "position=" + position + "--gongsi=" + mCompNames[position]);
                 mSelectedCompId = mCompIds[position];
+                companyName=mCompNames[position];
                 mEditCompany.setText(mCompNames[position]);
             }
 
@@ -587,7 +588,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
             JSONObject mBGFRYeWu = new JSONObject();
             mBGFRYeWu.put("bgcheckfaren", mCheckBoXFaren);
             mBGFRYeWu.put("bgnewfaren",mBGFaRenName);
-            mBGFRYeWu.put("bgnewfarensfz",mBGFaRenName);
+            mBGFRYeWu.put("bgnewfarensfz",mBGFaRenSFZHao);
             mBG.putOpt("bgfr",mBGFRYeWu);
             LogHelper.i(TAG,mBGFRYeWu.toString());
         }catch (Exception e){
