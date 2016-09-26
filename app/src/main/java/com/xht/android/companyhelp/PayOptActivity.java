@@ -103,7 +103,7 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
                     if (TextUtils.equals(resultStatus, "9000")) {
                         Toast.makeText(PayOptActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
 
-                        payListData();
+
                         Intent intent=new Intent(PayOptActivity.this,PayItemActivity.class);
 
                         intent.putExtra("time",time);
@@ -113,7 +113,7 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
                         intent.putExtra("busy",SELLER);
                         intent.putExtra("flag",mPayFlag);
 
-
+                        payListData();
 
                         LogHelper.i(TAG,"-------------：：："+time+shangPin+dingdanHao+mPayFlag);
 
@@ -161,6 +161,7 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
         public void onReceive(Context context, Intent intent) {
             int temp = intent.getIntExtra(PAY_STATUS, 0);
             if (temp == 0) {
+                payListData();
                 finish();
             }
         }

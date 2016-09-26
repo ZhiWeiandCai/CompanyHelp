@@ -146,4 +146,5 @@
 
     <!-- MyDialogFragment -->
     <string name="shebao_md">社保名单</string>
+    <string name="baoshui_mx">报税明细</string>
 </resources>

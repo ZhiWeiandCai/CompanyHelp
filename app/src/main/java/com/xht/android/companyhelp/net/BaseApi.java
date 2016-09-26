@@ -29,6 +29,7 @@ public class BaseApi {
 	public static final String FWKB_DF_Get_Url = "http://www.xiaohoutai.com.cn:8888/XHT/serverBoardController/findAllyue";
 
 	public static final String GET_SB_PEOPLE = "http://www.xiaohoutai.com.cn:8888/XHT/serverBoardController/loadSclSecurityPersonInfo";
+	public static final String GET_BS_MXXS = "http://www.xiaohoutai.com.cn:8888/XHT/serverBoardController/shuiMingXi";
 
 	public static final String WEIXI_LJZF_URL = "http://www.xiaohoutai.com.cn:8888/XHT/appwxzf/appwxyuzhifu";
 	public static final String ZHIFUBAO_URL = "http://www.xiaohoutai.com.cn:8888/XHT/pay/alipay/zhifubao";

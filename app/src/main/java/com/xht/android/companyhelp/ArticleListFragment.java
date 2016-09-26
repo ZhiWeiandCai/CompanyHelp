@@ -170,17 +170,6 @@ public class ArticleListFragment extends Fragment {
                 holder.imgV.setImageBitmap(bm);
             else
                 loadBitmap(item.getArtPicUrl(), holder.imgV);
-            /*App.getInstance().getImageLoader().get(item.getArtPicUrl(), new ImageLoader.ImageListener() {
-                @Override
-                public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-
-                }
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                }
-            });*/
             return convertView;
         }
 

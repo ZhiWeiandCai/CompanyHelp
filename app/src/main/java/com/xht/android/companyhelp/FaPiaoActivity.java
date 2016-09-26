@@ -72,7 +72,7 @@ public class FaPiaoActivity extends Activity {
         rg = (RadioGroup) findViewById(R.id.switch_tabs);
         mRBtn1 = (RadioButton) findViewById(R.id.tab1);
         mRBtn2 = (RadioButton) findViewById(R.id.tab2);
-        mRBtn3 = (RadioButton) findViewById(R.id.tab3);
+        //mRBtn3 = (RadioButton) findViewById(R.id.tab3);
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -167,12 +167,12 @@ public class FaPiaoActivity extends Activity {
         } else {
             ft.hide(mFragment1);
         }
-        if (mRBtn3.isChecked()) {
+        /*if (mRBtn3.isChecked()) {
             mCurFragFlag = 3;
             ft.show(mFragment3);
         } else {
             ft.hide(mFragment3);
-        }
+        }*/
         ft.commit();
     }
 
@@ -253,7 +253,7 @@ public class FaPiaoActivity extends Activity {
                     }
                 }
                 ft.add(R.id.fragment_contain, mFragment2, "f2");
-                mFragment3 = fm.findFragmentByTag("f3");
+                /*mFragment3 = fm.findFragmentByTag("f3");
                 if (mFragment3 == null) {
                     if (mFlag) {
                         mFragment3 = FaPiao3Fragment.newInstance("", mCompIds, mCompNames);
@@ -261,7 +261,7 @@ public class FaPiaoActivity extends Activity {
                         mFragment3 = FaPiao3Fragment.newInstance("", null, null);
                     }
                 }
-                ft.add(R.id.fragment_contain, mFragment3, "f3");
+                ft.add(R.id.fragment_contain, mFragment3, "f3");*/
                 ft.commit();
                 updateFragmentVisibility();
                 refleshJiaGeView();

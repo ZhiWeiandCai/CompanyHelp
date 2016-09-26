@@ -1,7 +1,9 @@
 package com.xht.android.companyhelp;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -81,6 +83,7 @@ public class MyFragment extends Fragment implements OnClickListener {
 		mPhoneNumView = (TextView) view.findViewById(R.id.aPhoneNum);
 		mZhangHu= (TextView) view.findViewById(R.id.changhuAdmin);
 		mLinearLayout1.setOnClickListener(this);
+		mLinearLayout2.setOnClickListener(this);
 		mLinearLayout4.setOnClickListener(this);
 		mLinearLayout5.setOnClickListener(this);
 		//mLinearLayout6.setOnClickListener(this);
@@ -108,6 +111,16 @@ public class MyFragment extends Fragment implements OnClickListener {
 			case R.id.fragm_my_ll1:
 				if (isUserLogin()) {
 
+				} else {
+					mActivity.switchToActivity(LoginActivity.class, null, 0, false, false);
+					return;
+				}
+				break;
+			case R.id.fragm_my_ll2:
+				if (isUserLogin()) {
+					FragmentTransaction ft = getFragmentManager().beginTransaction();
+					DialogFragment newFragment = CompNDialogFragment.newInstance(mUserInfo.getUid());
+					newFragment.show(ft, "cn_dialog");
 				} else {
 					mActivity.switchToActivity(LoginActivity.class, null, 0, false, false);
 					return;

@@ -618,7 +618,8 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
                         mCurYear, mMonthsSpinner.getSelectedItemPosition() + 1);
                 break;
             case R.id.mingxi2:
-
+                showDialog(2, mCompIds[mCompNameSpinner.getSelectedItemPosition()],
+                        mCurYear, mSpinnerX2.getSelectedItemPosition() + 1);
                 break;
             case R.id.mingxi3:
 
@@ -635,7 +636,8 @@ public class SLookBoardFragment extends Fragment implements AdapterView.OnItemSe
                 newFragment.show(ft, "dialog");
                 break;
             case 2:
-
+                DialogFragment newFragment2 = MyDialogFragment2.newInstance(cid,year,month);
+                newFragment2.show(ft, "dialog2");
                 break;
             case 3:
 
