@@ -19,7 +19,6 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.umeng.message.ALIAS_TYPE;
 import com.xht.android.companyhelp.net.APIListener;
 import com.xht.android.companyhelp.net.VolleyHelpApi;
 import com.xht.android.companyhelp.util.LogHelper;
@@ -98,6 +97,7 @@ public class ZhuCeZiJinActivity extends Activity implements RadioGroup.OnChecked
         LogHelper.i(TAG,"用户ID---"+mUId);
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
+        mCustomView.setTextSize(18);
         mCustomView.setText("下单预约-变更注册资金");
         final ActionBar aBar = getActionBar();
         aBar.setCustomView(mCustomView,
