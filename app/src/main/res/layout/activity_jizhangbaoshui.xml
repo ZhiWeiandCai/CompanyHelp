@@ -50,7 +50,7 @@
             android:id="@+id/rg2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkedButton="@+id/radio1"
+            android:checkedButton="@+id/radio3"
             android:orientation="horizontal"
             android:layout_marginLeft="16dp">
             <RadioButton
@@ -58,7 +58,7 @@
                 android:layout_height="45dp"
                 android:gravity="center"
                 android:text="@string/radio1"
-                android:id="@id/radio1"
+                android:id="@+id/radio1"
                 android:layout_marginLeft="16dp"/>
             <RadioButton
                 android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
                 android:layout_height="45dp"
                 android:gravity="center"
                 android:text="@string/radio3"
-                android:id="@+id/radio3"
+                android:id="@id/radio3"
                 android:layout_marginLeft="16dp"/>
         </RadioGroup>
     </LinearLayout>

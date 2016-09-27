@@ -104,10 +104,11 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
                         Toast.makeText(PayOptActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
-
-
+                        if (YeWuStyle == 10) {
+                            App.getInstance().showToast("感谢盆友支持小后台,请在“我的”-“完善资料”中" +
+                                    "完善您公司注册的具体信息，谢谢合作！");
+                        }
                         Intent intent=new Intent(PayOptActivity.this,PayItemActivity.class);
-
                         intent.putExtra("time",time);
                         intent.putExtra("goods",shangPin);
                         intent.putExtra("number",dingdanHao);
@@ -167,6 +168,10 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
         public void onReceive(Context context, Intent intent) {
             int temp = intent.getIntExtra(PAY_STATUS, 0);
             if (temp == 0) {
+                if (YeWuStyle == 10) {
+                    App.getInstance().showToast("感谢盆友支持小后台,请在“我的”-“完善资料”中" +
+                            "完善您公司注册的具体信息，谢谢合作！");
+                }
                 payListData();
                 finish();
             }

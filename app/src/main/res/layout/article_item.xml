@@ -16,12 +16,13 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="4dp"/>
     <TextView android:id="@+id/smallLeiBieTV"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_width="30dp"
+        android:layout_height="16dp"
         android:layout_below="@id/artTitle_item"
         android:gravity="center"
         android:layout_marginLeft="8dp"
         android:textColor="@android:color/darker_gray"
+        android:textSize="12sp"
         android:text="小类别"/>
     <TextView android:id="@+id/timeTV"
         android:layout_width="wrap_content"

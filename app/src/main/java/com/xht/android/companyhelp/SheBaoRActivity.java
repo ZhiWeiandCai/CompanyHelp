@@ -1,12 +1,17 @@
 package com.xht.android.companyhelp;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 public class SheBaoRActivity extends Activity {
     private static final String TAG = "SheBaoRActivity";
@@ -18,6 +23,15 @@ public class SheBaoRActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_she_bao_r);
+        TextView mCustomView = new TextView(this);
+        mCustomView.setGravity(Gravity.CENTER);
+        mCustomView.setTextSize(18);
+        mCustomView.setText("返回");
+        final ActionBar aBar = getActionBar();
+        aBar.setCustomView(mCustomView,
+                new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        int change = ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM;
+        aBar.setDisplayOptions(change);
         radioGroup = (RadioGroup) findViewById(R.id.rg1);
         editText1 = (EditText) findViewById(R.id.shebaoren_name);
         editText2 = (EditText) findViewById(R.id.shebaoren_idcard);
@@ -56,5 +70,18 @@ public class SheBaoRActivity extends Activity {
         i.putExtra("shebaorData", bundle);
         setResult(RESULT_OK, i);
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

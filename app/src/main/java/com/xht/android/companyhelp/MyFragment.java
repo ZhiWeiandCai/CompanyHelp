@@ -25,6 +25,7 @@ import com.xht.android.companyhelp.util.LogHelper;
 public class MyFragment extends Fragment implements OnClickListener {
 	private static final String Tag = "MyFragment";
 	public static final String BRO_ACT_S = "com.xht.android.companyhelp.bro_act_s";
+	public static final String BRO_ACT_S2 = "com.xht.android.companyhelp.bro_act_s2";
 	public static final String PHONENUM_KEY = "phone_key";
 	public static final String UID_KEY = "userId_key";
 	public static final String UNAME_KEY = "userName_key";
@@ -34,9 +35,7 @@ public class MyFragment extends Fragment implements OnClickListener {
 	private UserInfo mUserInfo;
 	private TextView mPhoneNumView;
 	private TextView mZhangHu;//账户管理
-
-
-
+	private TextView mVersionDescTV;
 
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 		
@@ -54,6 +53,18 @@ public class MyFragment extends Fragment implements OnClickListener {
 			refleshUI();
 		}
 	};
+
+	private BroadcastReceiver mClearUserReceiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			mUserInfo.setUid(0);
+			mUserInfo.setPhoneNum(0);
+			mUserInfo.setUserName(null);
+
+			refleshUI2();
+		}
+	};
 	
 	@Override
 	public void onAttach(Activity activity) {
@@ -66,6 +77,8 @@ public class MyFragment extends Fragment implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		IntentFilter intentFilter = new IntentFilter(BRO_ACT_S);
 		getActivity().registerReceiver(mReceiver, intentFilter);
+		IntentFilter intentFilter2 = new IntentFilter(BRO_ACT_S2);
+		getActivity().registerReceiver(mClearUserReceiver, intentFilter2);
 		mUserInfo = ((MainActivity) mActivity).mUserInfo;
 	}
 	
@@ -83,6 +96,7 @@ public class MyFragment extends Fragment implements OnClickListener {
 		mHeadImageView = (ImageView) view.findViewById(R.id.head_img);
 		mPhoneNumView = (TextView) view.findViewById(R.id.aPhoneNum);
 		mZhangHu= (TextView) view.findViewById(R.id.changhuAdmin);
+		mVersionDescTV = (TextView) view.findViewById(R.id.versionDesc);
 		mLinearLayout1.setOnClickListener(this);
 		mLinearLayout2.setOnClickListener(this);
 		mLinearLayout3.setOnClickListener(this);
@@ -104,6 +118,7 @@ public class MyFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onDestroy() {
 		getActivity().unregisterReceiver(mReceiver);
+		getActivity().unregisterReceiver(mClearUserReceiver);
 		super.onDestroy();
 	}
 
@@ -112,7 +127,9 @@ public class MyFragment extends Fragment implements OnClickListener {
 		switch (v.getId()) {
 			case R.id.fragm_my_ll1:
 				if (isUserLogin()) {
-
+					FragmentTransaction ft = getFragmentManager().beginTransaction();
+					DialogFragment newFragment = SwitchUserDialogFragment.newInstance(mUserInfo.getUid(), 0);
+					newFragment.show(ft, "sw_u_dialog");
 				} else {
 					mActivity.switchToActivity(LoginActivity.class, null, 0, false, false);
 					return;
@@ -203,6 +220,13 @@ public class MyFragment extends Fragment implements OnClickListener {
 	
 	private void refleshUI() {
 		mPhoneNumView.setText("" + mUserInfo.getPhoneNum());
+	}
+
+	/**
+	 * 清空用户后
+	 */
+	private void refleshUI2() {
+		mPhoneNumView.setText("");
 	}
 
 }

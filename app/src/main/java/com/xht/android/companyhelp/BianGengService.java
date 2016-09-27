@@ -20,8 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -33,7 +31,6 @@ import com.xht.android.companyhelp.util.LogHelper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import java.util.ArrayList;
 
@@ -114,6 +111,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
         LogHelper.i(TAG,"下单人ID---"+mUid);
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
+        mCustomView.setTextSize(18);
         mCustomView.setText("下单预约-变更服务");
         final ActionBar aBar = getActionBar();
         aBar.setCustomView(mCustomView,

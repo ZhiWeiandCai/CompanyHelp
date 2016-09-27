@@ -75,6 +75,81 @@
             android:drawableLeft="@mipmap/tmname"
             android:drawablePadding="4dp"/>
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="产品介绍" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:textSize="18sp"
+        android:text="办理流程：" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:textSize="16sp"
+        android:text="1、说活" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:textSize="16sp"
+        android:text="2、听一听" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:textSize="18sp"
+        android:text="基本资料：" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:textSize="16sp"
+        android:text="1、身份证" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:textSize="16sp"
+        android:text="2、户口本" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:textSize="18sp"
+        android:text="注意事项：" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:textSize="16sp"
+        android:text="1、不用带钱" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:textSize="16sp"
+        android:text="2、带银行卡" />
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"

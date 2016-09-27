@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -44,6 +45,8 @@ public class ArticleListFragment extends Fragment {
 
     private SimpleDateFormat mSDF = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
+    private Drawable mBlueDrawable, mGreenDrawable, mRedDrawable, mGrayDrawable;
+
     public ArticleListFragment() {
 
     }
@@ -55,6 +58,10 @@ public class ArticleListFragment extends Fragment {
         witchF = bundle.getInt("witchF", 0);
         LogHelper.i(TAG, "witchF=" + witchF);
         mPlaceHolderBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.p_head);
+        mBlueDrawable = getResources().getDrawable(R.drawable.blue_stroke);
+        mGreenDrawable = getResources().getDrawable(R.drawable.yellow_stroke);
+        mRedDrawable = getResources().getDrawable(R.drawable.red_stroke);
+        mGrayDrawable = getResources().getDrawable(R.drawable.gray_stroke);
         fetchItemTask(witchF);
     }
 
@@ -157,7 +164,26 @@ public class ArticleListFragment extends Fragment {
             }
             Article item = getItem(position);
             holder.title.setText(item.getTitle());
+            switch (item.getmSmallLeiBie()) {
+                case "办证":
+                    holder.smallLeiBie.setBackgroundDrawable(mBlueDrawable);
+                    holder.smallLeiBie.setTextColor(Color.BLUE);
+                    break;
+                case "发票":
+                    holder.smallLeiBie.setBackgroundDrawable(mGreenDrawable);
+                    holder.smallLeiBie.setTextColor(Color.GREEN);
+                    break;
+                case "注册":
+                    holder.smallLeiBie.setBackgroundDrawable(mRedDrawable);
+                    holder.smallLeiBie.setTextColor(Color.RED);
+                    break;
+                default:
+                    holder.smallLeiBie.setBackgroundDrawable(mGrayDrawable);
+                    holder.smallLeiBie.setTextColor(Color.GRAY);
+                    break;
+            }
             holder.smallLeiBie.setText(item.getmSmallLeiBie());
+
             holder.pbT.setText(mSDF.format(new Date(item.getmShijian())));
 //            holder.imgV.setImageResource(R.mipmap.phone_sym_img);
             //异步加载图片

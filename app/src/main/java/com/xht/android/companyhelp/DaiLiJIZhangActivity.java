@@ -43,9 +43,9 @@ public class DaiLiJIZhangActivity extends Activity implements RadioGroup.OnCheck
     private EditText mNameET;
     private int mMoney = 0;    //合计
     private int mArea = 0;    //spinner注册区域所选的id
-    private int dljz = 1;	//代理记账-0,1,2,3,4,5,6
+    private int dljz = 3;	//代理记账-0,1,2,3,4,5,6
     private int nsrFlag = 0;	//纳税人默认为小规模
-    private int zhouqiFlag = 1;	//默认为季度
+    private int zhouqiFlag = 3;	//默认为季度
     private int[] dljz6 = new int[7];
     private String[] dljz6JsonKey = new String[] {
             "Q1", "HY1", "Y1", "Q", "HY", "Y"};

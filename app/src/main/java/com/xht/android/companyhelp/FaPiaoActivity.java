@@ -227,6 +227,11 @@ public class FaPiaoActivity extends Activity {
                         mFlag = true;
                     } else {
                         mFlag = false;
+                        //2016年9月27日，原本是不论有没有公司可选，都可进入界面的。
+                        // 现在先暂时对小后台客户开放
+                        App.getInstance().showToast("对不起，该业务暂时只对小后台客户开放");
+                        finish();
+                        return;
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

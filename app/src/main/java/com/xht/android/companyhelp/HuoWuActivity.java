@@ -1,13 +1,18 @@
 package com.xht.android.companyhelp;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.xht.android.companyhelp.util.Arith;
 import com.xht.android.companyhelp.util.LogHelper;
@@ -24,6 +29,15 @@ public class HuoWuActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_huo_wu);
+        TextView mCustomView = new TextView(this);
+        mCustomView.setGravity(Gravity.CENTER);
+        mCustomView.setTextSize(18);
+        mCustomView.setText("返回");
+        final ActionBar aBar = getActionBar();
+        aBar.setCustomView(mCustomView,
+                new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        int change = ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM;
+        aBar.setDisplayOptions(change);
         nameEt = (EditText) findViewById(R.id.i_hwName_et);
         guixingEt = (EditText) findViewById(R.id.guigexinghao_et);
         danweiEt = (EditText) findViewById(R.id.danwei_et);
@@ -133,6 +147,19 @@ public class HuoWuActivity extends Activity {
         i.putExtra("huowuData", bundle);
         setResult(RESULT_OK, i);
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -389,7 +389,7 @@ public class VolleyHelpApi extends BaseApi{
 				} else {
 					JSONObject jsonObject = response.optJSONObject("entity");
 					if (jsonObject.optJSONArray("companyName") == null) {
-						apiListener.onError("您还没有在我们这里注册公司！");
+						apiListener.onError("对不起，该业务暂时只对小后台客户开放");
 						return;
 					}
 					apiListener.onResult(jsonObject);
@@ -477,7 +477,7 @@ public class VolleyHelpApi extends BaseApi{
 				} else {
 					JSONObject jsonObject = response.optJSONObject("entity");
 					if (jsonObject.optJSONArray("companyName") == null) {
-						apiListener.onError("您还没有在我们这里注册公司！");
+						apiListener.onError("对不起，该业务暂时只对小后台客户开放");
 						return;
 					}
 					
@@ -615,7 +615,7 @@ public class VolleyHelpApi extends BaseApi{
 				} else {
 					JSONObject jsonObject = response.optJSONObject("entity");
 					if (jsonObject.optJSONArray("companyName") == null) {
-						apiListener.onError("您还没有在我们这里注册公司！");
+						apiListener.onError("对不起，该业务暂时只对小后台客户开放");
 						return;
 					}
 					apiListener.onResult(jsonObject);
@@ -757,7 +757,7 @@ public class VolleyHelpApi extends BaseApi{
 				} else {
 					JSONObject jsonObject = response.optJSONObject("entity");
 					if (jsonObject.optJSONArray("companyName") == null) {
-						apiListener.onError("您还没有在我们这里注册公司！");
+						apiListener.onError("对不起，该业务暂时只对小后台客户开放");
 						return;
 					}
 					apiListener.onResult(jsonObject);

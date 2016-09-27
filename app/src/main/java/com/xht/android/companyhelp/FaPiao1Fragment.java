@@ -167,12 +167,24 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
     }
 
     private void updateJiaInfo() {
-        mJNEtX.setText(mParam3[mPosiFlag]);
-        mJNshEt.setText(mParam4[mPosiFlag]);
-        mJAddEt.setText(mParam5[mPosiFlag]);
-        mJPEt.setText(mParam6[mPosiFlag]);
-        mJKHHEt.setText(mParam7[mPosiFlag]);
-        mJKHHHEt.setText(mParam8[mPosiFlag]);
+        if (!mParam3[mPosiFlag].equals("null"))
+            mJNEtX.setText(mParam3[mPosiFlag]);
+        else mJNEtX.setText("");
+        if (!mParam4[mPosiFlag].equals("null"))
+            mJNshEt.setText(mParam4[mPosiFlag]);
+        else mJNEtX.setText("");
+        if (!mParam5[mPosiFlag].equals("null"))
+            mJAddEt.setText(mParam5[mPosiFlag]);
+        else mJNEtX.setText("");
+        if (!mParam6[mPosiFlag].equals("null"))
+            mJPEt.setText(mParam6[mPosiFlag]);
+        else mJNEtX.setText("");
+        if (!mParam7[mPosiFlag].equals("null"))
+            mJKHHEt.setText(mParam7[mPosiFlag]);
+        else mJNEtX.setText("");
+        if (!mParam8[mPosiFlag].equals("null"))
+            mJKHHHEt.setText(mParam8[mPosiFlag]);
+        else mJNEtX.setText("");
     }
 
     @Override
