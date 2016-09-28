@@ -169,7 +169,7 @@ public class MyFragment extends Fragment implements OnClickListener {
 				break;
 			case R.id.fragm_my_ll5://账户管理
 				if (isUserLogin()) {
-					Intent intent = new Intent(getActivity(), ZhangHuManager.class);
+					Intent intent = new Intent(getActivity(), ZhangHuMessage.class);
 					Bundle bundle = new Bundle();
 					bundle.putInt("mUid", mUserInfo.getUid());
 					bundle.putLong("mPhone", mUserInfo.getPhoneNum());

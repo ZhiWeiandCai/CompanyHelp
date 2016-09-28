@@ -1,15 +1,20 @@
 package com.xht.android.companyhelp;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.TextureView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.xht.android.companyhelp.util.LogHelper;
 
@@ -33,6 +38,15 @@ public class PersonOfBianGengAvtivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_listview_biangeng);
+        TextView mCustomView = new TextView(this);
+        mCustomView.setGravity(Gravity.CENTER);
+        mCustomView.setText("返回");
+        mCustomView.setTextSize(18);
+        final ActionBar aBar = getActionBar();
+        aBar.setCustomView(mCustomView,
+                new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        int change = ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM;
+        aBar.setDisplayOptions(change);
         initView();
     }
     //初始化控件
@@ -104,8 +118,11 @@ public class PersonOfBianGengAvtivity extends Activity {
                     return;
                 }
 
-
-
+                String s = mGuQuanBiLi.getText().toString();
+                if (Integer.parseInt(s)>100){
+                    App.getInstance().showToast("股权比例不能超过100");
+                    return;
+                }
                 //返回信息到listview
                 Intent in = getIntent();
                 int whichI = in.getIntExtra("whichItem", -1);
@@ -126,7 +143,17 @@ public class PersonOfBianGengAvtivity extends Activity {
 
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
 
-
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

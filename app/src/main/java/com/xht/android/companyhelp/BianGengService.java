@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -31,6 +33,7 @@ import com.xht.android.companyhelp.util.LogHelper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import java.util.ArrayList;
 
@@ -111,8 +114,8 @@ public class BianGengService extends Activity implements View.OnClickListener {
         LogHelper.i(TAG,"下单人ID---"+mUid);
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
-        mCustomView.setTextSize(18);
         mCustomView.setText("下单预约-变更服务");
+        mCustomView.setTextSize(18);
         final ActionBar aBar = getActionBar();
         aBar.setCustomView(mCustomView,
                 new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -247,7 +250,6 @@ public class BianGengService extends Activity implements View.OnClickListener {
 
         //变更股东股权
         mCheckBoxChangeGuDong= (CheckBox) view.findViewById(R.id.biangeng_new_gudong_guquan);
-        mImageContacts= (ImageView) view.findViewById(R.id.biangeng_add_contacts);
         mCheckBoxChangeGuDong.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -267,7 +269,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
         mTVMoney.setTextColor(Color.RED);
 
         //点击动态添加ListView的item
-        mImageContacts.setOnClickListener(this);
+        //mImageContacts.setOnClickListener(this);
 
        mSpinnerCompany.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -312,6 +314,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
                holder.mName= (TextView) convertView.findViewById(R.id.item_biangeng_list_name);
                holder.mShengFengZheng= (TextView) convertView.findViewById(R.id.item_shengfeng_zhenghao_text);
                holder.mJianImgContacts= (ImageButton) convertView.findViewById(R.id.item_biangeng_list_button);
+               holder.mjiaImgContacts= (ImageButton) convertView.findViewById(R.id.biangeng_add_contacts);
                holder.mSFZAddress= (TextView) convertView.findViewById(R.id.item_biangeng_shenfz_address);
                holder.mGuQuangBiLi= (TextView)convertView.findViewById(R.id.item_biangeng_text_guquan_bili);
                convertView.setTag(holder);
@@ -335,8 +338,35 @@ public class BianGengService extends Activity implements View.OnClickListener {
                     deleteOneItem(position);
                 }
             });
+
+            holder.mjiaImgContacts.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    addNewOneItem(position);
+
+                }
+            });
             return convertView;
 
+        }
+
+    }
+
+    private void addNewOneItem(int position) {
+        boolean  mCheckBoxGuDong = mCheckBoxChangeGuDong.isChecked();
+        if (mCheckBoxGuDong) {
+            //添加股东股权
+            if (mArrayList.size() < 10) {
+                mArrayList.add(new PersonOfBianGengService());
+                App.getInstance().showToast("已添加一项...");
+                mPersonOfBianGengAdapter.notifyDataSetChanged();
+            } else {
+                App.getInstance().showToast("一次最多只能增减10个股东或股权");
+            }
+
+        }else{
+            App.getInstance().showToast("请选勾选变更股东股权");
         }
 
     }
@@ -348,6 +378,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
        TextView mShengFengZheng;
         TextView mSFZAddress;
         ImageButton mJianImgContacts;
+        ImageButton mjiaImgContacts;
         TextView mGuQuangBiLi;
         int position;
     }
@@ -435,22 +466,6 @@ public class BianGengService extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.biangeng_add_contacts:
-                boolean  mCheckBoxGuDong = mCheckBoxChangeGuDong.isChecked();
-                if (mCheckBoxGuDong) {
-                    //添加股东股权
-                  //  mPrice+=mGuDongGuQuanPrice;
-                    if (mArrayList.size() < 10) {
-                        mArrayList.add(new PersonOfBianGengService());
-                        mPersonOfBianGengAdapter.notifyDataSetChanged();
-                    } else {
-                        App.getInstance().showToast("一次最多只能增减10个股东或股权");
-                    }
-
-                }else{
-                    App.getInstance().showToast("请选勾选变更股东股权");
-                }
-                break;
             case R.id.sendbook_biangeng:
                 //检查是否填写信息
                 checkInFo();

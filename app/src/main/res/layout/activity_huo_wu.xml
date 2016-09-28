@@ -71,7 +71,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
             android:singleLine="true"
-            android:maxLength="15"
+            android:maxLength="8"
             android:inputType="number"/>
     </LinearLayout>
 
@@ -90,7 +90,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
             android:singleLine="true"
-            android:maxLength="15"
+            android:maxLength="12"
             android:inputType="numberDecimal"/>
     </LinearLayout>
     <LinearLayout
@@ -108,7 +108,6 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
             android:singleLine="true"
-            android:maxLength="15"
             android:enabled="false"/>
     </LinearLayout>
 

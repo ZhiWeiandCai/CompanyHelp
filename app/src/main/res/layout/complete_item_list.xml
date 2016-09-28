@@ -81,7 +81,7 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="1dp"
         android:layout_gravity="center_vertical"
         android:background="@android:color/white">
@@ -90,6 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:textSize="18sp"
+            android:layout_gravity="center_vertical"
             android:text="证件地址:"/>
         <TextView
             android:id="@+id/item_zhenjian_address"
@@ -97,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:singleLine="true"
-            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
             android:background="@android:color/transparent"
             android:textSize="18sp"/>
     </LinearLayout>
@@ -134,15 +135,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_background_circle"
             android:text="添加人员"/>
         <Button
             android:id="@+id/but_item_cancelren"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="100dp"
-
             android:layout_centerVertical="true"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/btn_background_circle"
             android:text="取消人员"/>
 
     </RelativeLayout>

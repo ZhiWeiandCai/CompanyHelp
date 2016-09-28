@@ -75,6 +75,7 @@ public class CompleteMessage extends Activity implements View.OnClickListener {
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
         mCustomView.setText("完善信息");
+        mCustomView.setTextSize(18);
         final ActionBar aBar = getActionBar();
         aBar.setCustomView(mCustomView,
                 new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -434,6 +435,7 @@ public class CompleteMessage extends Activity implements View.OnClickListener {
                 @Override
                 public void onClick(View v) {
                   mListData.add(new CompleteJavaBean());
+                    App.getInstance().showToast("已添加");
                   adapter.notifyDataSetChanged();
                 }
             });
@@ -443,6 +445,7 @@ public class CompleteMessage extends Activity implements View.OnClickListener {
                 @Override
                 public void onClick(View v) {
                     deleteOneItem(position);
+
                 }
             });
             return convertView;
@@ -451,6 +454,7 @@ public class CompleteMessage extends Activity implements View.OnClickListener {
     private void deleteOneItem(int position) {
         if (mListData.size() > 2) {
             mListData.remove(position);
+            App.getInstance().showToast("已取消");
             adapter.notifyDataSetChanged();
         } else {
             App.getInstance().showToast("最后两个必须填写了");

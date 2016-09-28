@@ -119,9 +119,6 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
                         intent.putExtra("weizhifu",weizhifu);
 
                         payListData();
-
-                        setResult(10,intent);
-
                         LogHelper.i(TAG,"-------------：：："+time+shangPin+dingdanHao+mPayFlag);
 
                         startActivity(intent);
@@ -159,7 +156,7 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
             itempay.setBusyer(SELLER);
         }
         if (mPayFlag==1){
-            itempay.setBusyer(SELLER);//TODO 微信账号
+            itempay.setBusyer("小后台财税服务有限公司");//TODO 微信账号
         }
         mPayList.add(itempay);
     }
@@ -172,7 +169,19 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
                     App.getInstance().showToast("感谢盆友支持小后台,请在“我的”-“完善资料”中" +
                             "完善您公司注册的具体信息，谢谢合作！");
                 }
+                Intent i=new Intent(PayOptActivity.this,PayItemActivity.class);
+                i.putExtra("time",time);
+                i.putExtra("goods",shangPin);
+                i.putExtra("number",dingdanHao);
+                i.putExtra("money",jinE+"");
+                i.putExtra("busy","小后台财税服务有限公司");
+                i.putExtra("flag",mPayFlag);
+                i.putExtra("position",position);
+                i.putExtra("weizhifu",weizhifu);
+
                 payListData();
+                startActivity(intent);
+
                 finish();
             }
         }

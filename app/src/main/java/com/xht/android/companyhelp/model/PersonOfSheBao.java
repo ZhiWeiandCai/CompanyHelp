@@ -8,7 +8,7 @@ public class PersonOfSheBao {
 
     private String mIdCard; //身份证号
     private String mName;
-    private int isCheck = 1;
+    private int isCheck = 1;    //默认为购买
 
     public PersonOfSheBao() {
 

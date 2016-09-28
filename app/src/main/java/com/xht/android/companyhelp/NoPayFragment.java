@@ -5,12 +5,17 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -99,7 +104,7 @@ public class NoPayFragment extends Fragment {
 
                     /**
                      * [{"businezzType":"10","hasAccount":"N","placeOrderTime":"2016-09-24 15:37:18","orderid":6,"orderName":"注册公司","orderFee":"3"},
-                     * {"businezzType":"10","hasAccount":"N","placeOrderTime":"2016-09-24 15:37:25","orderid":7,"orderName":"注册公司","orderFee":"3"}]
+                     * {"businezzType":"10","placeOrderTime":"2016-09-24 15:37:25","orderid":7,"orderName":"注册公司","orderFee":"3"}]
                      *
                      */
                     for (int i = 0; i < compJALength; i++) {
@@ -113,19 +118,17 @@ public class NoPayFragment extends Fragment {
                         String placeOrderTime = temp.optString("placeOrderTime");
                         String orderid = temp.optString("orderid");
                         String orderName = temp.optString("orderName");
+
+                        iten.setHasAccount(hasAccount);
                         String orderFee = temp.optString("orderFee");
 
                         iten.setBusinezzType(businezzType);
-                        iten.setHasAccount(hasAccount);
                         iten.setPlaceOrderTime(placeOrderTime);
                         iten.setOrderid(orderid);
-
-
                         iten.setOrderName(orderName);
                         iten.setOrderFee(orderFee);
 
-                        LogHelper.i(TAG,"----订单id---"+orderid+"businezzType:"+businezzType+"hasAccount:"+
-                                hasAccount+"-placeOrderTime"+placeOrderTime+"--orderName"+orderName+"-orderFee"+orderFee);
+                        LogHelper.i(TAG,"----订单id---"+orderid+"hasAccount="+hasAccount+"businezzType=:"+businezzType+"-placeOrderTime="+placeOrderTime+"--orderName"+orderName+"-orderFee"+orderFee);
                         mNoPayList.add(iten);
                     }
 
@@ -166,6 +169,7 @@ public class NoPayFragment extends Fragment {
                 holder=new ViewHolder();
                 convertView=View.inflate(mMyOrderActivity,R.layout.no_pay_item,null);
 
+
                 holder.mTime= (TextView) convertView.findViewById(R.id.item_nopay_time);
                 holder.mTitle= (TextView) convertView.findViewById(R.id.item_nopay_title);
                 holder.mMoney= (TextView) convertView.findViewById(R.id.item_nopay_money);
@@ -182,6 +186,25 @@ public class NoPayFragment extends Fragment {
             holder.mTime.setText(item.getPlaceOrderTime());
             String orderName = item.getOrderName();
             holder.mTitle.setText(orderName);
+
+            String orderFee = item.getOrderFee();
+            int money = Integer.parseInt(orderFee);
+            holder.mMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen),money /100.0f));
+
+            String hasAccount = item.getHasAccount();
+
+            if ("Y".equals(hasAccount)) {
+                LogHelper.i(TAG,"-------------66---------------hasAccount--"+hasAccount);
+                holder.mTitle1.setText("代理记账");
+                holder.mImage1.setVisibility(View.VISIBLE);
+                holder.mImage1.setBackgroundResource(R.mipmap.ji_bao);
+            } else {
+                holder.mTitle1.setText("");
+                holder.mImage1.setVisibility(View.GONE);
+            }
+
+
+
             //添加不同业务的图标
                 switch (orderName){
                     case "注册公司":
@@ -215,17 +238,6 @@ public class NoPayFragment extends Fragment {
                         holder.mImage.setBackgroundResource(R.mipmap.lao_pai);
                         break;
                 }
-            String orderFee = item.getOrderFee();
-            int money = Integer.parseInt(orderFee);
-            holder.mMoney.setText(String.format(getResources().getString(R.string.heji_yuanjiaofen),money /100.0f));
-            String hasAccount = item.getHasAccount();
-            if ("Y".equals(hasAccount)){
-
-                holder.mTitle1.setText("代理记账");
-                holder.mImage1.setBackgroundResource(R.mipmap.ji_bao);
-            }else{
-                holder.mImage1.setVisibility(View.GONE);
-            }
 
             holder.mButComplete.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -192,6 +192,7 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener, A
                 if (mArrayList.size() < 10) {
                     mArrayList.add(new PersonOfSheBao());
                     mPersonOfSheBaoAdapter.notifyDataSetChanged();
+                    App.getInstance().showToast("已添加一行");
                 } else {
                     App.getInstance().showToast("一次最多只能操作10个员工");
                 }
@@ -321,8 +322,12 @@ public class SheBaoSActivity extends Activity implements View.OnClickListener, A
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
         Intent intent = new Intent(this, SheBaoRActivity.class);
         intent.putExtra("whichItem", position);
+        intent.putExtra("gors", mArrayList.get(position).isCheck());
+        intent.putExtra("mingzi", mArrayList.get(position).getmName());
+        intent.putExtra("idcard", mArrayList.get(position).getmIdCard());
         this.startActivityForResult(intent, 0);
     }
 

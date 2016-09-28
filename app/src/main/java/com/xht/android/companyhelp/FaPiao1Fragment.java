@@ -202,6 +202,12 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(), HuoWuActivity.class);
         intent.putExtra("whichItem", position - 1);
+        intent.putExtra("hwname", mHuoWus.get(position - 1).getmName());
+        intent.putExtra("guige", mHuoWus.get(position - 1).getmXingHao());
+        intent.putExtra("danwei", mHuoWus.get(position - 1).getmDanWei());
+        intent.putExtra("shul", mHuoWus.get(position - 1).getmShuLiang());
+        intent.putExtra("danjia", mHuoWus.get(position - 1).getmDanJia());
+        intent.putExtra("jine", mHuoWus.get(position - 1).getmJinE());
         getActivity().startActivityForResult(intent, 0);
     }
 
@@ -215,8 +221,8 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
                 mHuoWus.get(posi).setmXingHao(bundle.getString("hw2"));
                 mHuoWus.get(posi).setmDanWei(bundle.getString("hw3"));
                 mHuoWus.get(posi).setmShuLiang(bundle.getInt("hw4"));
-                mHuoWus.get(posi).setmDanJia(bundle.getFloat("hw5"));
-                mHuoWus.get(posi).setmJinE(bundle.getFloat("hw6"));
+                mHuoWus.get(posi).setmDanJia(bundle.getDouble("hw5"));
+                mHuoWus.get(posi).setmJinE(bundle.getDouble("hw6"));
                 mAdapter.notifyDataSetChanged();
             }
         }
@@ -301,7 +307,7 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
         for (HuoWu temp : mHuoWus) {
             if (temp.getmName() == null || temp.getmName() == "" || temp.getmXingHao() == null || temp.getmXingHao() == ""
                     || temp.getmDanWei() == null || temp.getmDanWei() == "" || temp.getmShuLiang() == 0
-                    || temp.getmDanJia() == 0f || temp.getmJinE() == 0f) {
+                    || temp.getmDanJia() == 0d || temp.getmJinE() == 0d) {
                 App.getInstance().showToast("请把信息填写完整...");
                 return null;
             }

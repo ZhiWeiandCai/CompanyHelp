@@ -113,6 +113,7 @@
             android:layout_toRightOf="@id/biangeng_name"
             android:layout_below="@id/biangeng_text"
             android:drawableLeft="@mipmap/new_company"
+            android:singleLine="true"
             android:hint="请输入变更的公司名称"/>
 
     </RelativeLayout>
@@ -173,6 +174,7 @@
             android:layout_below="@id/biangeng_kuaqu_checkbox"
             android:layout_toRightOf="@id/biangeng_address"
             android:drawableLeft="@mipmap/company_address"
+            android:singleLine="true"
             android:hint="请输入新公司详细地址"/>
 
     </RelativeLayout>
@@ -239,6 +241,7 @@
             android:drawableLeft="@mipmap/number"
             android:textSize="17sp"
             android:numeric="integer"
+            android:singleLine="true"
             android:hint="请输入法人身份证号"/>
 
 
@@ -292,6 +295,7 @@
             android:layout_marginTop="15dp"
             android:drawableLeft="@mipmap/fanwei"
             android:layout_toRightOf="@id/biangeng_fanwei"
+            android:singleLine="true"
             android:hint="请输入新的经营范围"/>
 
 
@@ -317,15 +321,7 @@
             android:text="变更股东/股权"
             android:textSize="20sp"/>
 
-        <ImageView
-            android:id="@+id/biangeng_add_contacts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20sp"
-            android:src="@mipmap/add"
-            />
+
     </RelativeLayout>
 
     <View

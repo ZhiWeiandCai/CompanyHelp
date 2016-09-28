@@ -17,13 +17,15 @@ import android.widget.TextView;
 import com.xht.android.companyhelp.util.Arith;
 import com.xht.android.companyhelp.util.LogHelper;
 
+import java.math.BigDecimal;
+
 public class HuoWuActivity extends Activity {
     private static final String TAG = "HuoWuActivity";
     private EditText nameEt, guixingEt, danweiEt, shuliangEt, danjiaEt, jineEt;
     private Button jianIBtn;
     private int mShuL;  //数量
-    private float mDanJ;    //单价
-    private float mJE;  //金额
+    private double mDanJ;    //单价
+    private double mJE;  //金额
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +64,11 @@ public class HuoWuActivity extends Activity {
                 if (!s.toString().isEmpty()) {
                     mShuL = Integer.parseInt(s.toString());
                     if (danjiaEt.getText() != null && !danjiaEt.getText().toString().isEmpty()) {
-                        mJE = Arith.floatMul(mShuL, mDanJ);
-                        jineEt.setText("" + mJE);
+                        mJE = Arith.mul2(mShuL, mDanJ);
+                        //jineEt.setText(String.valueOf(mJE));
+                        BigDecimal bigDecimal = new BigDecimal(mJE);
+                        String result = bigDecimal.toString();
+                        jineEt.setText(result);
                     }
                 } else {
                     mShuL = 0;
@@ -89,13 +94,16 @@ public class HuoWuActivity extends Activity {
                 LogHelper.i(TAG, "str=" + s.toString());
 
                 if (!s.toString().isEmpty()) {
-                    mDanJ = Float.parseFloat(s.toString());
+                    mDanJ = Double.parseDouble(s.toString());
                     if (shuliangEt.getText() != null && !shuliangEt.getText().toString().isEmpty()) {
-                        mJE = Arith.floatMul(mShuL, mDanJ);
-                        jineEt.setText("" + mJE);
+                        mJE = Arith.mul2(mShuL, mDanJ);
+                        //jineEt.setText(String.format("%1$.2f", mJE));
+                        BigDecimal bigDecimal = new BigDecimal(mJE);
+                        String result = bigDecimal.toString();
+                        jineEt.setText(result);
                     }
                 } else {
-                    mDanJ = 0f;
+                    mDanJ = 0d;
                     mJE = 0;
                     jineEt.setText("");
                 }
@@ -110,6 +118,13 @@ public class HuoWuActivity extends Activity {
                 checkInfoComp();
             }
         });
+        Intent intent = getIntent();
+        nameEt.setText(intent.getStringExtra("hwname"));
+        guixingEt.setText(intent.getStringExtra("guige"));
+        danweiEt.setText(intent.getStringExtra("danwei"));
+        shuliangEt.setText("" + intent.getIntExtra("shul", 0));
+        danjiaEt.setText("" + intent.getDoubleExtra("danjia", 0f));
+        jineEt.setText("" + intent.getDoubleExtra("jine", 0f));
     }
 
     private void checkInfoComp() {
@@ -141,8 +156,8 @@ public class HuoWuActivity extends Activity {
         bundle.putString("hw2", guixingEt.getText().toString());
         bundle.putString("hw3", danweiEt.getText().toString());
         bundle.putInt("hw4", mShuL);
-        bundle.putFloat("hw5", mDanJ);
-        bundle.putFloat("hw6", mJE);
+        bundle.putDouble("hw5", mDanJ);
+        bundle.putDouble("hw6", mJE);
         bundle.putInt("wItem", whichI);
         i.putExtra("huowuData", bundle);
         setResult(RESULT_OK, i);

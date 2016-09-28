@@ -63,6 +63,7 @@ public class BaseApi {
 
 	//获取账户参数信息
 	public static final String FUWU_POST_ZHANGHU_URL="http://www.xiaohoutai.com.cn:8888/XHT/ordercontactController/modifyContactInfo";
+	public static final String FUWU_POST_MiMa_URL="http://www.xiaohoutai.com.cn:8888/XHT/ordercontactController/modifyUserPass";
 
 
 

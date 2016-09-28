@@ -19,6 +19,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.umeng.message.ALIAS_TYPE;
 import com.xht.android.companyhelp.net.APIListener;
 import com.xht.android.companyhelp.net.VolleyHelpApi;
 import com.xht.android.companyhelp.util.LogHelper;
@@ -51,14 +52,11 @@ public class ZhuCeZiJinActivity extends Activity implements RadioGroup.OnChecked
     private String[] mCompNames;//公司名字数组
     private int[] mCompIds;
     private int mSelectedCompId;//选中公司的ID
-
-
     private String companyName;//输入或选择的公司名字
 
     private static final String TAG = "ZhuCeZiJinActivity";
 
    private static final String XHT="XHT";//String SINA_WEIBO = "SINA_WEIBO";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,8 +95,8 @@ public class ZhuCeZiJinActivity extends Activity implements RadioGroup.OnChecked
         LogHelper.i(TAG,"用户ID---"+mUId);
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
-        mCustomView.setTextSize(18);
         mCustomView.setText("下单预约-变更注册资金");
+        mCustomView.setTextSize(18);
         final ActionBar aBar = getActionBar();
         aBar.setCustomView(mCustomView,
                 new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));

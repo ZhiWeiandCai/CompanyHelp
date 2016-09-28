@@ -98,6 +98,7 @@ public class MessageListActivity extends Activity implements View.OnClickListene
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
         mCustomView.setText("确认税情-返回");
+        mCustomView.setTextSize(18);
         final ActionBar aBar = getActionBar();
         aBar.setCustomView(mCustomView,
                 new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));

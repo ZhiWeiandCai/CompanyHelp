@@ -108,6 +108,7 @@
             android:id="@+id/item_biangeng_sfz_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:hint="请输入身份证地址"/>
     </LinearLayout>
 
@@ -143,10 +144,9 @@
         android:background="@android:color/darker_gray"/>
     <Button
         android:id="@+id/item_imageview_contacts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
         android:text="确认保存"
-     />
+        android:layout_marginTop="15dp"
+        android:background="@drawable/btn_background_circle"
+        android:layout_height="wrap_content" />
 </LinearLayout>

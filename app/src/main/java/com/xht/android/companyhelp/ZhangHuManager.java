@@ -32,7 +32,7 @@ import java.util.Map;
  *
  * author: an
  */
-public class ZhangHuManager extends Activity{
+public class ZhangHuManager extends Activity implements View.OnClickListener {
     private static final String TAG = "ZhangHuManager";
    // private String mName;
     private Button mButTiJiao;
@@ -45,19 +45,12 @@ public class ZhangHuManager extends Activity{
     private  int mPrice;
     private ProgressDialog mProgDoal;
 
-    private TextView  mTextName;
-    private TextView mTextPhone;
-    private TextView mTextOldnumber;
-    private TextView mTextNewNumber;
+
     private EditText mEditName;
     private EditText mEditphone;
-    private EditText mEditOldnumber;
-    private EditText mEditNewNumber;
 
     private String mName;
     private String mPhone;
-    private String mNewNumber;
-    private String mOldNumber;
 
     private String getPhone=null;//TODO 还没初始化
     private String getNumber=null;
@@ -74,22 +67,16 @@ public class ZhangHuManager extends Activity{
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
         mCustomView.setText("修改账户");
+        mCustomView.setTextSize(18);
         final ActionBar aBar = getActionBar();
         aBar.setCustomView(mCustomView,
                 new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         int change = ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM;
         aBar.setDisplayOptions(change);
 
-        mTextName= (TextView) findViewById(R.id.zh_name);
-        mTextPhone= (TextView) findViewById(R.id.zh_zhanghu);
-        mTextOldnumber= (TextView) findViewById(R.id.zh_old_mima);
-        mTextNewNumber= (TextView) findViewById(R.id.zh_mima);
         mButTiJiao= (Button) findViewById(R.id.zh_submit);
-
         mEditName= (EditText) findViewById(R.id.ed_new_name);
         mEditphone= (EditText) findViewById(R.id.ed_new_phone);
-        mEditOldnumber= (EditText) findViewById(R.id.ed_old_mima);
-        mEditNewNumber= (EditText) findViewById(R.id.ed_new_mima);
 
         LogHelper.i(TAG,"-----"+mUId+"--");
         //获取账户信息
@@ -106,27 +93,13 @@ public class ZhangHuManager extends Activity{
     private void getMessageSubmit() {
         mName=mEditName.getText().toString();
         mPhone=mEditphone.getText().toString();
-        mOldNumber=mEditOldnumber.getText().toString();
-        mNewNumber=mEditNewNumber.getText().toString();
 
-        Log.i(TAG,getNumber+"------------"+mOldNumber+"-----"+mNewNumber);
-        if (TextUtils.isEmpty(mName) && TextUtils.isEmpty(mPhone) && TextUtils.isEmpty(mNewNumber)){
+        if (TextUtils.isEmpty(mName) && TextUtils.isEmpty(mPhone) ){
             App.getInstance().showToast("请确认至少修改一项才可提交");
             return;
         }
-        if (TextUtils.isEmpty(mOldNumber)) {
-            App.getInstance().showToast("请输入原密码");
-            return;
-        }else{
-            if (!getNumber.equals(mOldNumber)){
-                App.getInstance().showToast("密码错误");
-                return ;
-            }
-        }
-        if (mOldNumber.equals(mNewNumber)){
-            App.getInstance().showToast("新密码不能和旧密码相同");
-            return ;
-        }
+
+
         //封装数据提交修改信息
         postButtonSubmit();
     }
@@ -148,14 +121,8 @@ public class ZhangHuManager extends Activity{
             }else{
                 MessJson.put("telephone",getPhone );
             }
-            if (!TextUtils.isEmpty(mOldNumber)&& !TextUtils.isEmpty(mNewNumber)) {
-                MessJson.put("password",mNewNumber );
-                LogHelper.i(TAG,"-------------name------"+mNewNumber);
-            }else{
-                MessJson.put("password",getNumber );
-            }
 
-            LogHelper.i(TAG,"----name---"+mName+"----mPhone---"+mPhone+"---mNewNumber---"+mNewNumber+"----");
+
             LogHelper.i(TAG,"----修改信息的所有---"+MessJson.toString());
 
         }catch(JSONException e) {
@@ -249,4 +216,8 @@ public class ZhangHuManager extends Activity{
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

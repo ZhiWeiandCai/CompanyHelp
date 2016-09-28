@@ -2,13 +2,17 @@ package com.xht.android.companyhelp;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xht.android.companyhelp.model.UserInfo;
@@ -20,6 +24,7 @@ public class ServiceFragment extends Fragment implements OnClickListener{
 
 	private UserInfo mUserInfo;
 	private MainActivity mActivity;
+	private Button mCallPhone;
 	private TextView mTextView1, mTextView2, mTextView3, mTextView4, mTextView5, mTextView6,
 		mTextView7, mTextView8, mTextView9, mTextView10, mTextView11, mTextView12;
 
@@ -39,6 +44,7 @@ public class ServiceFragment extends Fragment implements OnClickListener{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_service, container, false);
+		mCallPhone= (Button) view.findViewById(R.id.play_phonenum);
 		mTextView1 = (TextView) view.findViewById(R.id.tv11);
 		mTextView2 = (TextView) view.findViewById(R.id.tv12);
 		mTextView3 = (TextView) view.findViewById(R.id.tv13);
@@ -51,6 +57,8 @@ public class ServiceFragment extends Fragment implements OnClickListener{
 		mTextView10 = (TextView) view.findViewById(R.id.tv41);
 		mTextView11 = (TextView) view.findViewById(R.id.tv42);
 		mTextView12 = (TextView) view.findViewById(R.id.tv43);
+
+		mCallPhone.setOnClickListener(this);
 		mTextView1.setOnClickListener(this);
 		mTextView2.setOnClickListener(this);
 		mTextView3.setOnClickListener(this);
@@ -127,6 +135,12 @@ public class ServiceFragment extends Fragment implements OnClickListener{
 		case R.id.tv42:
 			App.getInstance().showToast("此功能暂未开放");
 			break;
+			case R.id.play_phonenum:
+				//拨打客服电话
+				//用intent启动拨打电话
+				Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+"4008448488"));
+				startActivity(intent2);
+				break;
 		default:
 			break;
 		}

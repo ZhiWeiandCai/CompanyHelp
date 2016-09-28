@@ -44,6 +44,15 @@ public class SheBaoRActivity extends Activity {
                 checkInfoComp();
             }
         });
+
+        Intent intent = getIntent();
+        if (intent.getIntExtra("gors", 1) == 0) {
+            radioGroup.check(R.id.radioR2);
+        } else {
+            radioGroup.check(R.id.radioR1);
+        }
+        editText1.setText(intent.getStringExtra("mingzi"));
+        editText2.setText(intent.getStringExtra("idcard"));
     }
 
     private void checkInfoComp() {

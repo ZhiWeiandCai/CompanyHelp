@@ -9,8 +9,8 @@ public class HuoWu {
     private String mXingHao;
     private String mDanWei;
     private int mShuLiang;
-    private float mDanJia;
-    private float mJinE;
+    private double mDanJia;
+    private double mJinE;
 
     public String getmName() {
         return mName;
@@ -44,19 +44,19 @@ public class HuoWu {
         this.mShuLiang = mShuLiang;
     }
 
-    public float getmDanJia() {
+    public double getmDanJia() {
         return mDanJia;
     }
 
-    public void setmDanJia(float mDanJia) {
+    public void setmDanJia(double mDanJia) {
         this.mDanJia = mDanJia;
     }
 
-    public float getmJinE() {
+    public double getmJinE() {
         return mJinE;
     }
 
-    public void setmJinE(float mJinE) {
+    public void setmJinE(double mJinE) {
         this.mJinE = mJinE;
     }
 }

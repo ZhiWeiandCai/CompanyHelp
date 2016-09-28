@@ -55,8 +55,8 @@ public class CancelComActivity extends Activity {
         setContentView(R.layout.activity_cancelcompany);
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
-        mCustomView.setTextSize(18);
         mCustomView.setText("下单预约-注销公司");
+        mCustomView.setTextSize(18);
         final ActionBar aBar = getActionBar();
         aBar.setCustomView(mCustomView,
                 new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));

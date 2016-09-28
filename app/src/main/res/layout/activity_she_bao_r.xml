@@ -31,7 +31,7 @@
             />
     </RadioGroup>
     <EditText android:id="@+id/shebaoren_name"
-        android:layout_width="220dp"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_below="@id/rg1"
         android:singleLine="true"
@@ -40,15 +40,15 @@
         android:hint="@string/please_name"
         android:maxLength="15"/>
     <EditText android:id="@+id/shebaoren_idcard"
-        android:layout_width="220dp"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_below="@id/shebaoren_name"
         android:hint="@string/please_idcard_nums"
         android:singleLine="true"
         android:drawableLeft="@mipmap/sb_pid"
         android:drawablePadding="4dp"
-        android:inputType="phone"
-        android:maxLength="25"/>
+        android:inputType="textVisiblePassword"
+        android:maxLength="18"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="45dp"

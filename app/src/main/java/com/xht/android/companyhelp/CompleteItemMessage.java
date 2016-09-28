@@ -56,6 +56,7 @@ public class CompleteItemMessage extends Activity{
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
         mCustomView.setText("完善信息-确认");
+        mCustomView.setTextSize(18);
         final ActionBar aBar = getActionBar();
         aBar.setCustomView(mCustomView,
                 new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -137,6 +138,11 @@ public class CompleteItemMessage extends Activity{
     private void sureSendData() {
         if (TextUtils.isEmpty(mName)||TextUtils.isEmpty(mBiLi)||TextUtils.isEmpty(mSFZPhone)||TextUtils.isEmpty(mSFZAddress)){
             App.getInstance().showToast("请完善信息。。。");
+            return;
+        }
+        int bili=Integer.parseInt(mBiLi);
+        if (bili>100){
+            App.getInstance().showToast("个人所占比例不能超过100");
             return;
         }
         Intent intent=getIntent();
