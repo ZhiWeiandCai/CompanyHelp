@@ -16,9 +16,10 @@
             android:layout_height="26dp"
             android:gravity="center"
             android:text="@string/phone_num"
-            android:textColor="#ffff00ff"
+            android:textColor="@android:color/holo_blue_light"
             android:textSize="18sp"
-            android:drawableRight="@mipmap/pointer_phonenum"/>
+            android:drawableRight="@mipmap/pointer_phonenum"
+            android:drawablePadding="4dp"/>
         <Button android:id="@+id/play_phonenum"
             android:layout_width="25dp"
             android:layout_height="25dp"

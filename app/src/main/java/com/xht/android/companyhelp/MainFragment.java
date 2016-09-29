@@ -1,6 +1,7 @@
 package com.xht.android.companyhelp;
 
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,9 +13,6 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-
-import com.umeng.message.ALIAS_TYPE;
-import com.umeng.message.PushAgent;
 
 public class MainFragment extends Fragment {
 	
@@ -46,7 +44,7 @@ public class MainFragment extends Fragment {
 		radioButton1 = (RadioButton) view.findViewById(R.id.tab1);
 		radioButton2 = (RadioButton) view.findViewById(R.id.tab2);
 		radioButton3 = (RadioButton) view.findViewById(R.id.tab3);
-		
+		radioButton1.setTextColor(Color.BLUE);
 		rg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			@Override
@@ -57,18 +55,27 @@ public class MainFragment extends Fragment {
 						viewPager.setCurrentItem(0);
 						mCurFragment = 0;
 					}
+					radioButton1.setTextColor(Color.BLUE);
+					radioButton2.setTextColor(Color.GRAY);
+					radioButton3.setTextColor(Color.GRAY);
 					break;
 				case R.id.tab2:
 					if (mCurFragment != 1) {
 						viewPager.setCurrentItem(1);
 						mCurFragment = 1;
 					}
+					radioButton1.setTextColor(Color.GRAY);
+					radioButton2.setTextColor(Color.BLUE);
+					radioButton3.setTextColor(Color.GRAY);
 					break;
 				case R.id.tab3:
 					if (mCurFragment != 2) {
 						viewPager.setCurrentItem(2);
 						mCurFragment = 2;
 					}
+					radioButton1.setTextColor(Color.GRAY);
+					radioButton2.setTextColor(Color.GRAY);
+					radioButton3.setTextColor(Color.BLUE);
 					break;
 
 				default:

@@ -176,13 +176,13 @@
 	    		    android:id="@+id/naShuiP"
 	    		    android:orientation="horizontal"
 	    		    android:layout_marginLeft="16dp"
-	    		    android:checkedButton="@+id/radioR1">
+	    		    android:checkedButton="@+id/radioR2">
 	    		    <RadioButton
 			            android:layout_width="wrap_content"
 			            android:layout_height="45dp"			            
 			            android:gravity="center"
 			            android:text="@string/radioR1_s"
-			            android:id="@id/radioR1"			     
+			            android:id="@+id/radioR1"
 			            />
 			        <RadioButton
 			            android:layout_width="wrap_content"
@@ -190,7 +190,7 @@
 			            
 			            android:gravity="center"
 			            android:text="@string/radioR2_s"
-			            android:id="@+id/radioR2"
+			            android:id="@id/radioR2"
 			            />
 	    		</RadioGroup>
 	    	</LinearLayout>

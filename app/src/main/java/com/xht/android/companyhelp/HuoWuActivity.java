@@ -18,6 +18,7 @@ import com.xht.android.companyhelp.util.Arith;
 import com.xht.android.companyhelp.util.LogHelper;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 public class HuoWuActivity extends Activity {
     private static final String TAG = "HuoWuActivity";
@@ -26,6 +27,8 @@ public class HuoWuActivity extends Activity {
     private int mShuL;  //数量
     private double mDanJ;    //单价
     private double mJE;  //金额
+
+    DecimalFormat df = new DecimalFormat("0.00");//保留两位小数
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +67,9 @@ public class HuoWuActivity extends Activity {
                 if (!s.toString().isEmpty()) {
                     mShuL = Integer.parseInt(s.toString());
                     if (danjiaEt.getText() != null && !danjiaEt.getText().toString().isEmpty()) {
-                        mJE = Arith.mul2(mShuL, mDanJ);
-                        //jineEt.setText(String.valueOf(mJE));
-                        BigDecimal bigDecimal = new BigDecimal(mJE);
-                        String result = bigDecimal.toString();
-                        jineEt.setText(result);
+                        mJE = Arith.round(Arith.mul2(mShuL, mDanJ), 2);
+                        BigDecimal bd = new BigDecimal(mJE);
+                        jineEt.setText(df.format(bd));
                     }
                 } else {
                     mShuL = 0;
@@ -96,11 +97,9 @@ public class HuoWuActivity extends Activity {
                 if (!s.toString().isEmpty()) {
                     mDanJ = Double.parseDouble(s.toString());
                     if (shuliangEt.getText() != null && !shuliangEt.getText().toString().isEmpty()) {
-                        mJE = Arith.mul2(mShuL, mDanJ);
-                        //jineEt.setText(String.format("%1$.2f", mJE));
-                        BigDecimal bigDecimal = new BigDecimal(mJE);
-                        String result = bigDecimal.toString();
-                        jineEt.setText(result);
+                        mJE = Arith.round(Arith.mul2(mShuL, mDanJ), 2);
+                        BigDecimal bd = new BigDecimal(mJE);
+                        jineEt.setText(df.format(bd));
                     }
                 } else {
                     mDanJ = 0d;
@@ -123,8 +122,12 @@ public class HuoWuActivity extends Activity {
         guixingEt.setText(intent.getStringExtra("guige"));
         danweiEt.setText(intent.getStringExtra("danwei"));
         shuliangEt.setText("" + intent.getIntExtra("shul", 0));
-        danjiaEt.setText("" + intent.getDoubleExtra("danjia", 0f));
-        jineEt.setText("" + intent.getDoubleExtra("jine", 0f));
+        mDanJ = intent.getDoubleExtra("danjia", 0d);
+        mJE = intent.getDoubleExtra("jine", 0d);
+        BigDecimal bd = new BigDecimal(mDanJ);
+        danjiaEt.setText(df.format(bd));
+        bd = new BigDecimal(mJE);
+        jineEt.setText(df.format(bd));
     }
 
     private void checkInfoComp() {

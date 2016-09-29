@@ -1,12 +1,5 @@
 package com.xht.android.companyhelp;
 
-import org.json.JSONObject;
-
-import com.xht.android.companyhelp.net.APIListener;
-import com.xht.android.companyhelp.net.VolleyHelpApi;
-import com.xht.android.companyhelp.provider.MyDatabaseManager;
-import com.xht.android.companyhelp.util.LogHelper;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -22,10 +15,19 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import com.xht.android.companyhelp.net.APIListener;
+import com.xht.android.companyhelp.net.VolleyHelpApi;
+import com.xht.android.companyhelp.provider.MyDatabaseManager;
+import com.xht.android.companyhelp.util.LogHelper;
+
+import org.json.JSONObject;
 
 public class LoginFragment extends Fragment {
 	
-	private Button mButtonReg, mLoginButton, mWangJi;
+	private Button mLoginButton;
+	TextView mButtonReg, mWangJi;
 	private LoginActivity mActivity;
 	private EditText mEditText1, mEditText2;
 	private ProgressDialog mProgressDialog;
@@ -46,7 +48,7 @@ public class LoginFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_login, container, false);
-		mWangJi = (Button) view.findViewById(R.id.fotgetMMBt);
+		mWangJi = (TextView) view.findViewById(R.id.fotgetMMBt);
 		mWangJi.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -64,7 +66,7 @@ public class LoginFragment extends Fragment {
 				ft.commit();
 			}
 		});
-		mButtonReg = (Button) view.findViewById(R.id.zhuceBt);
+		mButtonReg = (TextView) view.findViewById(R.id.zhuceBt);
 		mButtonReg.setOnClickListener(new OnClickListener() {
 			
 			@Override

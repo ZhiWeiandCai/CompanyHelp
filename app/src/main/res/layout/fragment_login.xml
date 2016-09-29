@@ -3,6 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@mipmap/pic_huanchong"/>
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -10,6 +16,7 @@
         <TextView android:layout_width="80dp"
             android:layout_height="40dp"
             android:layout_marginLeft="16dp"
+            android:textSize="18sp"
             android:text="@string/shoujihao"/>
         <EditText android:id="@+id/phoneEdit"
             android:layout_width="200dp"
@@ -25,6 +32,7 @@
         <TextView android:layout_width="80dp"
             android:layout_height="40dp"
             android:layout_marginLeft="16dp"
+            android:textSize="18sp"
             android:text="@string/mima"/>
         <EditText android:id="@+id/mimaEdit"
             android:layout_width="200dp"
@@ -33,18 +41,37 @@
             android:singleLine="true"
             android:inputType="textPassword"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+        <TextView android:id="@+id/zhuceBt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@string/zhuce_bt_str"
+            android:textColor="@color/colorGray"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+        <TextView android:id="@+id/fotgetMMBt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:text="@string/fotget_mm_bt_str"
+            android:textColor="@color/colorGray"/>
+    </LinearLayout>
     <Button android:id="@+id/loginBt"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/denglu"/>
-    <Button android:id="@+id/zhuceBt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/zhuce_bt_str"/>
-    
-    <Button android:id="@+id/fotgetMMBt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/fotget_mm_bt_str"/>
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="@string/denglu"
+        android:background="@drawable/btn_background_circle"/>
 
 </LinearLayout>

@@ -22,6 +22,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -63,6 +65,8 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
     private ImageButton mAddHWLItemIBtn;
     private Spinner mJNEt;
     private int mPosiFlag;
+
+    DecimalFormat df = new DecimalFormat("0.00");//保留两位小数
 
     public FaPiao1Fragment() {
         // Required empty public constructor
@@ -262,8 +266,10 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
             holder.guixingEt.setText(huoWu.getmXingHao());
             holder.danweiEt.setText(huoWu.getmDanWei());
             holder.shuliangEt.setText("" + huoWu.getmShuLiang());
-            holder.danjiaEt.setText("" + huoWu.getmDanJia());
-            holder.jineEt.setText("" + huoWu.getmJinE());
+            BigDecimal bd = new BigDecimal(huoWu.getmDanJia());
+            holder.danjiaEt.setText(df.format(bd));
+            bd = new BigDecimal(huoWu.getmJinE());
+            holder.jineEt.setText(df.format(bd));
 
             return convertView;
         }
