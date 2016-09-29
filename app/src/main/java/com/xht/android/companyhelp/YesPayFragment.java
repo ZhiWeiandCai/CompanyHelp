@@ -173,8 +173,10 @@ public class YesPayFragment extends Fragment {
             if ("Y".equals(hasAccount)){
 
                 holder.mTitle1.setText("代理记账");
+                holder.mImage1.setVisibility(View.VISIBLE);
                 holder.mImage1.setBackgroundResource(R.mipmap.ji_bao);
             }else{
+                holder.mTitle1.setText("");
                 holder.mImage1.setVisibility(View.GONE);
             }
             switch (orderName){

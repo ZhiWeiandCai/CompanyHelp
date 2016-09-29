@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +19,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.umeng.message.tag.TagManager;
 import com.xht.android.companyhelp.model.UserInfo;
 import com.xht.android.companyhelp.provider.MyDatabaseManager;
+import com.xht.android.companyhelp.util.AppInfoUtils;
 import com.xht.android.companyhelp.util.LogHelper;
 
 public class MyFragment extends Fragment implements OnClickListener {
@@ -36,6 +39,7 @@ public class MyFragment extends Fragment implements OnClickListener {
 	private TextView mPhoneNumView;
 	private TextView mZhangHu;//账户管理
 	private TextView mVersionDescTV;
+	private static final String TAG = "MyFragment";
 
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 		
@@ -104,6 +108,8 @@ public class MyFragment extends Fragment implements OnClickListener {
 		mLinearLayout5.setOnClickListener(this);
 		//mLinearLayout6.setOnClickListener(this);
 		mLinearLayout7.setOnClickListener(this);
+
+		mVersionDescTV.setText("版本:"+ AppInfoUtils.getAppInfoName(getActivity()));
 		return view;		
 	}
 
@@ -220,8 +226,44 @@ public class MyFragment extends Fragment implements OnClickListener {
 	
 	private void refleshUI() {
 		mPhoneNumView.setText("" + mUserInfo.getPhoneNum());
+		//设置用户id为标签
+		addTag(mUserInfo.getUid());// 添加用户标签
 	}
 
+	// 添加用户推送筛选标签
+	private void addTag(int uid) {
+		new AddTagTask(uid+"").execute();
+		LogHelper.i(TAG, "------------------uid---" + uid);
+		//App.getmPushAgent().getTagManager().add(uid + "");
+	}
+
+	class AddTagTask extends AsyncTask<Void, Void, String> {
+		String tagString;
+		String[] tags;
+
+		public AddTagTask(String tag) {
+			// TODO Auto-generated constructor stub
+			tagString = tag;
+			tags = tagString.split(",");
+		}
+		@Override
+		protected String doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+			try {
+				TagManager.Result result = App.getmPushAgent().getTagManager().add(tags);
+				LogHelper.d(TAG, result.toString());
+				return result.toString();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		@Override
+		protected void onPostExecute(String result) {
+			// edTag.setText("");
+			// updateInfo("Add Tag:\n" + result);
+		}
+	}
 	/**
 	 * 清空用户后
 	 */

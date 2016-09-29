@@ -80,13 +80,14 @@
             android:padding="3dp"
             android:layout_marginTop="6dp"
             android:layout_gravity="center_vertical"
-            android:text="身份证号："/>
+            android:text="身份证号:"/>
         <EditText
             android:id="@+id/item_shengfengzhenghao_edit"
             android:layout_toRightOf="@id/shengfengzhenghao_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:numeric="integer"
+            android:inputType="text|number"
+            android:digits="0123456789abcdefghigklmnopqrstuvwxyzQWERTYUIOPASDFGHJKLZXCVBNM"
             android:hint="请输入身份证号"/>
 
     </RelativeLayout>

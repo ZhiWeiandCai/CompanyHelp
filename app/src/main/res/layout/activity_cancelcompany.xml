@@ -19,15 +19,16 @@
             android:textSize="18sp" />
         <EditText
             android:id="@+id/company_name_cancel"
-            android:layout_width="230dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textSize="18sp"
+            android:layout_weight="1"
             android:hint="选择要注销的公司名称"/>
 
         <Spinner
             android:id="@+id/company_name_spinner"
-            android:layout_width="50dp"
+            android:layout_width="22dp"
             android:layout_height="40dp"
             android:layout_marginRight="10dp" />
 
@@ -40,7 +41,11 @@
         android:text="产品介绍"
         android:gravity="center_horizontal"
         android:textSize="19sp" />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="1dp"
+        android:background="#bfbfbfbf" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -54,14 +59,6 @@
             android:layout_marginLeft="10dp"
             android:orientation="vertical">
 
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:background="#bfbfbfbf" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="办理流程："
+                    android:text="@string/banli"
                     android:textSize="18sp" />
 
                 <TextView
@@ -80,7 +77,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="1、京华时报讯(记者 潘珊菊)昨天，外交部新任发言人、新闻司副司长耿爽首次以发言人身份亮相并主持当日例行记者会。据了解，耿爽最近一次驻外工作是担任中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新"
+                    android:text="@string/banli_zhuxiao_1"
                     android:textSize="16sp" />
 
                 <TextView
@@ -89,7 +86,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="2、目前外交部发言人共3人，除耿爽以外，还有外交部新闻司司长陆慷和副司长华春莹轮流出席例行记者会。此前，原外交部新闻发言人洪磊已于两个月前赴美履新，出任驻芝加哥领馆总领事。"
+                    android:text="@string/banli_zhuxiao_2"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -108,7 +105,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="基本材料："
+                    android:text="@string/cailiao"
                     android:textSize="18sp" />
 
                 <TextView
@@ -117,7 +114,8 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="1、48rehnfuihuw0撒泼ierjwneir93kldrjfleri1安了家附近末日开发，没带走快乐而非客服卡梅伦的生日了"
+
+                    android:text="@string/cailiao_zhuxiao_1"
                     android:textSize="16sp" />
 
                 <TextView
@@ -126,7 +124,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="2、周润发票儿女高科技的牛排肉，吗，打破额看来，软绵绵分割肉盘看了"
+                    android:text="@string/cailiao_zhuxiao_2"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -145,7 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="注意事项："
+                    android:text="@string/zhuyishi"
                     android:textSize="18sp" />
 
                 <TextView
@@ -154,7 +152,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="1、京华时报讯(记者 潘珊菊)昨天，外交部新任发言人、新闻司副司长耿爽首次以发言人身份"
+                    android:text="@string/zhuyi_zhuxiao_1"
                     android:textSize="16sp" />
 
                 <TextView
@@ -163,7 +161,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="2、京华时报讯(记者 潘珊菊)昨天，外交部新任发言人、新闻司副司长耿爽首次以发言人身份"
+                    android:text="@string/zhuyi_zhuxiao_2"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -189,9 +187,9 @@
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_marginLeft="4dp"
-
             android:textSize="18sp"
             android:textColor="@android:color/holo_red_light"/>
+
         <View android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>

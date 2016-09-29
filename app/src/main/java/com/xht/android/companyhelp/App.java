@@ -121,7 +121,8 @@ public class App extends Application {
 				String content=uMessage.text;
 				String url=uMessage.url;
 				//String url="http://shehui.firefox.163.com/16/0908/06/CXFNU21MPBLIDY3A.html";
-				String iconurl="http://a1.peoplecdn.cn/60e66fb39bcff8e28c831eed027b4844.jpg@1l";
+				//String iconurl="http://a1.peoplecdn.cn/60e66fb39bcff8e28c831eed027b4844.jpg@1l";
+				String iconurl="";
 				final MessageDetail itemMess = new MessageDetail();
 				//把通知的数据添加到消息界面中的消息中心
 				itemMess.setmTime(Utils.getTimeUtils(System.currentTimeMillis()));
@@ -142,7 +143,10 @@ public class App extends Application {
 				}, 0, 0, Bitmap.Config.RGB_565, new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError arg0) {
-						showToast("图片解析出错");
+						Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+						itemMess.setmBitmap(bitmap);
+
+
 					}
 				});
 				addToRequestQueue(request, TAG);
@@ -155,6 +159,10 @@ public class App extends Application {
 
 						if (key.equals("url")){//健值----打开指定url
 							itemMess.setmUrl(value);
+							LogHelper.i(TAG, "1111111111111111111111111");
+						}
+						if (key.equals("iconurl")){//健值----打开指定图片url
+							itemMess.setmUrlIcom(value);
 							LogHelper.i(TAG, "1111111111111111111111111");
 						}
 						if (key.equals("uid")){//健值----获取传过来的推送id

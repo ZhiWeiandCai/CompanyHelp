@@ -25,16 +25,18 @@
 
         <EditText
             android:id="@+id/complete_company_name"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="35dp"
             android:textSize="18sp"
+            android:layout_weight="1"
             android:drawableLeft="@mipmap/new_company"
             android:enabled="true"
             android:layout_marginRight="20dp"
             android:hint="请选择公司名称"/>
         <Spinner
             android:id="@+id/complete_spinner"
-            android:layout_width="50dp"
+            android:layout_width="22dp"
+            android:layout_marginRight="10dp"
             android:layout_height="35dp">
 
         </Spinner>

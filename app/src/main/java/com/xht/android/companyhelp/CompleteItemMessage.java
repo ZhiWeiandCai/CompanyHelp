@@ -65,6 +65,20 @@ public class CompleteItemMessage extends Activity{
         //初始化
         initView();
 
+        String s = mEdBiLi.getText().toString();
+        Intent intent = getIntent();
+        String name= intent.getStringExtra("mName");
+        String bili= intent.getStringExtra("mBiLi");
+        String phone= intent.getStringExtra("mSFZPhone");
+        String address= intent.getStringExtra("mSFZAddress");
+        String job= intent.getStringExtra("mZhiWei");
+
+        mEdBiLi.setText(bili);
+        mEdName.setText(name);
+        mEdSFZPhone.setText(phone);
+        mEdSFZAddress.setText(address);
+
+
         getCompanyWork(mUid);
         //确认填写正确
         mButQueRen.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +151,11 @@ public class CompleteItemMessage extends Activity{
 
     private void sureSendData() {
         if (TextUtils.isEmpty(mName)||TextUtils.isEmpty(mBiLi)||TextUtils.isEmpty(mSFZPhone)||TextUtils.isEmpty(mSFZAddress)){
+            App.getInstance().showToast("请完善信息。。。");
+            return;
+        }
+
+        if (mBiLi.equals("null")){
             App.getInstance().showToast("请完善信息。。。");
             return;
         }

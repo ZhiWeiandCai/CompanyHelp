@@ -137,8 +137,6 @@ public class CancelComActivity extends Activity {
                 CancelComActivity.this.startActivity(intent);
                 CancelComActivity.this.finish();
             }
-
-
             @Override
             public void onError(Object e) {
                 dismissProgressDialog();

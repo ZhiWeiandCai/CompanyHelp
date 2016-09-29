@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -34,6 +35,11 @@ public class PersonOfBianGengAvtivity extends Activity {
     private String textZenJian=null;
     private int textGuQuanBiLi;
     private static final String TAG = "PersonOfBianGengAvtivity";
+    private RadioButton mRadioButGD;
+    private RadioButton mRadioButGQ;
+    private RadioButton mRadioButZ;
+    private RadioButton mRadioButJ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +54,44 @@ public class PersonOfBianGengAvtivity extends Activity {
         int change = ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM;
         aBar.setDisplayOptions(change);
         initView();
+        Intent intent = getIntent();
+        String mGuDongGuQuan = intent.getStringExtra("mGuDongGuQuan");
+        String mGuQuanZenJian = intent.getStringExtra("mGuQuanZenJian");
+
+        if (!TextUtils.isEmpty(mGuDongGuQuan)) {
+            switch (mGuDongGuQuan) {
+                case "变更股权":
+                    mRadioButGQ.setChecked(true);
+                    break;
+                case "变更股东":
+                    mRadioButGD.setChecked(true);
+                    break;
+            }
+        }
+        if (!TextUtils.isEmpty(mGuQuanZenJian)) {
+            switch (mGuQuanZenJian) {
+                case "减":
+                    mRadioButJ.setChecked(true);
+                    break;
+                case "增":
+                    mRadioButZ.setChecked(true);
+                    break;
+            }
+        }
+        mEDName.setText(intent.getStringExtra("mName"));
+        mEDSFZHao.setText(intent.getStringExtra("mShengFengZheng"));
+        mSFZAddress.setText(intent.getStringExtra("mSFZAddress"));
+        mGuQuanBiLi.setText(intent.getStringExtra("mGuQuangBiLi"));
     }
     //初始化控件
     private void initView() {
         mRadioGroupGQ = (RadioGroup) findViewById(R.id.item_rg1);
         mRadioGroupZJ = (RadioGroup) findViewById(R.id.item_rg2);
+        mRadioButGD = (RadioButton) findViewById(R.id.item_biangeng_gudong);
+        mRadioButGQ = (RadioButton) findViewById(R.id.item_biangeng_guquan);
+
+        mRadioButZ = (RadioButton) findViewById(R.id.item_biangeng_zeng);
+        mRadioButJ = (RadioButton) findViewById(R.id.item_biangeng_jian);
 
         mEDName = (EditText) findViewById(R.id.item_biangeng_name);
         mEDSFZHao = (EditText) findViewById(R.id.item_shengfengzhenghao_edit);
@@ -89,18 +128,11 @@ public class PersonOfBianGengAvtivity extends Activity {
         mAddItemImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* textName = mEDName.getText().toString();
-                textSFZHao = mEDSFZHao.getText().toString();
-                textSFZAddress = mSFZAddress.getText().toString();
-                textGuQuanBiLi =Integer.parseInt(mGuQuanBiLi.getText().toString());
-*/
-                if (TextUtils.isEmpty(textGuDGuQ)||TextUtils.isEmpty(textZenJian)){
+                 if (TextUtils.isEmpty(textGuDGuQ)||TextUtils.isEmpty(textZenJian)){
                     App.getInstance().showToast("请完善信息后再保存！");
                     return;
 
                 }
-
-
                 if (mEDName.getText() == null || mEDName.getText().toString().isEmpty()) {
                     App.getInstance().showToast("请完善信息后再保存！");
                     return;
@@ -139,8 +171,6 @@ public class PersonOfBianGengAvtivity extends Activity {
                 LogHelper.i(TAG, "返回的所有信息---------" + bundle.toString());
                 setResult(RESULT_OK, in);
                 finish();
-
-
             }
         });
     }
@@ -150,7 +180,6 @@ public class PersonOfBianGengAvtivity extends Activity {
             case android.R.id.home:
                 finish();
                 break;
-
             default:
                 break;
         }

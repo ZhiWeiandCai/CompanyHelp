@@ -43,7 +43,7 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="所占比例："
+            android:text="所占比例:"
             />
         <EditText
             android:id="@+id/item_2bili"
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:textSize="18sp"
             android:hint="输入比例"
-            android:phoneNumber="true"
+            android:inputType="number"
             android:layout_height="35dp"
             />
         <TextView
@@ -82,8 +82,9 @@
             android:layout_height="35dp"
            android:hint="请输入身份证号"
             android:textSize="18sp"
-            android:phoneNumber="true"
             android:singleLine="true"
+            android:inputType="text|number"
+            android:digits="0123456789abcdefghigklmnopqrstuvwxyzQWERTYUIOPASDFGHJKLZXCVBNM"
             android:layout_marginRight="20dp"
             />
     </LinearLayout>

@@ -125,6 +125,45 @@
     <string name="danjia_str">单价(不含税)</string>
     <string name="je_buhanshui_str">金额(不含税)</string>
     <string name="huowu_ms">货物明细：</string>
+
+    <string name="changping">产品介绍</string>
+    <string name="banli">办理流程：</string>
+    <string name="cailiao">基本材料：</string>
+    <string name="zhuyishi">注意事项：</string>
+
+    <!-- 发票-->
+    <string name="banli_fapiao_1">1、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="banli_fapiao_2">2、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="cailiao_fapiao_1">1、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="cailiao_fapiao_2">2、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="zhuyi_fapiao_1">1、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="zhuyi_fapiao_2">2、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+
+
+    <!-- 注销公司-->
+    <string name="banli_zhuxiao_1">1、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="banli_zhuxiao_2">2、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="cailiao_zhuxiao_1">1、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="cailiao_zhuxiao_2">2、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="zhuyi_zhuxiao_1">1、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="zhuyi_zhuxiao_2">2、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+
+ <!-- 注册资金-->
+    <string name="banli_zhuce_1">1、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="banli_zhuce_2">2、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="cailiao_zhuce_1">1、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="cailiao_zhuce_2">2、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="zhuyi_zhuce_1">1、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="zhuyi_zhuce_2">2、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+
+<!-- 注册商标-->
+    <string name="banli_shanbiao_1">1、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="banli_shanbiao_2">2、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="cailiao_shanbiao_1">1、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="cailiao_shanbiao_2">2、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="zhuyi_shanbiao_1">1、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+    <string name="zhuyi_shanbiao_2">2、京华时报讯(记者 潘珊菊)昨天，中国驻美国使馆新闻参赞兼发言人，至此他也成为外交部第30任新：</string>
+
     <!-- 注册商标界面 -->
     <string name="str_rpn">联系人姓名</string>
     <string name="str_rpp">联系人电话</string>

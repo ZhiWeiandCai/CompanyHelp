@@ -96,6 +96,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
 
     private boolean mCheckKuaQuYU;
 
+    private int flag=0;
 
     private View view;
 
@@ -122,6 +123,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
         int change = ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM;
         aBar.setDisplayOptions(change);
 
+
         //mArrayList.add(new PersonOfBianGengService());
         //初始化变更界面主布局
         initView();
@@ -141,8 +143,16 @@ public class BianGengService extends Activity implements View.OnClickListener {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         LogHelper.i(TAG,"-----点击了条目");
                         Intent intent=new Intent(BianGengService.this,PersonOfBianGengAvtivity.class);
+
+                        intent.putExtra("mGuDongGuQuan", mArrayList.get(position-1).getmGuDongGuQuan());
+                        intent.putExtra("mGuQuanZenJian", mArrayList.get(position-1).getmGuDGuQZengJian());
+                        intent.putExtra("mName", mArrayList.get(position-1).getName());
+                        intent.putExtra("mShengFengZheng", mArrayList.get(position-1).getNumberOfShengfenzheng());
+                        intent.putExtra("mSFZAddress", mArrayList.get(position-1).getAddress());
+                        intent.putExtra("mGuQuangBiLi", mArrayList.get(position-1).getGuquanbili()+"");
+
                         intent.putExtra("whichItem", position - 1);
-                      //  startActivity(intent);
+
                BianGengService.this.startActivityForResult(intent,0);
             }
         });
@@ -157,6 +167,7 @@ public class BianGengService extends Activity implements View.OnClickListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        flag=1;
         if(requestCode==0){
             if(resultCode==-1){
                 Bundle Data = data.getBundleExtra("biangengServiceData");
@@ -331,6 +342,9 @@ public class BianGengService extends Activity implements View.OnClickListener {
             holder.mShengFengZheng.setText(item.getNumberOfShengfenzheng());
             holder.mGuQuangBiLi.setText(item.getGuquanbili()+" ");
             holder.mSFZAddress.setText(item.getAddress());
+
+
+
 
             holder.mJianImgContacts.setOnClickListener(new View.OnClickListener() {
                 @Override

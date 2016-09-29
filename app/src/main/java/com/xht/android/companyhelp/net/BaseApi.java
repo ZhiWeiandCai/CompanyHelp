@@ -35,6 +35,9 @@ public class BaseApi {
 	public static final String ZHIFUBAO_URL = "http://www.xiaohoutai.com.cn:8888/XHT/pay/alipay/zhifubao";
 	//public static final String ZHIFUBAO_URL = "http://12911152120.tunnel.2bdata.com/XHT/pay/alipay/zhifubao";
 
+	//检查更新下载安装
+	public static final String CHECK_VERSION_URL = "http://www.xiaohoutai.com.cn:8888/XHT/business/apkversionController/updateApkVersion";
+
 
 	//变更后提交的服务器
 	public static final String BIANGENG_LIST_POST_URL = "http://www.xiaohoutai.com.cn:8888/XHT/bizchangeorderController/saveBizchangeorderInfo";

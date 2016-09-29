@@ -21,7 +21,7 @@ public class MainActivity extends FragmentActivity {
 //	Fragment mSwitchFragment;
 	public static UserInfo mUserInfo = new UserInfo();
 	private static final String TAG = "MainActivity";
-	private PushAgent mPushAgent;
+	
 
 	public static UserInfo getInstance() {
 		return mUserInfo;
@@ -49,53 +49,12 @@ public class MainActivity extends FragmentActivity {
 		final String device_token = UmengRegistrar.getRegistrationId(this);
 		LogHelper.i(TAG,"--------------"+device_token);
 
-		final int uid = mUserInfo.getUid();
-		LogHelper.i(TAG, "--main---" + uid);
-
-		//设置用户id为标签
-		addTag(uid);// 添加用户标签
+		
 	
 
 	}
 	
-	// 添加用户推送筛选标签
-	private void addTag(int uid) {
-
-		new AddTagTask(uid+"").execute();
-		LogHelper.i(TAG, "------------------main---" + uid);
-		//App.getmPushAgent().getTagManager().add(uid + "");
-	}
-
-	class AddTagTask extends AsyncTask<Void, Void, String> {
-
-		String tagString;
-		String[] tags;
-
-		public AddTagTask(String tag) {
-			// TODO Auto-generated constructor stub
-			tagString = tag;
-			tags = tagString.split(",");
-		}
-
-		@Override
-		protected String doInBackground(Void... params) {
-			// TODO Auto-generated method stub
-			try {
-				TagManager.Result result = mPushAgent.getTagManager().add(tags);
-				LogHelper.d(TAG, result.toString());
-				return result.toString();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(String result) {
-			// edTag.setText("");
-			// updateInfo("Add Tag:\n" + result);
-		}
-	}
+	
 
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {

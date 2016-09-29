@@ -80,12 +80,6 @@ public class ZhuCeZiJinActivity extends Activity implements RadioGroup.OnChecked
                     e.printStackTrace();
                 }
 
-        //设置为特定用户
-      /*  try {
-            App.getmPushAgent().addAlias(mUId+"", XHT);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
 
 
         //特定用户
@@ -152,16 +146,12 @@ public class ZhuCeZiJinActivity extends Activity implements RadioGroup.OnChecked
                 companyName = mChangeCompany.getText().toString();
 
                 //获取总金额
-
-                    String totalMoney = mEdTotalMoney.getText().toString();
-                    App.getInstance().showToast("totalMoney" + "----总额" + totalMoney);
-
+                String totalMoney = mEdTotalMoney.getText().toString();
                 if (TextUtils.isEmpty(totalMoney)) {
                     App.getInstance().showToast("请输入变更后的总资金");
                     LogHelper.i(TAG, "请输入变更后的总资金");
                     return;
                 }
-
                 //封装数据成JSON对象提交到服务器数据库
                 sendChangeMoneyJSONPost();
 
@@ -174,7 +164,7 @@ public class ZhuCeZiJinActivity extends Activity implements RadioGroup.OnChecked
      * 获取用户变更之后的信息封装成JSONObject
      */
     //如果不是我们公司客户，那公司名提供录入，
-    // BizChangeOrder TABLE中companyId则不存入，只存入companyName  TODO
+
     public void sendChangeMoneyJSONPost() {
 
         JSONObject obj = new JSONObject();

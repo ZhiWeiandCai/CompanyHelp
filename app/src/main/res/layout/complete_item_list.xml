@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:textSize="18sp"
-            android:text="所占比例："/>
+            android:text="所占比例:"/>
         <TextView
             android:id="@+id/item_bili"
             android:layout_width="100dp"

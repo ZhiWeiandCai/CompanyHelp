@@ -114,6 +114,13 @@ public class CompleteMessage extends Activity implements View.OnClickListener {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent =new Intent(CompleteMessage.this,CompleteItemMessage.class);
                 intent.putExtra("ItemWhich",position-1);
+
+                intent.putExtra("mName", mListData.get(position-1).getmName());
+                intent.putExtra("mBiLi", mListData.get(position-1).getmBiLi()+"");
+                intent.putExtra("mSFZPhone", mListData.get(position-1).getmNumber());
+                intent.putExtra("mSFZAddress", mListData.get(position-1).getmAddress());
+                intent.putExtra("mZhiWei", mListData.get(position-1).getmPWork());
+
                 intent.putExtra("mUid",mUId);
                 CompleteMessage.this.startActivityForResult(intent,0);
             }
