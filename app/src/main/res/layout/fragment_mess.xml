@@ -4,31 +4,35 @@
     android:layout_height="match_parent"
     >
 
-    <LinearLayout
+    <RadioGroup
         android:id="@+id/linear_message"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_height="wrap_content">
+        android:checkedButton="@+id/but_zhufu"
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/but_zhufu"
+        <RadioButton
+            android:id="@id/but_zhufu"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:background="@drawable/radio_outline3_sel"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:text="支付助手"
-            />
-        <Button
+            android:button="@null"/>
+        <RadioButton
             android:id="@+id/but_message"
             android:layout_width="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:background="@drawable/radio_outline3_sel"
             android:layout_height="40dp"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:text="消息中心"
-            />
-    </LinearLayout>
+            android:button="@null"/>
+    </RadioGroup>
     <FrameLayout
         android:id="@+id/frage_list"
         android:layout_below="@id/linear_message"

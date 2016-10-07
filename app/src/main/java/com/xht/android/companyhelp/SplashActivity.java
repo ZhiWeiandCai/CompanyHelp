@@ -114,6 +114,8 @@ public class SplashActivity extends Activity {
             @Override
             public void onError(Object e) {
 
+                startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                finish();
             }
         });
     }

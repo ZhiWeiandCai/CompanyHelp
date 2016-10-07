@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -52,7 +53,7 @@ public class MyOrderActivity extends Activity implements View.OnClickListener {
 
         setContentView(R.layout.activity_myorder);
 
-        mGesture=new GestureDetector(this, new MyOnGestureListener());
+      //  mGesture=new GestureDetector(this, new MyOnGestureListener());
         TextView textView=new TextView(this);
         textView.setText("我的订单");
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -77,35 +78,6 @@ public class MyOrderActivity extends Activity implements View.OnClickListener {
 
         selectCurFragment(0);
 
-
-
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return mGesture.onTouchEvent(event);
-    }
-
-    //设置手势识别监听器
-    private class MyOnGestureListener extends GestureDetector.SimpleOnGestureListener
-    {
-        @Override//此方法必须重写且返回真，否则onFling不起效
-        public boolean onDown(MotionEvent e) {
-            return true;
-        }
-
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            if((e1.getX()- e2.getX()>120)&&Math.abs(velocityX)>200){
-
-                selectCurFragment(1);
-                return true;
-            }else if((e2.getX()- e1.getX()>120)&&Math.abs(velocityX)>200){
-                selectCurFragment(0);
-                return true;
-            }
-            return false;
-        }
     }
 
     /**
@@ -137,6 +109,8 @@ public class MyOrderActivity extends Activity implements View.OnClickListener {
                     transaction.show(mFragmeNoPay);
                     transaction.hide(mFragmeYesPay);
                 }
+                mButNoPay.setTextColor(Color.BLUE);
+                mButYesPay.setTextColor(Color.GRAY);
                 break;
             case 1:
                 if (mFragmeYesPay == null) {
@@ -152,6 +126,8 @@ public class MyOrderActivity extends Activity implements View.OnClickListener {
                     transaction.show(mFragmeYesPay);
                     transaction.hide(mFragmeNoPay);
                 }
+                mButNoPay.setTextColor(Color.GRAY);
+                mButYesPay.setTextColor(Color.BLUE);
                 break;
         }
         transaction.commit();

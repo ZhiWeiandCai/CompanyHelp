@@ -15,10 +15,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.xht.android.companyhelp.model.MessageDetail;
@@ -26,18 +27,18 @@ import com.xht.android.companyhelp.model.PayDetail;
 import com.xht.android.companyhelp.model.UserInfo;
 import com.xht.android.companyhelp.provider.MyDatabaseManager;
 import com.xht.android.companyhelp.util.LogHelper;
-import com.xht.android.companyhelp.util.Utils;
 
 import java.util.ArrayList;
 
 /**
  * author: an
  */
-public class MessFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class MessFragment extends Fragment implements RadioGroup.OnCheckedChangeListener, AdapterView.OnItemClickListener {
 
 	private MainActivity mActivity;//上下文
-	private Button mZhiFuZhuShou;//按钮支付助手
-	private Button mMessageCenter;//按钮消息中心
+	RadioGroup mRadioGroup;
+	private RadioButton mZhiFuZhuShou;//按钮支付助手
+	private RadioButton mMessageCenter;//按钮消息中心
 	private FrameLayout mFrameList;
 	private ListView mListPay;//支付助手的listview
 	private ListView mListMessage;//消息中心的listview
@@ -81,11 +82,12 @@ public class MessFragment extends Fragment implements View.OnClickListener, Adap
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_mess, container, false);
-		mZhiFuZhuShou = (Button) view.findViewById(R.id.but_zhufu);
-		mMessageCenter = (Button) view.findViewById(R.id.but_message);
+		mRadioGroup = (RadioGroup) view.findViewById(R.id.linear_message);
+		mZhiFuZhuShou = (RadioButton) view.findViewById(R.id.but_zhufu);
+		mMessageCenter = (RadioButton) view.findViewById(R.id.but_message);
 		mFrameList = (FrameLayout) view.findViewById(R.id.frage_list);
 
-		mZhiFuZhuShou.setBackgroundColor(Color.TRANSPARENT);//默认选中支付助手
+		mZhiFuZhuShou.setTextColor(Color.BLUE);
 		//listview初始化
 		mListPay= (ListView) view.findViewById(R.id.fram_listzhifu);
 		mListMessage= (ListView) view.findViewById(R.id.fram_listmessage);
@@ -95,9 +97,31 @@ public class MessFragment extends Fragment implements View.OnClickListener, Adap
 
 		//listview条目的点击事件
 		mListPay.setOnItemClickListener(this);
-		mZhiFuZhuShou.setOnClickListener(this);
-		mMessageCenter.setOnClickListener(this);
+		mRadioGroup.setOnCheckedChangeListener(this);
 		return view;
+	}
+
+	@Override
+	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		switch (checkedId) {
+			case R.id.but_zhufu:
+				mListPay.setVisibility(View.VISIBLE);
+				mListMessage.setVisibility(View.GONE);
+				mPayAdapter.notifyDataSetChanged();
+				mMessageAdapter.notifyDataSetChanged();
+
+				mZhiFuZhuShou.setTextColor(Color.BLUE);
+				mMessageCenter.setTextColor(Color.GRAY);
+				break;
+			case R.id.but_message:
+				mListPay.setVisibility(View.GONE);
+				mListMessage.setVisibility(View.VISIBLE);
+				mMessageAdapter.notifyDataSetChanged();
+				mPayAdapter.notifyDataSetChanged();
+				mZhiFuZhuShou.setTextColor(Color.GRAY);
+				mMessageCenter.setTextColor(Color.BLUE);
+				break;
+		}
 	}
 
 	//listview支付助手的适配器 TODO 数据还没有获取
@@ -244,28 +268,7 @@ public class MessFragment extends Fragment implements View.OnClickListener, Adap
 	private String mUrl;//推送消息的url
 	private String mUrlIcom;//推送过来的图标url*/
 
-	@Override
-	public void onClick(View v) {
-		switch(v.getId()){
-			case R.id.but_zhufu://点击支付助手
-				mListPay.setVisibility(View.VISIBLE);
-				mListMessage.setVisibility(View.GONE);
 
-				mPayAdapter.notifyDataSetChanged();
-				mMessageAdapter.notifyDataSetChanged();
-				mZhiFuZhuShou.setBackgroundColor(Color.TRANSPARENT);
-				mMessageCenter.setBackgroundColor(Color.GRAY);
-				break;
-			case R.id.but_message://点击消息中心
-				mListPay.setVisibility(View.GONE);
-				mListMessage.setVisibility(View.VISIBLE);
-				mMessageAdapter.notifyDataSetChanged();
-				mPayAdapter.notifyDataSetChanged();
-				mZhiFuZhuShou.setBackgroundColor(Color.GRAY);
-				mMessageCenter.setBackgroundColor(Color.TRANSPARENT);
-				break;
-		}
-	}
 	//listview的条目点击事件
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
