@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="@drawable/tab_selector"
+            android:background="@drawable/radio_outline2_sel"
             android:button="@null"
             android:text="@string/fp_tab_str1"
             />
@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="@drawable/tab_selector"
+            android:background="@drawable/radio_outline2_sel"
             android:button="@null"
             android:text="@string/fp_tab_str2"
             />

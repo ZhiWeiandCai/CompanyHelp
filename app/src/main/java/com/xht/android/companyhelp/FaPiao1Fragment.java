@@ -176,19 +176,19 @@ public class FaPiao1Fragment extends Fragment implements View.OnClickListener, A
         else mJNEtX.setText("");
         if (!mParam4[mPosiFlag].equals("null"))
             mJNshEt.setText(mParam4[mPosiFlag]);
-        else mJNEtX.setText("");
+        else mJNshEt.setText("");
         if (!mParam5[mPosiFlag].equals("null"))
             mJAddEt.setText(mParam5[mPosiFlag]);
-        else mJNEtX.setText("");
+        else mJAddEt.setText("");
         if (!mParam6[mPosiFlag].equals("null"))
             mJPEt.setText(mParam6[mPosiFlag]);
-        else mJNEtX.setText("");
+        else mJPEt.setText("");
         if (!mParam7[mPosiFlag].equals("null"))
             mJKHHEt.setText(mParam7[mPosiFlag]);
-        else mJNEtX.setText("");
+        else mJKHHEt.setText("");
         if (!mParam8[mPosiFlag].equals("null"))
             mJKHHHEt.setText(mParam8[mPosiFlag]);
-        else mJNEtX.setText("");
+        else mJKHHHEt.setText("");
     }
 
     @Override

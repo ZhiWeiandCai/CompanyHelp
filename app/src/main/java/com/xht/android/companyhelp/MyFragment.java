@@ -112,7 +112,6 @@ public class MyFragment extends Fragment implements OnClickListener {
 		mVersionDescTV.setText("版本:"+ AppInfoUtils.getAppInfoName(getActivity()));
 		return view;		
 	}
-
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -236,7 +235,6 @@ public class MyFragment extends Fragment implements OnClickListener {
 		LogHelper.i(TAG, "------------------uid---" + uid);
 		//App.getmPushAgent().getTagManager().add(uid + "");
 	}
-
 	class AddTagTask extends AsyncTask<Void, Void, String> {
 		String tagString;
 		String[] tags;

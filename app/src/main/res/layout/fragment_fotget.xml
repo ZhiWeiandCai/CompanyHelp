@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="110dp"
+        android:layout_height="34dp"
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
         android:background="@mipmap/pic_huanchong"/>
@@ -19,8 +19,9 @@
             android:textSize="18sp"
             android:text="@string/shoujihao"/>
         <EditText android:id="@+id/phoneEdit"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginRight="16dp"
             android:maxLength="25"
             android:singleLine="true"
             android:inputType="phone"/>
@@ -35,8 +36,9 @@
             android:textSize="18sp"
             android:text="@string/mima"/>
         <EditText android:id="@+id/mimaEdit"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginRight="16dp"
             android:maxLength="25"
             android:singleLine="true"
             android:inputType="numberPassword"/>

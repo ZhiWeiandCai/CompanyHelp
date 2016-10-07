@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -73,15 +74,20 @@ public class FaPiaoActivity extends Activity {
         mRBtn1 = (RadioButton) findViewById(R.id.tab1);
         mRBtn2 = (RadioButton) findViewById(R.id.tab2);
         //mRBtn3 = (RadioButton) findViewById(R.id.tab3);
+        mRBtn1.setTextColor(Color.BLUE);
+        mRBtn2.setTextColor(Color.GRAY);
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 updateFragmentVisibility();
                 switch (checkedId) {
                     case R.id.tab1:
-
+                        mRBtn1.setTextColor(Color.BLUE);
+                        mRBtn2.setTextColor(Color.GRAY);
                         break;
                     case R.id.tab2:
+                        mRBtn1.setTextColor(Color.GRAY);
+                        mRBtn2.setTextColor(Color.BLUE);
                         break;
                     case R.id.tab3:
                         break;
