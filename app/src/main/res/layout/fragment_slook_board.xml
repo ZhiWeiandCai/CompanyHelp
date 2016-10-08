@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.xht.android.companyhelp.SLookBoardFragment"
-    android:background="@android:color/darker_gray">
+    android:background="@color/colorGray2">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -11,11 +11,14 @@
         android:background="@android:color/background_light">
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
             android:layout_marginLeft="16dp"
             android:textSize="18sp"
-            android:text="@string/myCompStr"/>
+            android:text="@string/myCompStr"
+            android:drawableLeft="@mipmap/comp_n_beixuan"
+            android:drawablePadding="4dp"/>
         <Spinner android:id="@+id/spinner1"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -24,11 +27,15 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
         android:id="@+id/lLayout2"
         android:layout_below="@id/lLayout1"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="0.3dp"
         android:background="@android:color/background_light">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,29 +71,31 @@
     <LinearLayout
         android:id="@+id/contain_year_fei"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="38dp"
         android:layout_below="@id/graph"
         android:background="@android:color/background_light"
-        android:layout_marginTop="1dp">
+        android:layout_marginTop="6dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
-            android:textSize="18sp"
-            android:text="@string/year_feiyong"/>
+            android:textSize="20sp"
+            android:text="@string/year_feiyong"
+            android:drawableLeft="@mipmap/coin"
+            android:drawablePadding="4dp"/>
         <TextView android:id="@+id/year_feiyong_tv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:layout_marginLeft="4dp"
             android:textSize="18sp"
-            android:textColor="@android:color/holo_red_light"/>
+            android:textColor="@color/jinhuang"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/contain_year_w"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="28dp"
         android:layout_below="@id/contain_year_fei"
         android:background="@android:color/background_light">
         <View
@@ -108,14 +117,14 @@
             android:layout_marginLeft="4dp"
             android:layout_marginRight="16dp"
             android:textSize="18sp"
-            android:textColor="@android:color/holo_red_dark"/>
+            android:textColor="@android:color/darker_gray"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_below="@id/contain_year_w"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="6dp"
         android:background="@android:color/background_light">
         <LinearLayout
             android:id="@+id/mingxi1"
@@ -135,7 +144,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="4dp"
                 android:textSize="18sp"
-                android:textColor="@android:color/holo_red_light"/>
+                android:textColor="@color/jinhuang"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -149,7 +158,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="4dp"
                 android:textSize="18sp"
-                android:textColor="@android:color/holo_red_light"/>
+                android:textColor="@color/jinhuang"/>
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -160,6 +169,12 @@
                 android:layout_marginRight="16dp"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/colorGray2"/>
         <LinearLayout
             android:id="@+id/mingxi2"
             android:layout_width="match_parent"
@@ -178,7 +193,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="4dp"
                 android:textSize="18sp"
-                android:textColor="@android:color/holo_red_light"/>
+                android:textColor="@color/jinhuang"/>
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -194,8 +209,8 @@
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorGray"/>
+            android:layout_height="6dp"
+            android:background="@color/colorGray2"/>
         <LinearLayout
             android:id="@+id/mingxi3"
             android:layout_width="match_parent"
@@ -242,7 +257,7 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:textSize="18sp"
-                android:textColor="@android:color/holo_red_light"/>
+                android:textColor="@color/jinhuang"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -257,7 +272,7 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:textSize="18sp"
-                android:textColor="@android:color/holo_red_light"/>
+                android:textColor="@color/jinhuang"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

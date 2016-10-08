@@ -3,6 +3,9 @@ package com.xht.android.companyhelp.net;
 public class BaseApi {
 	
 	public static final String VERCODE_URL = "http://www.xiaohoutai.com.cn:8888/XHT/seadVerifyController/seadVerify";
+	public static final String VERCODE_URL_RESET = "http://www.xiaohoutai.com.cn:8888/XHT/seadVerifyController/" +
+			"getVerifyForResetPassword";
+	public static final String RESET_PASSWORD_URL = "http://www.xiaohoutai.com.cn:8888/XHT/ordercontactController/resetUserPass";
 	public static final String REGIST_URL = "http://www.xiaohoutai.com.cn:8888/XHT/registController/regist";
 	public static final String LOGIN_URL = "http://www.xiaohoutai.com.cn:8888/XHT/loginController/login";
 	public static final String ARTICLE_URL = "http://www.xiaohoutai.com.cn:8888/XHT/articleinfoController/loadAppArticleListInfo";

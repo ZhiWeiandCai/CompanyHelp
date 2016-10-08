@@ -87,7 +87,7 @@ public class MessFragment extends Fragment implements RadioGroup.OnCheckedChange
 		mMessageCenter = (RadioButton) view.findViewById(R.id.but_message);
 		mFrameList = (FrameLayout) view.findViewById(R.id.frage_list);
 
-		mZhiFuZhuShou.setTextColor(Color.BLUE);
+		mZhiFuZhuShou.setTextColor(Color.BLACK);
 		//listview初始化
 		mListPay= (ListView) view.findViewById(R.id.fram_listzhifu);
 		mListMessage= (ListView) view.findViewById(R.id.fram_listmessage);
@@ -110,7 +110,7 @@ public class MessFragment extends Fragment implements RadioGroup.OnCheckedChange
 				mPayAdapter.notifyDataSetChanged();
 				mMessageAdapter.notifyDataSetChanged();
 
-				mZhiFuZhuShou.setTextColor(Color.BLUE);
+				mZhiFuZhuShou.setTextColor(Color.BLACK);
 				mMessageCenter.setTextColor(Color.GRAY);
 				break;
 			case R.id.but_message:
@@ -119,7 +119,7 @@ public class MessFragment extends Fragment implements RadioGroup.OnCheckedChange
 				mMessageAdapter.notifyDataSetChanged();
 				mPayAdapter.notifyDataSetChanged();
 				mZhiFuZhuShou.setTextColor(Color.GRAY);
-				mMessageCenter.setTextColor(Color.BLUE);
+				mMessageCenter.setTextColor(Color.BLACK);
 				break;
 		}
 	}

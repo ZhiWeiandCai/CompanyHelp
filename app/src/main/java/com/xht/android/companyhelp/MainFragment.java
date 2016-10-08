@@ -44,7 +44,7 @@ public class MainFragment extends Fragment {
 		radioButton1 = (RadioButton) view.findViewById(R.id.tab1);
 		radioButton2 = (RadioButton) view.findViewById(R.id.tab2);
 		radioButton3 = (RadioButton) view.findViewById(R.id.tab3);
-		radioButton1.setTextColor(Color.BLUE);
+		radioButton1.setTextColor(Color.BLACK);
 		rg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			@Override
@@ -55,7 +55,7 @@ public class MainFragment extends Fragment {
 						viewPager.setCurrentItem(0);
 						mCurFragment = 0;
 					}
-					radioButton1.setTextColor(Color.BLUE);
+					radioButton1.setTextColor(Color.BLACK);
 					radioButton2.setTextColor(Color.GRAY);
 					radioButton3.setTextColor(Color.GRAY);
 					break;
@@ -65,7 +65,7 @@ public class MainFragment extends Fragment {
 						mCurFragment = 1;
 					}
 					radioButton1.setTextColor(Color.GRAY);
-					radioButton2.setTextColor(Color.BLUE);
+					radioButton2.setTextColor(Color.BLACK);
 					radioButton3.setTextColor(Color.GRAY);
 					break;
 				case R.id.tab3:
@@ -75,7 +75,7 @@ public class MainFragment extends Fragment {
 					}
 					radioButton1.setTextColor(Color.GRAY);
 					radioButton2.setTextColor(Color.GRAY);
-					radioButton3.setTextColor(Color.BLUE);
+					radioButton3.setTextColor(Color.BLACK);
 					break;
 
 				default:

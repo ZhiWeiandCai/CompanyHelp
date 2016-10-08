@@ -3,8 +3,6 @@ package com.xht.android.companyhelp;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,7 +15,6 @@ import android.widget.EditText;
 
 import com.xht.android.companyhelp.net.APIListener;
 import com.xht.android.companyhelp.net.VolleyHelpApi;
-import com.xht.android.companyhelp.provider.MyDatabaseManager;
 import com.xht.android.companyhelp.util.LogHelper;
 
 import org.json.JSONObject;
@@ -32,6 +29,7 @@ public class ForgetFragment extends Fragment implements View.OnClickListener{
 	private final int MSG_COUNTDOWN = 0x2000;//获取验证码倒计时(重置密码)
 	private int mTimeCounter;
 	private String mSerial;
+	private int mUId;
 
 	private Handler mHandler = new Handler() {
 		@Override
@@ -154,23 +152,23 @@ public class ForgetFragment extends Fragment implements View.OnClickListener{
 			return;
 		}
 		createProgressDialogTitle("重置密码...");
-		VolleyHelpApi.getInstance().postZhuCe(pNum, mimaString, yanzheng, new APIListener() {
+		VolleyHelpApi.getInstance().postResetPassword(pNum, mimaString, yanzheng, new APIListener() {
 
 			@Override
 			public void onResult(Object result) {
 				dismissProgressDialog();
-				int userId = Integer.parseInt(((JSONObject) result).optString("id", "0"));
+				/*int userId = Integer.parseInt(((JSONObject) result).optString("id", "0"));
 				long pNum = Long.parseLong(((JSONObject) result).optString("tel", "0"));
 				//注册成功后写入数据库
 				ContentValues cv = new ContentValues();
 				cv.put(MyDatabaseManager.MyDbColumns.UID, userId);
 				cv.put(MyDatabaseManager.MyDbColumns.PHONE, pNum);
 				getActivity().getContentResolver().insert(MyDatabaseManager.MyDbColumns.CONTENT_URI, cv);
-				LogHelper.i("用户信息", "userId=" + userId + "pNum=" + pNum);
+				LogHelper.i("用户信息", "userId=" + userId + "pNum=" + pNum);*/
 
 
 				//设置用户id为标签
-				try {
+				/*try {
 					App.getmPushAgent().getTagManager().add(userId+"");
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -178,7 +176,8 @@ public class ForgetFragment extends Fragment implements View.OnClickListener{
 				Intent intent = new Intent(MyFragment.BRO_ACT_S);
 				intent.putExtra(MyFragment.UID_KEY, userId);
 				intent.putExtra(MyFragment.PHONENUM_KEY, pNum);
-				getActivity().sendBroadcast(intent);
+				getActivity().sendBroadcast(intent);*/
+				App.getInstance().showToast("重置密码成功");
 				getActivity().finish();
 			}
 
@@ -197,7 +196,7 @@ public class ForgetFragment extends Fragment implements View.OnClickListener{
 			return;
 		}
 		createProgressDialogTitle(getResources().getString(R.string.waitting_verification));
-		VolleyHelpApi.getInstance().getVerCode(pNum, new APIListener() {
+		VolleyHelpApi.getInstance().getVerCodeReset(pNum, new APIListener() {
 
 			@Override
 			public void onResult(Object result) {

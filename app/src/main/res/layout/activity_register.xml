@@ -78,6 +78,7 @@
 		android:layout_marginTop="40dp"
 		android:gravity="center"
 		android:text="@string/next_zhuce"
+		android:textColor="@android:color/white"
 		android:textSize="20sp"
 		android:background="@drawable/btn_background_circle"/>
 

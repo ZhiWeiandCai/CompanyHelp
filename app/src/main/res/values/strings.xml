@@ -33,9 +33,9 @@
     <string name="shoujihao">手机号：</string>
     <string name="zhanghao">账号：</string>
     <string name="mima">密　码：</string>
-    <string name="denglu">登录</string>
+    <string name="denglu">登 录</string>
     <string name="zhuce_bt_str">注册</string>
-    <string name="next_zhuce">确定</string>
+    <string name="next_zhuce">确 定</string>
     <string name="yanzheng_word">验证码：</string>
     <string name="get_yanzhen">发送验证码</string>
     <string name="tip_input_pnum">请输入手机号</string>

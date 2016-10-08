@@ -413,6 +413,12 @@ public class FaPiaoActivity extends Activity {
         }
     }
 
+    /**
+     * 2016-10-08
+     * @param requestCode
+     * @param resultCode
+     * @param intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == 0) {

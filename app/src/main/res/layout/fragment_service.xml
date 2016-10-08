@@ -5,7 +5,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@android:color/white">
     <LinearLayout android:id="@+id/playPhoneContain"
         android:layout_width="match_parent"
         android:layout_height="26dp"
@@ -40,12 +41,12 @@
                 android:gravity="center"
                 android:text="@string/zhuce_gongsi"
                 android:drawablePadding="3dp"
-                android:drawableTop="@mipmap/zhu_gong"
+                android:drawableTop="@drawable/zhu_gong_sel"
                 android:padding="8dip"
                 />
             <View android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"/>
+                android:background="@color/colorGray2"/>
             <TextView android:id="@+id/tv12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,11 +54,11 @@
                 android:gravity="center"
                 android:text="@string/jichang_baoshui"
                 android:drawablePadding="3dp"
-                android:drawableTop="@mipmap/ji_bao"
+                android:drawableTop="@drawable/ji_bao__sel"
                 android:padding="8dip"/>
             <View android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"/>
+                android:background="@color/colorGray2"/>
             <TextView android:id="@+id/tv13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,12 +66,12 @@
                 android:gravity="center"
                 android:text="@string/shebao_fuwu"
                 android:drawablePadding="3dp"
-                android:drawableTop="@mipmap/shebao"
+                android:drawableTop="@drawable/shebao_sel"
                 android:padding="8dip"/>
         </TableRow>
         <View android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@color/colorGray2"/>
         <TableRow>
             <TextView android:id="@+id/tv21"
                 android:layout_width="match_parent"
@@ -79,11 +80,11 @@
                 android:gravity="center"
                 android:text="@string/fapiao_fuwu"
                 android:drawablePadding="3dp"
-                android:drawableTop="@mipmap/fa_fu"
+                android:drawableTop="@drawable/fa_fu_sel"
                 android:padding="8dip"/>
             <View android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"/>
+                android:background="@color/colorGray2"/>
             <TextView android:id="@+id/tv22"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,11 +92,11 @@
                 android:gravity="center"
                 android:text="@string/zhuce_shangbiao"
                 android:drawablePadding="3dp"
-                android:drawableTop="@mipmap/zhu_shang"
+                android:drawableTop="@drawable/zhu_shang_sel"
                 android:padding="8dip"/>
             <View android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"/>
+                android:background="@color/colorGray2"/>
             <TextView android:id="@+id/tv23"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -103,12 +104,12 @@
                 android:gravity="center"
                 android:text="@string/guzhu_baoxian"
                 android:drawablePadding="3dp"
-                android:drawableTop="@mipmap/gu_bao"
+                android:drawableTop="@drawable/gu_bao_sel"
                 android:padding="8dip"/>
         </TableRow>
         <View android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@color/colorGray2"/>
         <TableRow>
             <TextView android:id="@+id/tv31"
                 android:layout_width="match_parent"
@@ -121,7 +122,7 @@
                 android:padding="8dip"/>
             <View android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"/>
+                android:background="@color/colorGray2"/>
             <TextView android:id="@+id/tv32"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -129,11 +130,11 @@
                 android:gravity="center"
                 android:text="@string/zhuce_zijin"
                 android:drawablePadding="3dp"
-                android:drawableTop="@mipmap/zhu_zi"
+                android:drawableTop="@drawable/zhu_zi_sel"
                 android:padding="8dip"/>
             <View android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"/>
+                android:background="@color/colorGray2"/>
             <TextView android:id="@+id/tv33"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,12 +142,12 @@
                 android:gravity="center"
                 android:text="@string/zhuxiao_fuwu"
                 android:drawablePadding="3dp"
-                android:drawableTop="@mipmap/zhux_fuw"
+                android:drawableTop="@drawable/zhux_fuw_sel"
                 android:padding="8dip"/>
         </TableRow>
         <View android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@color/colorGray2"/>
         <TableRow>
             <TextView android:id="@+id/tv41"
                 android:layout_width="match_parent"
@@ -159,7 +160,7 @@
                 android:padding="8dip"/>
             <View android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"/>
+                android:background="@color/colorGray2"/>
             <TextView android:id="@+id/tv42"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -171,7 +172,7 @@
                 android:padding="8dip"/>
             <View android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"/>
+                android:background="@color/colorGray2"/>
             <TextView android:id="@+id/tv43"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

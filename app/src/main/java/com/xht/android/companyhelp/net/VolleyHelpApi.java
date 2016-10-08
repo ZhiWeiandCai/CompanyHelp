@@ -129,6 +129,47 @@ public class VolleyHelpApi extends BaseApi{
 		});
 		App.getInstance().addToRequestQueue(req, TAG);
 	}
+
+	public void getVerCodeReset (final String pNum, final APIListener apiListener) {
+		String urlString = MakeURL(VERCODE_URL_RESET, new LinkedHashMap<String, Object>() {{
+			put("telephone", pNum);
+		}});
+		JsonObjectRequest req = new JsonObjectRequest(urlString, null, new Response.Listener<JSONObject>() {
+
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				if (isResponseError(response)) {
+					String errMsg = response.optString("message");
+					apiListener.onError(errMsg);
+				} else {
+					JSONObject jsonObject = response.optJSONObject("entity");
+					apiListener.onResult(jsonObject);
+				}
+			}
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("错误，获取验证码");
+			}
+		});
+		App.getInstance().addToRequestQueue(req, TAG);
+	}
 	
 	public void postZhuCe(String pNum, String mimaString, String yanzheng, final APIListener apiListener) {
 		final HashMap<String, String> mParams=new HashMap<String, String>();
@@ -185,6 +226,50 @@ public class VolleyHelpApi extends BaseApi{
 				return mParams;
 			}
 		};
+		App.getInstance().addToRequestQueue(req, TAG);
+	}
+
+	public void postResetPassword(String pNum, String mimaString, String yanzheng, final APIListener apiListener) {
+		JSONObject jsonObject = new JSONObject();
+		try {
+			jsonObject.put("telephone", pNum);
+			jsonObject.put("newPass", mimaString);
+			jsonObject.put("verify", yanzheng);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, RESET_PASSWORD_URL, jsonObject, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				if (isResponseError(response)) {
+					String errMsg = response.optString("message");
+					apiListener.onError(errMsg);
+				} else {
+
+					apiListener.onResult(response);
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("提交订单出错");
+			}
+		});
 		App.getInstance().addToRequestQueue(req, TAG);
 	}
 	

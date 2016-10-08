@@ -73,6 +73,7 @@
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:textSize="20sp"
+        android:textColor="@android:color/white"
         android:text="@string/denglu"
         android:background="@drawable/btn_background_circle"/>
 

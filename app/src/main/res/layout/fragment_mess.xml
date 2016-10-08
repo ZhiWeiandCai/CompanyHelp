@@ -20,6 +20,7 @@
             android:gravity="center"
             android:background="@drawable/radio_outline3_sel"
             android:textSize="18sp"
+            android:textColor="@color/colorGray"
             android:text="支付助手"
             android:button="@null"/>
         <RadioButton
@@ -30,6 +31,7 @@
             android:background="@drawable/radio_outline3_sel"
             android:layout_height="40dp"
             android:textSize="18sp"
+            android:textColor="@color/colorGray"
             android:text="消息中心"
             android:button="@null"/>
     </RadioGroup>
