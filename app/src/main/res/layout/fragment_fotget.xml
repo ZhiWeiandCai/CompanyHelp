@@ -60,11 +60,12 @@
 	        android:inputType="number"/>
 	    <Button android:id="@+id/get_yanzhengma"
 	        android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
+        	android:layout_height="40dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:background="@drawable/btn_yanm_sel"
-        	android:text="@string/get_yanzhen"/>
+        	android:text="@string/get_yanzhen"
+            android:textColor="@color/colorBlue"/>
 	</LinearLayout>
     <Button android:id="@+id/nextZhuce"
         android:layout_width="match_parent"
