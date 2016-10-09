@@ -9,9 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="17dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="20dp"
         android:text="2016-5-6-13:09"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#bfbfbfbf"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
@@ -29,7 +36,7 @@
             android:id="@+id/item_yespay_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"
             android:text="公司注册"/>
@@ -71,7 +78,7 @@
             android:id="@+id/item_yespay_title1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"
             android:text=""/>
@@ -97,7 +104,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:enabled="false"
-            android:background="@drawable/btn_bookyuyue_selector"
+            android:background="#007f8c"
             android:text="已付款"/>
     </LinearLayout>
     <View

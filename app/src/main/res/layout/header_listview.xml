@@ -12,26 +12,18 @@
               android:background="@android:color/white"
               android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_biangeng"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="变更业务"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="公司名称："
+            android:src="@mipmap/new_company"
             android:textSize="20sp"/>
 
         <EditText
@@ -48,7 +40,7 @@
             android:id="@+id/company_name_spinner"
             android:layout_width="22dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginRight="10dp"/>
 
 
@@ -56,8 +48,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:layout_height="0.11dp"
+        android:background="@color/colorGray2"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -88,10 +80,10 @@
         </LinearLayout>
 
         <View
-            android:layout_width="1dp"
+            android:layout_width="0.1dp"
             android:layout_height="900dp"
             android:layout_toRightOf="@id/biangeng_name"
-            android:background="@android:color/darker_gray"/>
+            android:background="@color/colorGray2"/>
 
         <TextView
             android:id="@+id/biangeng_text"
@@ -121,8 +113,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:layout_height="0.11dp"
+        android:background="@color/colorGray2"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -152,10 +144,10 @@
         </LinearLayout>
 
         <View
-            android:layout_width="1dp"
+            android:layout_width="0.1dp"
             android:layout_height="85dp"
             android:layout_toRightOf="@id/biangeng_address"
-            android:background="@android:color/darker_gray"/>
+            android:background="@color/colorGray2"/>
 
         <CheckBox
             android:id="@+id/biangeng_kuaqu_checkbox"
@@ -182,8 +174,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:layout_height="0.11dp"
+        android:background="@color/colorGray2"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -215,10 +207,10 @@
         </LinearLayout>
 
         <View
-            android:layout_width="1dp"
+            android:layout_width="0.1dp"
             android:layout_height="100dp"
             android:layout_toRightOf="@id/biangeng_faren"
-            android:background="@android:color/darker_gray"/>
+            android:background="@color/colorGray2"/>
 
 
         <EditText
@@ -252,8 +244,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:layout_height="0.11dp"
+        android:background="@color/colorGray2"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -283,10 +275,10 @@
         </LinearLayout>
 
         <View
-            android:layout_width="1dp"
+            android:layout_width="0.1dp"
             android:layout_height="90dp"
             android:layout_toRightOf="@id/biangeng_fanwei"
-            android:background="@android:color/darker_gray"/>
+            android:background="@color/colorGray2"/>
 
 
 
@@ -306,8 +298,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:layout_height="0.11dp"
+        android:background="@color/colorGray2"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -329,6 +321,6 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:layout_height="0.11dp"
+        android:background="@color/colorGray2"/>
 </LinearLayout>

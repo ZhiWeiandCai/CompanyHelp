@@ -2,6 +2,7 @@ package com.xht.android.companyhelp;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -161,6 +162,7 @@ public class YesPayFragment extends Fragment {
 
                 holder= (ViewHolder) convertView.getTag();
             }
+            holder.mButComplete.setTextColor(Color.WHITE);
             NoPayBean item=mYesPayList.get(position);
             holder.mTime.setText(item.getPlaceOrderTime());
 

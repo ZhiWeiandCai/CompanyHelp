@@ -92,25 +92,21 @@ public class SplashActivity extends Activity {
                 int appInfoNumber = AppInfoUtils.getAppInfoNumber(SplashActivity.this);
                 LogHelper.i(TAG,"---有新版本，下载更新"+appInfoName+"-"+appInfoNumber);
 
+
                 JSONObject mJsonVersion= (JSONObject) result;
-
                 String versionNum = mJsonVersion.optString("version");
-                int version=Integer.parseInt(versionNum);
+                //服务器中的版本号
+                int versionNew=Integer.parseInt(versionNum);
                 String downloadUrl = mJsonVersion.optString("downloadUrl");
-
-                LogHelper.i(TAG,"---versionNum：="+version+"---"+downloadUrl);
-
-                if (version>appInfoNumber){
+                LogHelper.i(TAG,"---versionNum：="+versionNew+"---"+downloadUrl);
+                if (versionNew>appInfoNumber){
                     LogHelper.i(TAG,"---有新版本，下载更新");
-                    showDialogUpdate(versionNum+".0","新的版本，修复文章bug",downloadUrl);
-
+                    showDialogUpdate(appInfoName,"新的版本，修复文章bug",downloadUrl);
                 }else{
                     startActivity(new Intent(SplashActivity.this,MainActivity.class));
                     finish();
                 }
-
             }
-
             @Override
             public void onError(Object e) {
 

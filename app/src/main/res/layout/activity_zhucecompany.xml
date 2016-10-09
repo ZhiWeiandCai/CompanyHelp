@@ -68,7 +68,8 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginRight="8dp"
-					android:showText="false"/>
+					android:showText="false"
+					/>
 			</LinearLayout>
 	    	<LinearLayout 
 			    android:layout_width="match_parent"
@@ -141,26 +142,25 @@
 	    		    android:layout_marginLeft="16dp">
 	    		    <RadioButton
 			            android:layout_width="wrap_content"
-			            android:layout_height="45dp"			            
+			            android:layout_height="45dp"
 			            android:gravity="center"
 			            android:text="@string/radio1"
 			            android:id="@+id/radio1"
-			            />
+						android:layout_marginLeft="16dp"/>
 	    		    <RadioButton
 			            android:layout_width="wrap_content"
-			            android:layout_height="45dp"			            
+			            android:layout_height="45dp"
 			            android:gravity="center"
 			            android:text="@string/radio2"
-			            android:id="@+id/radio2"			     
-			            />
+			            android:id="@+id/radio2"
+						android:layout_marginLeft="16dp"/>
 			        <RadioButton
 			            android:layout_width="wrap_content"
 			            android:layout_height="45dp"
-			            
 			            android:gravity="center"
 			            android:text="@string/radio3"
 			            android:id="@id/radio3"
-			            />
+						android:layout_marginLeft="16dp"/>
 	    		</RadioGroup>
 	    	</LinearLayout>
 	    	<LinearLayout 
@@ -169,7 +169,7 @@
 		    	android:background="@android:color/white"
 		    	android:visibility="gone"
 		    	android:id="@+id/leiNSRLL"
-		    	android:gravity="center_vertical">
+		    	android:gravity="center">
 	    		<RadioGroup 
 	    		    android:layout_width="wrap_content"
 	    		    android:layout_height="wrap_content"
@@ -179,7 +179,7 @@
 	    		    android:checkedButton="@+id/radioR2">
 	    		    <RadioButton
 			            android:layout_width="wrap_content"
-			            android:layout_height="45dp"			            
+			            android:layout_height="45dp"
 			            android:gravity="center"
 			            android:text="@string/radioR1_s"
 			            android:id="@+id/radioR1"
@@ -187,7 +187,7 @@
 			        <RadioButton
 			            android:layout_width="wrap_content"
 			            android:layout_height="45dp"
-			            
+						android:layout_marginLeft="24dp"
 			            android:gravity="center"
 			            android:text="@string/radioR2_s"
 			            android:id="@id/radioR2"
@@ -287,8 +287,8 @@
     </ScrollView>
     <View 
         android:layout_width="match_parent"
-    	android:layout_height="1dp"
-    	android:background="@android:color/darker_gray"
+    	android:layout_height="0.1dp"
+    	android:background="@color/colorGray2"
 		/>
 	<LinearLayout 
 	    android:layout_width="match_parent"

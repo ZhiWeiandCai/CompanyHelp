@@ -16,7 +16,7 @@
             android:gravity="center_vertical"
             android:layout_marginLeft="16dp"
             android:textSize="18sp"
-            android:text="@string/myCompStr"
+            android:text=""
             android:drawableLeft="@mipmap/comp_n_beixuan"
             android:drawablePadding="4dp"/>
         <Spinner android:id="@+id/spinner1"
@@ -238,6 +238,12 @@
 
             </Spinner>
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/colorGray2"/>
         <LinearLayout
             android:id="@+id/mingxi4"
             android:layout_width="match_parent"

@@ -76,7 +76,7 @@ public class ZhangHuManager extends Activity implements View.OnClickListener {
 
         mButTiJiao= (Button) findViewById(R.id.zh_submit);
         mEditName= (EditText) findViewById(R.id.ed_new_name);
-        mEditphone= (EditText) findViewById(R.id.ed_new_phone);
+        mEditphone= (EditText) findViewById(R.id.edd_new_phone);
 
         LogHelper.i(TAG,"-----"+mUId+"--");
         //获取账户信息
@@ -99,9 +99,9 @@ public class ZhangHuManager extends Activity implements View.OnClickListener {
             return;
         }
 
-
         //封装数据提交修改信息
         postButtonSubmit();
+
     }
     private void postButtonSubmit() {
         JSONObject MessJson=new JSONObject();
@@ -111,17 +111,20 @@ public class ZhangHuManager extends Activity implements View.OnClickListener {
             if (!TextUtils.isEmpty(mName)) {
                 MessJson.put("contactName",mName );
                 LogHelper.i(TAG,"-------------name------"+mName);
-            }else{
-                MessJson.put("contactName",getName );
+            }
+            if (mName.equals(getName)){
+                App.getInstance().showToast("姓名不能与原名相同");
+                return;
+            }
+            if (mPhone.equals(getPhone)){
+                App.getInstance().showToast("手机号码不能相同");
+                return;
             }
 
             if (!TextUtils.isEmpty(mPhone)) {
                 MessJson.put("telephone",mPhone );
-                LogHelper.i(TAG,"-------------name------"+mPhone);
-            }else{
-                MessJson.put("telephone",getPhone );
+                LogHelper.i(TAG,"-------------mPhone------"+mPhone);
             }
-
 
             LogHelper.i(TAG,"----修改信息的所有---"+MessJson.toString());
 
@@ -135,8 +138,7 @@ public class ZhangHuManager extends Activity implements View.OnClickListener {
             @Override
             public void onResult(Object result) {
                 LogHelper.i(TAG,"修改账户成功");
-               /* Intent intent2=new Intent(ZhangHuManager.this, CompleteMessage.class);
-                startActivity(intent2);*/
+
                 App.getInstance().showToast("账户修改成功");
 
                 ZhangHuManager.this.finish();

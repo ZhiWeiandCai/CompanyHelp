@@ -3,6 +3,7 @@ package com.xht.android.companyhelp;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -182,6 +183,8 @@ public class NoPayFragment extends Fragment {
             }else{
                 holder= (ViewHolder) convertView.getTag();
             }
+
+            holder.mButComplete.setTextColor(Color.WHITE);
             final NoPayBean item=mNoPayList.get(position);
             holder.mTime.setText(item.getPlaceOrderTime());
             String orderName = item.getOrderName();

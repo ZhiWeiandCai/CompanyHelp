@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:textSize="18sp"
-            android:text="所占比例:"/>
+            android:text="股份比例:"/>
         <TextView
             android:id="@+id/item_bili"
             android:layout_width="100dp"
@@ -132,19 +132,21 @@
         android:layout_height="70dp">
         <Button
             android:id="@+id/but_item_addren"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
+            android:textColor="@android:color/white"
             android:background="@drawable/btn_background_circle"
             android:text="添加人员"/>
         <Button
             android:id="@+id/but_item_cancelren"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_centerVertical="true"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
+            android:textColor="@android:color/white"
             android:background="@drawable/btn_background_circle"
             android:text="取消人员"/>
 

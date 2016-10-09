@@ -4,7 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_marginTop="10dp"
-
     android:layout_height="180dp">
 
     <LinearLayout
@@ -16,15 +15,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="17dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="15dp"
             android:text="2016-5-6-13:09"/>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="#bfbfbfbf"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="1dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:background="@android:color/white"
         android:layout_gravity="center_vertical"
+        android:layout_marginTop="5dp"
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/item_nopay_img"
@@ -38,7 +46,7 @@
             android:id="@+id/item_nopay_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"
             android:text="公司注册"/>
@@ -82,7 +90,7 @@
             android:id="@+id/item_nopay_title1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"
             android:text=""/>

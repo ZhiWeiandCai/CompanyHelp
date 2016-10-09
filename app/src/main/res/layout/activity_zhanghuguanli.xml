@@ -44,7 +44,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/ed_new_phone"
+            android:id="@+id/edd_new_phone"
             android:layout_width="match_parent"
             android:drawableLeft="@mipmap/phone_sym_img"
             android:layout_height="40dp"
