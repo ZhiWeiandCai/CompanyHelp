@@ -176,41 +176,41 @@ public class YesPayFragment extends Fragment {
 
                 holder.mTitle1.setText("代理记账");
                 holder.mImage1.setVisibility(View.VISIBLE);
-                holder.mImage1.setBackgroundResource(R.mipmap.ji_bao);
+                holder.mImage1.setBackgroundResource(R.mipmap.ji_bao_n);
             }else{
                 holder.mTitle1.setText("");
                 holder.mImage1.setVisibility(View.GONE);
             }
             switch (orderName){
                 case "注册公司":
-                    holder.mImage.setBackgroundResource(R.mipmap.zhu_gong);
+                    holder.mImage.setBackgroundResource(R.mipmap.zhu_gong_n);
                     break;
                 case "记账报税":
-                    holder.mImage.setBackgroundResource(R.mipmap.ji_bao);
+                    holder.mImage.setBackgroundResource(R.mipmap.ji_bao_n);
                     break;
                 case "社保服务":
-                    holder.mImage.setBackgroundResource(R.mipmap.shebao);
+                    holder.mImage.setBackgroundResource(R.mipmap.shebao_n);
                     break;
                 case "发票服务":
-                    holder.mImage.setBackgroundResource(R.mipmap.fa_fu);
+                    holder.mImage.setBackgroundResource(R.mipmap.fa_fu_n);
                     break;
                 case "注册商标":
-                    holder.mImage.setBackgroundResource(R.mipmap.zhu_shang);
+                    holder.mImage.setBackgroundResource(R.mipmap.zhu_shang_n);
                     break;
                 case "雇主保险":
-                    holder.mImage.setBackgroundResource(R.mipmap.gu_bao);
+                    holder.mImage.setBackgroundResource(R.mipmap.gu_bao_n);
                     break;
                 case "变更服务":
-                    holder.mImage.setBackgroundResource(R.mipmap.biao_fu);
+                    holder.mImage.setBackgroundResource(R.mipmap.biao_fu_n);
                     break;
                 case "注册资金":
-                    holder.mImage.setBackgroundResource(R.mipmap.zhu_zi);
+                    holder.mImage.setBackgroundResource(R.mipmap.zhu_zi_n);
                     break;
                 case "注销服务":
-                    holder.mImage.setBackgroundResource(R.mipmap.zhux_fuw);
+                    holder.mImage.setBackgroundResource(R.mipmap.zhux_fuw_n);
                     break;
                 case "劳务派遣":
-                    holder.mImage.setBackgroundResource(R.mipmap.lao_pai);
+                    holder.mImage.setBackgroundResource(R.mipmap.lao_pai_n);
                     break;
             }
             return convertView;

@@ -10,6 +10,8 @@ import android.os.Environment;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
 import com.lidroid.xutils.HttpUtils;
@@ -94,11 +96,12 @@ public class SplashActivity extends Activity {
                 JSONObject mJsonVersion= (JSONObject) result;
                 String versionNum = mJsonVersion.optString("version");
                 //服务器中的版本号
-                double versionNew=Integer.parseInt(versionNum);
+                Double versionNew=Double.parseDouble(versionNum);
                 String downloadUrl = mJsonVersion.optString("downloadUrl");
-                LogHelper.i(TAG,"---versionNum：="+versionNew+"---"+downloadUrl);
+
                 if (versionNew>appInfoNumber){
-                    versionNew=versionNew/10;
+                    versionNew=versionNew/10.0;
+                    LogHelper.i(TAG,"---versionNum：="+versionNew+"---"+downloadUrl);
                     LogHelper.i(TAG,"---有新版本，下载更新");
                     showDialogUpdate(versionNew+"","新的版本，修复文章bug",downloadUrl);
                 }else{

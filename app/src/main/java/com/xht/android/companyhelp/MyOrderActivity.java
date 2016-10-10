@@ -6,7 +6,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -46,6 +49,18 @@ public class MyOrderActivity extends Activity implements View.OnClickListener {
     private int currentIndex;
     private static final String TAG = "MyOrderActivity";
 
+    public static final String BRO_PAY_S = "com.xht.android.companyhelp.bro_pay_s";
+    private BroadcastReceiver mPayStatus = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int temp = intent.getIntExtra(PayOptActivity.PAY_STATUS, 0);
+            if (temp == 0) {
+
+                finish();
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +92,8 @@ public class MyOrderActivity extends Activity implements View.OnClickListener {
         fragmentManager = getFragmentManager();
 
         selectCurFragment(0);
-
+        IntentFilter intentFilter = new IntentFilter(BRO_PAY_S);
+        registerReceiver(mPayStatus, intentFilter);
     }
 
     /**
@@ -171,7 +187,11 @@ public class MyOrderActivity extends Activity implements View.OnClickListener {
 
     }
 
-
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(mPayStatus);
+        super.onDestroy();
+    }
 
 
     @Override

@@ -79,6 +79,7 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
     private String payInfo;
     private String time;
     private ImageView mImageWeXin;
+    private ImageView mImageShanPin;
     private ImageView mImageZhiFu;
     private int position;
     private String weizhifu;
@@ -156,7 +157,7 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
             itempay.setBusyer(SELLER);
         }
         if (mPayFlag==1){
-            itempay.setBusyer("小后台财税服务有限公司");//TODO 微信账号
+            itempay.setBusyer("小后台财税服务有限公司");//微信账号
         }
         mPayList.add(itempay);
     }
@@ -168,19 +169,9 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
                 if (YeWuStyle == 10) {
                     App.getInstance().showToast("感谢盆友支持小后台,请在“我的”-“完善资料”中" +
                             "完善您公司注册的具体信息，谢谢合作！");
-                }
-                Intent i=new Intent(PayOptActivity.this,PayItemActivity.class);
-                i.putExtra("time",time);
-                i.putExtra("goods",shangPin);
-                i.putExtra("number",dingdanHao);
-                i.putExtra("money",jinE+"");
-                i.putExtra("busy","小后台财税服务有限公司");
-                i.putExtra("flag",mPayFlag);
-                i.putExtra("position",position);
-                i.putExtra("weizhifu",weizhifu);
 
+                }
                 payListData();
-                startActivity(intent);
 
                 finish();
             }
@@ -207,8 +198,7 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
         weizhifu = bundle.getString("weizhifu");
 
         LogHelper.i("------商品名称", shangPin+"---"+ weizhifu);
-        //判断业务类型
-        switchMethod(shangPin);
+
 
 
         LogHelper.i("--商品名称", shangPin);
@@ -232,7 +222,12 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
 
 
         mImageWeXin = (ImageView) findViewById(R.id.we_xin);
+        mImageShanPin = (ImageView) findViewById(R.id.shanpin_img);
         mImageZhiFu = (ImageView) findViewById(R.id.zhi_fu);
+
+
+        //判断业务类型
+        switchMethod(shangPin);
 
         mLinearAliPay.setOnClickListener(this);
         mLinearWePay.setOnClickListener(this);
@@ -263,33 +258,43 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
         switch (shangPin){
             case "注册公司":
                 YeWuStyle=10;
+                mImageShanPin.setImageResource(R.mipmap.zhu_gong_n);
                 break;
             case "记账报税":
                 YeWuStyle=11;
+                mImageShanPin.setImageResource(R.mipmap.ji_bao_n);
                 break;
             case "社保服务":
                 YeWuStyle=12;
+                mImageShanPin.setImageResource(R.mipmap.shebao_n);
                 break;
             case "发票服务":
                 YeWuStyle=13;
+                mImageShanPin.setImageResource(R.mipmap.fa_fu_n);
                 break;
             case "注册商标":
                 YeWuStyle=14;
+                mImageShanPin.setImageResource(R.mipmap.zhu_shang_n);
                 break;
             case "雇主保险":
                 YeWuStyle=15;
+                mImageShanPin.setImageResource(R.mipmap.gu_bao_n);
                 break;
             case "变更服务":
                 YeWuStyle=16;
+                mImageShanPin.setImageResource(R.mipmap.biao_fu_n);
                 break;
             case "注册资金":
                 YeWuStyle=17;
+                mImageShanPin.setImageResource(R.mipmap.zhu_zi_n);
                 break;
             case "注销服务":
                 YeWuStyle=18;
+                mImageShanPin.setImageResource(R.mipmap.zhux_fuw_n);
                 break;
             case "劳务派遣":
                 YeWuStyle=19;
+                mImageShanPin.setImageResource(R.mipmap.lao_pai_n);
                 break;
         }
         LogHelper.i(TAG,"---------"+YeWuStyle);
@@ -489,8 +494,7 @@ public class PayOptActivity extends Activity implements View.OnClickListener {
                         }
                     }else{
                         Log.d("PAY_GET", "返回错误"+json.getString("retmsg"));
-                        Toast.makeText(PayOptActivity.this, "返回错误"+json.getString("retmsg"), Toast.LENGTH_SHORT).show();
-                    }
+                        Toast.makeText(PayOptActivity.this, "返回错误"+json.getString("retmsg"), Toast.LENGTH_SHORT).show();}
                 }else{
                     Log.d("PAY_GET", "服务器请求错误");
                     Toast.makeText(PayOptActivity.this, "服务器请求错误", Toast.LENGTH_SHORT).show();
